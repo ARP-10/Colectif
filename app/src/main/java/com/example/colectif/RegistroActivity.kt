@@ -28,7 +28,7 @@ class RegistroActivity : AppCompatActivity() {
 
         //Conexión a Firebase
         auth = FirebaseAuth.getInstance()
-        var database = FirebaseDatabase.getInstance().reference
+        var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
 
 
 
@@ -48,7 +48,8 @@ class RegistroActivity : AppCompatActivity() {
                 &&!password.isEmpty()){
                 if(password.length >= 6){
                     if(password.equals(binding.editTextRegistrarConfirmarContraseA.text.toString())){
-                        user = User(name, firstSurName, secondSurName, mail, userName, password)
+                        user = User(name, firstSurName, secondSurName, mail, userName)
+                        //TODO: cambiar la clase usuario
                         registrarUsuario(user, database)
                         Snackbar.make(binding.root, "Usuario registrado", Snackbar.LENGTH_SHORT).show()
                     }
@@ -67,14 +68,14 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     //Función para añadir los datos de los campos a Firebase
-    private fun registrarUsuario(user : User, referencia : DatabaseReference){
+    private fun registrarUsuario(user : User, database : FirebaseDatabase){
 
-        auth.createUserWithEmailAndPassword(user.mail, user.password)
+        auth.createUserWithEmailAndPassword(user.mail, binding.editTextRegistrarContraseA.text.toString())
             .addOnCompleteListener{
                 //Aún en proceso porque falla el añadir información adicional
                 if(it.isSuccessful){
                     val id = auth.currentUser!!.uid
-                    referencia.child("users").child(id).setValue(user)
+                    database.getReference("users").child(id).setValue(user)
                         .addOnSuccessListener {
                             Snackbar.make(
                                 binding.root,
