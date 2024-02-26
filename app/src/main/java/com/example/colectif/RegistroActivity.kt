@@ -11,13 +11,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.database
+import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.FirebaseStorage
 
 class RegistroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistroBinding
     private lateinit var user: User
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistroBinding.inflate(layoutInflater)
@@ -25,7 +28,9 @@ class RegistroActivity : AppCompatActivity() {
 
         //Conexión a Firebase
         auth = FirebaseAuth.getInstance()
-        database = Firebase.database.reference
+        var database = FirebaseDatabase.getInstance().reference
+
+
 
 
 
@@ -43,8 +48,8 @@ class RegistroActivity : AppCompatActivity() {
                 &&!password.isEmpty()){
                 if(password.length >= 6){
                     if(password.equals(binding.editTextRegistrarConfirmarContraseA.text.toString())){
-                        val user = User(name, firstSurName, secondSurName, mail, userName, password)
-                        registrarUsuario(user)
+                        user = User(name, firstSurName, secondSurName, mail, userName, password)
+                        registrarUsuario(user, database)
                         Snackbar.make(binding.root, "Usuario registrado", Snackbar.LENGTH_SHORT).show()
                     }
                     else{
@@ -62,15 +67,20 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     //Función para añadir los datos de los campos a Firebase
-    private fun registrarUsuario(user : User){
+    private fun registrarUsuario(user : User, referencia : DatabaseReference){
 
         auth.createUserWithEmailAndPassword(user.mail, user.password)
             .addOnCompleteListener{
                 //Aún en proceso porque falla el añadir información adicional
                 if(it.isSuccessful){
-                    database.child("users").child(user.name).setValue(user)
+                    val id = auth.currentUser!!.uid
+                    referencia.child("users").child(id).setValue(user)
                         .addOnSuccessListener {
-                            Snackbar.make(binding.root,"El usuario se registró correctamente", Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(
+                                binding.root,
+                                "El usuario se registró correctamente",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
 
                 } else {
@@ -78,6 +88,17 @@ class RegistroActivity : AppCompatActivity() {
                 }
             }
     }
+
+
+    /*addListenerForSingleValueEvent --> Leer datos una vez
+    * snapshot.child("nombre").value.toString()
+    * addListenerEventListener --> Leer datos actualizados siempre
+    * snapshot.children.forEach{it.child("nombre").value} --> Sucesion diferentes usuarios
+    * it.getValue(Usuario::class.java) as Producto
+    * val referencia = database.getReference("").orderByChild("la caracteristica por la que ordenar")
+    *
+    *
+    * */
 
 }
 
