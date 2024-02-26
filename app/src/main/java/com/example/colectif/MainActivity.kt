@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         binding.registerLink.setOnClickListener {
             openRegistrationScreen()
         }
+
+
     }
 
     // Método para abrir la pantalla de registro
@@ -48,4 +50,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
     }
+
+
 }

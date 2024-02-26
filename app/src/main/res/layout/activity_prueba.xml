@@ -7,39 +7,43 @@
     tools:context=".PruebaActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:text="nombre"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.745" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txt_apellido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="apellido"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_nombre"
+        app:layout_constraintStart_toStartOf="@+id/txt_nombre"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txt_usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="usuario"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_apellido"
+        app:layout_constraintStart_toStartOf="@+id/txt_apellido"
+        app:layout_constraintTop_toBottomOf="@+id/txt_apellido" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txt_correo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="492dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="correo"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_usuario"
+        app:layout_constraintStart_toStartOf="@+id/txt_usuario"
+        app:layout_constraintTop_toBottomOf="@+id/txt_usuario" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
