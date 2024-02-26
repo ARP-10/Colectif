@@ -155,6 +155,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_registrar_contraseña" />
 
+
     <EditText
         android:id="@+id/editText_registrar_confirmarContraseña"
         android:layout_width="0dp"
