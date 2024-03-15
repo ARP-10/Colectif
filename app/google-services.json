@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "282762793408",
+    "project_id": "colectif-project",
+    "storage_bucket": "colectif-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282762793408:android:1b33a111bd7be5b450b825",
+        "android_client_info": {
+          "package_name": "com.example.colectif"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmuZhFUByC80es_nRFZgmCefYSBBWiDRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282762793408:android:f62c01c9128e02b850b825",
+        "android_client_info": {
+          "package_name": "com.example.colectif.BBDD"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmuZhFUByC80es_nRFZgmCefYSBBWiDRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
