@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hola!"
+        android:layout_marginTop="15dp"
+        android:text="Crear nuevo grupo"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_servicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Selecciona un servicio:"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Spinner
+        android:id="@+id/spinner_apps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/apps"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_servicio"
+        app:layout_constraintStart_toEndOf="@+id/txt_servicio"
+        app:layout_constraintTop_toTopOf="@+id/txt_servicio" />
+
+    <TextView
+        android:id="@+id/txt_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plan de suscripción: "
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_servicio" />
+
+    <EditText
+        android:id="@+id/edit_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Plan..."
+        android:layout_marginLeft="15dp"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_plan"
+        app:layout_constraintStart_toEndOf="@+id/txt_plan"
+        app:layout_constraintTop_toTopOf="@+id/txt_plan" />
+
+    <TextView
+        android:id="@+id/txt_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del grupo: "
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_plan" />
+
+    <EditText
+        android:id="@+id/edit_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nombre..."
+        android:layout_marginLeft="15dp"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_nombre"
+        app:layout_constraintStart_toEndOf="@+id/txt_nombre"
+        app:layout_constraintTop_toTopOf="@+id/txt_nombre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

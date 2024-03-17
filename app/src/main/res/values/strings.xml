@@ -2,4 +2,10 @@
     <string name="app_name">Colectif</string>
     <string name="prefs_file">com.example.colectif.PREFERENCE_FILE_KEY</string>
     <string name="SERVER_CLIENT_ID">282762793408-441tifspbdn2kb8k89bmver6glra1jnf.apps.googleusercontent.com</string>
+    <string-array name="apps">
+        <item>Netflix</item>
+        <item>Spotify</item>
+        <item>Amazon Prime</item>
+        <item>Disney +</item>
+    </string-array>
 </resources>

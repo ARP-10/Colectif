@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 
 class CrearGrupoFragment: Fragment() {
@@ -26,6 +27,11 @@ class CrearGrupoFragment: Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
 
 
     // Permite desasociar elementos de la Activity (InicioActivity) con el fragment
