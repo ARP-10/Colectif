@@ -1,8 +1,12 @@
-package com.example.colectif
+package com.example.colectif.interfazUsuario.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.OnClickListener
 import com.example.colectif.databinding.ActivityInicioBinding
+import com.example.colectif.interfazUsuario.fragments.CrearGrupoFragment
+import com.example.colectif.models.Grupo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -36,6 +40,7 @@ class InicioActivity : AppCompatActivity() {
             }
 
         })
+
 
 
 

@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Colectif"
         tools:targetApi="31">
         <activity
-            android:name=".InicioActivity"
+            android:name=".interfazUsuario.activities.InicioActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".interfazUsuario.activities.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".interfazUsuario.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

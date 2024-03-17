@@ -1,4 +1,4 @@
-package com.example.colectif
+package com.example.colectif.interfazUsuario.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
