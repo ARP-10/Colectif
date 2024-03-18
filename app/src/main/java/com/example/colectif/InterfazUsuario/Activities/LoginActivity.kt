@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
             if(correo != ""||contraseña != ""){
                 loginUsuario(correo, contraseña)
             }else{
-                Snackbar.make(binding.root,"Coloque todos los campos", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root,"Rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             }
 
         }

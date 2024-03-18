@@ -13,5 +13,10 @@
 
 
     </fragment>
+    <fragment
+        android:id="@+id/crearGrupoFragment"
+        android:name="com.example.colectif.InterfazUsuario.Fragments.CrearGrupoFragment"
+        android:label="CrearGrupoFragment"
+        tools:layout="@layout/fragment_crear_grupo"/>
 
 </navigation>
