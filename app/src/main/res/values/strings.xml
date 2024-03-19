@@ -8,6 +8,27 @@
         <item>Amazon Prime</item>
         <item>Disney +</item>
     </string-array>
+    <string-array name="plan_netflix">
+        <item>Estándar con anuncios</item>
+        <item>Estándar</item>
+        <item>Premium</item>
+    </string-array>
+    <string-array name="plan_sopitfy">
+        <item>Individual</item>
+        <item>Estudiantes</item>
+        <item>Duo</item>
+        <item>Familiar</item>
+    </string-array>
+    <string-array name="plan_amazon">
+        <item>Plan único</item>
+        <item>Plan student</item>
+    </string-array>
+    <string-array name="plan_disney">
+        <item>Estándar con anuncios</item>
+        <item>Estándar</item>
+        <item>Premium</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
