@@ -2,4 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.InicioActivity">
+
+    <item
+        android:id="@+id/itemFragmentInicio"
+        android:title="Perfil"
+        />
+    <item
+        android:id="@+id/itemFragmentCrearGrupo"
+        android:title="Crear grupo"
+        />
+    <item
+        android:id="@+id/itemFragmentGrupos"
+        android:title="Buscar grupos"
+        />
 </menu>

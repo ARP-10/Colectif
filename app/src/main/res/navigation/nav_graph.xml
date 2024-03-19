@@ -7,7 +7,38 @@
     <fragment
         android:id="@+id/inicioFragment"
         android:name="com.example.colectif.InterfazUsuario.Fragments.InicioFragment"
-        android:label="InicioFragment"
+        android:label="Tu perfil"
         tools:layout="@layout/fragment_inicio"
-        />
+        >
+        <action
+            android:id="@+id/action_inicioFragment_to_crearGrupoFragment"
+            app:destination="@id/crearGrupoFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_listaGruposFragment"
+            app:destination="@id/listaGruposFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaGruposFragment"
+        android:name="com.example.colectif.InterfazUsuario.Fragments.ListaGruposFragment"
+        android:label="ListaGruposFragment"
+        tools:layout="@layout/fragment_lista_grupos">
+        <action
+            android:id="@+id/action_listaGruposFragment_to_crearGrupoFragment"
+            app:destination="@id/crearGrupoFragment" />
+        <action
+            android:id="@+id/action_listaGruposFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/crearGrupoFragment"
+        android:name="com.example.colectif.InterfazUsuario.Fragments.CrearGrupoFragment"
+        android:label="CrearGrupoFragment"
+        tools:layout="@layout/fragment_crear_grupo">
+        <action
+            android:id="@+id/action_crearGrupoFragment_to_listaGruposFragment"
+            app:destination="@id/listaGruposFragment" />
+        <action
+            android:id="@+id/action_crearGrupoFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.colectif.R
 import com.example.colectif.databinding.FragmentInicioBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -40,6 +41,7 @@ class InicioFragment: Fragment() {
         var idUser = auth.currentUser!!.uid
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         var ref = database.getReference("users")
+        binding.imagenUsuario.setImageResource(R.drawable.foto_perfil)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.nombreUsuario.text =
