@@ -80,13 +80,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
 
-    <EditText
-        android:id="@+id/edit_plan"
+    <Spinner
+        android:id="@+id/spinner_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Plan..."
-        android:textSize="15dp"
         android:layout_marginLeft="15dp"
+
         app:layout_constraintBottom_toBottomOf="@+id/txt_plan"
         app:layout_constraintStart_toEndOf="@+id/txt_plan"
         app:layout_constraintTop_toTopOf="@+id/txt_plan" />
@@ -101,13 +100,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_plan" />
 
-    <EditText
-        android:id="@+id/edit_precio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Precio..."
+    <TextView
+        android:id="@+id/txt_precio_correcto"
+        android:text="15,99€"
         android:textSize="15dp"
         android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/txt_precio"
         app:layout_constraintStart_toEndOf="@+id/txt_precio"
         app:layout_constraintTop_toTopOf="@+id/txt_precio" />
