@@ -61,4 +61,7 @@ dependencies {
     implementation("androidx.credentials:credentials:1.2.1")
     implementation("androidx.credentials:credentials-play-services-auth:1.2.1")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("com.karumi:dexter:6.2.2")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

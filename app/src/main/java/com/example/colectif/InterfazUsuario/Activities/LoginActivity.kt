@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+
     }
 
     // Método para abrir la pantalla de registro
