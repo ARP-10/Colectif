@@ -25,8 +25,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedP = getSharedPreferences(sharedPref, Context.MODE_PRIVATE)

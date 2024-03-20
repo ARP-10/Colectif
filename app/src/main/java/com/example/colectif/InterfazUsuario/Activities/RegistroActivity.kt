@@ -42,7 +42,7 @@ class RegistroActivity : AppCompatActivity() {
                 &&!password.isEmpty()){
                 if(password.length >= 6){
                     if(password.equals(binding.editTextRegistrarConfirmarContraseA.text.toString())){
-                        user = User(name, firstSurName, secondSurName, mail, userName)
+                        user = User(name, firstSurName, secondSurName, mail, userName, "")
                         registrarUsuario(user, database)
                         Snackbar.make(binding.root, "Usuario registrado", Snackbar.LENGTH_SHORT).show()
                     }

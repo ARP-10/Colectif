@@ -1,11 +1,15 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import com.example.colectif.InterfazUsuario.Activities.LoginActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentInicioBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -16,11 +20,16 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.values
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorageKtxRegistrar
+import com.google.firebase.storage.ktx.storage
 
 class InicioFragment: Fragment() {
     private lateinit var binding: FragmentInicioBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var sharedP: SharedPreferences
+    private var sharedPref: String = "com.example.colectif"
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -51,11 +60,27 @@ class InicioFragment: Fragment() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        binding.btnCerrarSesion.setOnClickListener {
+            logOut()
+        }
     }
 
     override fun onDetach() {
         super.onDetach()
     }
+
+    private fun logOut(){
+        auth.signOut()
+        val sharedP: SharedPreferences
+        sharedP = requireContext().getSharedPreferences("com.example.colectif",Context.MODE_PRIVATE)
+        val editor = sharedP.edit()
+        editor.putBoolean("estado",false)
+        editor.apply()
+        startActivity(Intent(context, LoginActivity::class.java))
+        activity?.finish()
+    }
+
 
 
 }
