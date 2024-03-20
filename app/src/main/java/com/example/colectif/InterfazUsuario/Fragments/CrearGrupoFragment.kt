@@ -2,6 +2,7 @@ package com.example.colectif.InterfazUsuario.Fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
+import com.example.colectif.models.Grupo
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -22,6 +24,7 @@ class CrearGrupoFragment: Fragment() {
     private var precio: Double = 0.0
     private val database = FirebaseDatabase.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    private val gruposRef = database.getReference("groups")
 
     // Permite asociar elementos de la Activity (InicioActivity) con el fragment
     override fun onAttach(context: Context) {
@@ -44,13 +47,20 @@ class CrearGrupoFragment: Fragment() {
 
         // TODO: Comprobar si todos los campos están rellenos
         binding.btnCrearGrupo.setOnClickListener {
-            //nombreGrupo = binding.editNombre.text.toString()
-            //plan = binding.editPlan.text.toString()
-            //precio = binding.editPrecio.text.toString().toDouble()
-            if (nombreGrupo != "" || plan != "" || precio == 0.0) {
-                agregarGrupo(nombreGrupo, plan, precio)
+            val nombreGrupo = binding.txtNombre.text.toString()
+            val app = binding.spinnerApps.selectedItem.toString()
+            val plan = binding.spinnerPlan.selectedItem.toString()
+            val precio = binding.txtPrecio.text.toString().toDoubleOrNull()
+            Log.d("Valores", "Nombre del Grupo: $nombreGrupo")
+            Log.d("Valores", "Aplicación: $app")
+            Log.d("Valores", "Plan: $plan")
+            Log.d("Texto Precio", binding.txtPrecio.text.toString())
+
+            if (nombreGrupo.isNotEmpty() && app.isNotEmpty() && plan.isNotEmpty() && precio != null) {
+                val grupo = Grupo(nombreGrupo, auth.currentUser?.uid.toString(), app, plan, precio)
+                agregarGrupo(grupo)
             } else {
-                Snackbar.make(binding.root, "Rellene todos los campos", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, "Rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -148,20 +158,13 @@ class CrearGrupoFragment: Fragment() {
     }
 
     // TODO: COMPROBAR SI FUNCIONA
-    private fun agregarGrupo(nombre: String, plan: String, precio: Double) {
-        val ref = database.getReference("groups")
-        val key = ref.push().key ?: ""
-        val grupoMap = hashMapOf(
-            "nombre" to nombre,
-            "plan" to plan,
-            "precio" to precio
-        )
-        // Guardar los datos del grupo en la base de datos bajo la clave única generada
-        ref.child(key).setValue(grupoMap).addOnCompleteListener { task ->
+    private fun agregarGrupo(grupo: Grupo) {
+        val grupoRef = gruposRef.push() // Genera una clave única para el grupo
+        grupoRef.setValue(grupo).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Snackbar.make(binding.root, "Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
             } else {
-                Snackbar.make(binding.root, "Error al crear el grupo", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Error al crear el grupo", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
