@@ -45,7 +45,6 @@ class CrearGrupoFragment: Fragment() {
         // Netflix marcado por defecto
         binding.spinnerApps.setSelection(0)
 
-        // TODO: Comprobar si todos los campos están rellenos
         binding.btnCrearGrupo.setOnClickListener {
             app = binding.spinnerApps.selectedItem.toString()
             nombreGrupo = binding.editNombre.text.toString()
@@ -56,30 +55,21 @@ class CrearGrupoFragment: Fragment() {
 
             if (nombreGrupo.isEmpty() || emailRegistro.isEmpty() || contraseniaRegistro.isEmpty()) {
                 Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
-            } else {
-                // Crear un objeto Grupo con los datos obtenidos
-                val grupo =
-                    Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, "")
+            } else { // TODO: Salir de la pantalla cuando el grupo esté creado??
+                val grupo = Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, "")
 
-                // Obtener una referencia al nodo "groups" en la base de datos
                 val gruposRef = database.getReference("groups")
 
                 // Generar un nuevo ID para el grupo
                 val nuevoGrupoRef = gruposRef.push()
 
-                // Guardar el grupo en la base de datos utilizando el ID generado
                 nuevoGrupoRef.setValue(grupo)
                     .addOnSuccessListener {
-                        Snackbar.make(
-                            binding.root,
-                            "Grupo creado exitosamente",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                        Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->
                         Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
-                        Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT)
-                            .show()
+                        Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT).show()
                     }
             }
         }

@@ -10,7 +10,7 @@
         android:id="@+id/txt_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:text="Crear nuevo grupo"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/img_grupo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/netflix"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,9 +31,9 @@
         android:id="@+id/txt_servicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:text="Selecciona un servicio:"
-        android:textSize="15dp"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_grupo" />
 
@@ -41,10 +41,10 @@
         android:id="@+id/spinner_apps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:entries="@array/apps"
+        android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_servicio"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_servicio"
         app:layout_constraintTop_toTopOf="@+id/txt_servicio" />
 
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Nombre del grupo: "
-        android:textSize="15dp"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_servicio" />
 
@@ -62,11 +62,11 @@
         android:id="@+id/edit_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:hint="Nombre..."
         android:textSize="15dp"
+        android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_nombre"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_nombre"
         app:layout_constraintTop_toTopOf="@+id/txt_nombre" />
 
     <TextView
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Plan de suscripción: "
-        android:textSize="15dp"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
 
@@ -83,10 +83,8 @@
         android:id="@+id/spinner_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-
         app:layout_constraintBottom_toBottomOf="@+id/txt_plan"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_plan"
         app:layout_constraintTop_toTopOf="@+id/txt_plan" />
 
     <TextView
@@ -95,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Precio: "
-        android:textSize="15dp"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_plan" />
 
@@ -105,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="0,00€"
-        android:textSize="15dp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_precio"
         app:layout_constraintStart_toEndOf="@+id/txt_precio"
         app:layout_constraintTop_toTopOf="@+id/txt_precio" />
@@ -116,6 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Usuario / email:"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_precio" />
 
@@ -123,11 +122,11 @@
         android:id="@+id/edit_email_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:hint="Usuario / email..."
         android:textSize="15dp"
+        android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_email_registro"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_email_registro"
         app:layout_constraintTop_toTopOf="@+id/txt_email_registro" />
 
     <TextView
@@ -135,8 +134,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Contraseña"
-        android:textSize="15dp"
+        android:text="Contraseña:"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_email_registro" />
 
@@ -144,11 +143,11 @@
         android:id="@+id/edit_contrasenia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:hint="Contraseña..."
         android:textSize="15dp"
+        android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_contrasenia"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_contrasenia"
         app:layout_constraintTop_toTopOf="@+id/txt_contrasenia" />
 
 
@@ -162,13 +161,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
