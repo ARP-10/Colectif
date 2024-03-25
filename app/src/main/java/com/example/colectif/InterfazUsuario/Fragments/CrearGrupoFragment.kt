@@ -16,19 +16,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-
 class CrearGrupoFragment: Fragment() {
 
     private lateinit var binding: FragmentCrearGrupoBinding
-    private lateinit var app: String
     private lateinit var nombreGrupo: String
     private lateinit var plan: String
-    private lateinit var precio: String
-    private lateinit var emailRegistro: String
-    private lateinit var contraseniaRegistro: String
-    //private val database = FirebaseDatabase.getInstance()
-    private lateinit var auth: FirebaseAuth
-    //private val gruposRef = database.getReference("groups")
+    private var precio: Double = 0.0
+    private val database = FirebaseDatabase.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private val gruposRef = database.getReference("groups")
 
     // Permite asociar elementos de la Activity (InicioActivity) con el fragment
     override fun onAttach(context: Context) {
@@ -45,49 +41,27 @@ class CrearGrupoFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //Conexión a Firebase
-        auth = FirebaseAuth.getInstance()
-        var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
-
         super.onViewCreated(view, savedInstanceState)
         // Netflix marcado por defecto
         binding.spinnerApps.setSelection(0)
 
-
+        // TODO: Comprobar si todos los campos están rellenos
         binding.btnCrearGrupo.setOnClickListener {
-            app = binding.spinnerApps.selectedItem.toString()
-            nombreGrupo = binding.editNombre.text.toString()
-            plan = binding.spinnerPlan.selectedItem.toString()
-            precio = binding.txtPrecioCorrecto.text.toString()
-            emailRegistro = binding.editEmailRegistro.text.toString()
-            contraseniaRegistro = binding.editContrasenia.text.toString()
+            val nombreGrupo = binding.txtNombre.text.toString()
+            val app = binding.spinnerApps.selectedItem.toString()
+            val plan = binding.spinnerPlan.selectedItem.toString()
+            val precio = binding.txtPrecio.text.toString().toDoubleOrNull()
+            Log.d("Valores", "Nombre del Grupo: $nombreGrupo")
+            Log.d("Valores", "Aplicación: $app")
+            Log.d("Valores", "Plan: $plan")
+            Log.d("Texto Precio", binding.txtPrecio.text.toString())
 
-            if (nombreGrupo.isEmpty() || emailRegistro.isEmpty() || contraseniaRegistro.isEmpty()) {
-                Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
+            if (nombreGrupo.isNotEmpty() && app.isNotEmpty() && plan.isNotEmpty() && precio != null) {
+                val grupo = Grupo(nombreGrupo, auth.currentUser?.uid.toString(), app, plan, precio)
+                agregarGrupo(grupo)
             } else {
-                // Crear un objeto Grupo con los datos obtenidos
-                val grupo = Grupo(nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro)
-
-                // Obtener una referencia al nodo "groups" en la base de datos
-                val gruposRef = database.getReference("groups")
-
-                // Generar un nuevo ID para el grupo
-                val nuevoGrupoRef = gruposRef.push()
-
-                // Guardar el grupo en la base de datos utilizando el ID generado
-                nuevoGrupoRef.setValue(grupo)
-                    .addOnSuccessListener {
-                        Snackbar.make(binding.root, "Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
-                        Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT).show()
-                    }
-
+                Snackbar.make(view, "Rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             }
-
-
-
         }
 
         // Configuración spinner
@@ -183,7 +157,17 @@ class CrearGrupoFragment: Fragment() {
 
     }
 
-
+    // TODO: COMPROBAR SI FUNCIONA
+    private fun agregarGrupo(grupo: Grupo) {
+        val grupoRef = gruposRef.push() // Genera una clave única para el grupo
+        grupoRef.setValue(grupo).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Snackbar.make(requireView(), "Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(requireView(), "Error al crear el grupo", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 
     // Permite desasociar elementos de la Activity (InicioActivity) con el fragment
