@@ -45,7 +45,7 @@ class CrearGrupoFragment: Fragment() {
         // Netflix marcado por defecto
         binding.spinnerApps.setSelection(0)
 
-        // Comprobar si todos los campos están rellenos
+        // TODO: Comprobar si todos los campos están rellenos
         binding.btnCrearGrupo.setOnClickListener {
             app = binding.spinnerApps.selectedItem.toString()
             nombreGrupo = binding.editNombre.text.toString()
@@ -59,7 +59,7 @@ class CrearGrupoFragment: Fragment() {
             } else {
                 // Crear un objeto Grupo con los datos obtenidos
                 val grupo =
-                    Grupo(nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro)
+                    Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, "")
 
                 // Obtener una referencia al nodo "groups" en la base de datos
                 val gruposRef = database.getReference("groups")

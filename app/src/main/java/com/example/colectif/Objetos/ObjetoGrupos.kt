@@ -10,10 +10,12 @@ object ObjetoGrupos {
         Grupo(
             nombre = "El desván",
             administrador = "Paco",
-            categoria = "Netflix",
+            app = "Netflix",
             plan = "Estándar",
-            precio = 12.99/*5.49  17.99*/,
-            imagen = R.drawable.foto_perfil
+            precio = "12.99"/*5.49  17.99*/,
+            imagen = "R.drawable.foto_perfil",
+            email = "netflix@correo.com",
+            contrasenia = "123456"
         ),
 
     )
@@ -22,10 +24,12 @@ object ObjetoGrupos {
         Grupo(
             nombre = "Antanarejos",
             administrador = "Vanesa" ,
-            categoria = "Amazon",
+            app = "Amazon",
             plan = "Plan único",
-            precio = 4.99 /*2.49*/,
-            imagen = R.drawable.foto_perfil
+            precio = "4.99" , /*2.49*/
+            imagen = "R.drawable.foto_perfil",
+            email = "amazon@correo.com",
+            contrasenia = "123456"
         ),
 
     )
@@ -33,20 +37,24 @@ object ObjetoGrupos {
         Grupo(
             nombre = "El pozuelo",
             administrador = "Angel",
-            categoria = "Disney",
+            app = "Disney",
             plan = "Estándar con anuncios",
-            precio = 5.99 /*8.99  11.99*/,
-            imagen = R.drawable.foto_perfil
+            precio = "5.99" /*8.99  11.99*/,
+            imagen = "R.drawable.foto_perfil",
+            email = "disney@correo.com",
+            contrasenia = "123456"
         ),
     )
     private val gruposSpotify = listOf(
         Grupo(
             nombre = "Rock and Roll",
             administrador = "Jorge",
-            categoria = "Spotify",
+            app = "Spotify",
             plan = "Individual",
-            precio = 5.99/*10.99 14.99  17.99*/,
-            imagen = R.drawable.foto_perfil
+            precio = "5.99"/*10.99 14.99  17.99*/,
+            imagen = "R.drawable.foto_perfil",
+            email = "spotify@correo.com",
+            contrasenia = "123456"
         ),
     )
 
