@@ -57,7 +57,7 @@ class CrearGrupoFragment: Fragment() {
             Log.d("Texto Precio", binding.txtPrecio.text.toString())
 
             if (nombreGrupo.isNotEmpty() && app.isNotEmpty() && plan.isNotEmpty() && precio != null) {
-                val grupo = Grupo(nombreGrupo, auth.currentUser?.uid.toString(), app, plan, precio)
+                val grupo = Grupo(nombreGrupo, auth.currentUser?.uid.toString(), app, plan, precio, imagen = R.drawable.foto_perfil)
                 agregarGrupo(grupo)
             } else {
                 Snackbar.make(view, "Rellene todos los campos", Snackbar.LENGTH_SHORT).show()
