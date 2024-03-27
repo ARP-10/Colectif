@@ -7,16 +7,17 @@
     android:layout_margin="20dp">
 
     <TextView
-        android:id="@+id/nombreCatalogo"
+        android:id="@+id/text_nombreCatalogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Netflix"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gruposCatalogo"
+        android:id="@+id/recyclerview_gruposCatalogo"
         tools:listitem="@layout/cardview_grupos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,7 +25,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreCatalogo"
+        app:layout_constraintTop_toBottomOf="@+id/text_nombreCatalogo"
 
         />
 
