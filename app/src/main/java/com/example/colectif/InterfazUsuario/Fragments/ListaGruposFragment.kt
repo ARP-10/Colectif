@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.colectif.Adapter.AdapterListCatalogo
+import com.example.colectif.Objetos.ObjetoGrupos
+import com.example.colectif.R
 import com.example.colectif.databinding.FragmentListaGruposBinding
 
 class ListaGruposFragment: Fragment(){
@@ -34,7 +39,21 @@ class ListaGruposFragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Obtener referencia al RecyclerView desde el archivo de diseño
+        val recyclerView: RecyclerView = binding.FragmentRecyclerView
+
+        // Configurar un LinearLayoutManager para organizar los elementos verticalmente
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+
+        // Crear un adaptador para el RecyclerView que esté vinculado a la lista de catálogos y grupos
+        val adapter = AdapterListCatalogo(ObjetoGrupos.catalogoGrupos)
+
+        // Establecer el adaptador en el RecyclerView
+        recyclerView.adapter = adapter
+
     }
+
 
     ////permite desasociar elementos del activity con el fragment
     override fun onDetach() {

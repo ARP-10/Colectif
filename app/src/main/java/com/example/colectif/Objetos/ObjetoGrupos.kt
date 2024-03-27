@@ -13,10 +13,20 @@ object ObjetoGrupos {
             app = "Netflix",
             plan = "Estándar",
             precio = "12.99"/*5.49  17.99*/,
-            imagen = "R.drawable.foto_perfil",
+            imagen = R.drawable.netflix,
             email = "netflix@correo.com",
             contrasenia = "123456"
         ),
+        Grupo(
+            nombre = "tusa",
+            administrador = "Federico",
+            app = "Netflix",
+            plan = "Estándar",
+            precio = "12.99"/*5.49  17.99*/,
+            imagen = R.drawable.netflix,
+            email = "netflix@correo.com",
+            contrasenia = "123456"
+        )
 
     )
 
@@ -27,7 +37,7 @@ object ObjetoGrupos {
             app = "Amazon",
             plan = "Plan único",
             precio = "4.99" , /*2.49*/
-            imagen = "R.drawable.foto_perfil",
+            imagen = R.drawable.amazon,
             email = "amazon@correo.com",
             contrasenia = "123456"
         ),
@@ -40,7 +50,7 @@ object ObjetoGrupos {
             app = "Disney",
             plan = "Estándar con anuncios",
             precio = "5.99" /*8.99  11.99*/,
-            imagen = "R.drawable.foto_perfil",
+            imagen = R.drawable.disney,
             email = "disney@correo.com",
             contrasenia = "123456"
         ),
@@ -52,7 +62,7 @@ object ObjetoGrupos {
             app = "Spotify",
             plan = "Individual",
             precio = "5.99"/*10.99 14.99  17.99*/,
-            imagen = "R.drawable.foto_perfil",
+            imagen = R.drawable.spotify,
             email = "spotify@correo.com",
             contrasenia = "123456"
         ),

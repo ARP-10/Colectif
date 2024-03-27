@@ -56,7 +56,7 @@ class CrearGrupoFragment: Fragment() {
             if (nombreGrupo.isEmpty() || emailRegistro.isEmpty() || contraseniaRegistro.isEmpty()) {
                 Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             } else { // TODO: Salir de la pantalla cuando el grupo esté creado??
-                val grupo = Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, "")
+                val grupo = Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, 1)
 
                 val gruposRef = database.getReference("groups")
 
