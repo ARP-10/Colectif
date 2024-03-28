@@ -1,6 +1,5 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.models.Grupo
+import com.example.colectif.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -53,10 +53,53 @@ class CrearGrupoFragment: Fragment() {
             emailRegistro = binding.editEmailRegistro.text.toString()
             contraseniaRegistro = binding.editContrasenia.text.toString()
 
+            // Obtener la imagen correspondiente al grupo seleccionado
+            val drawableApp = when (app) {
+                "Netflix" -> R.drawable.netflix
+                "Spotify" -> R.drawable.spotify
+                "Amazon" -> R.drawable.amazon
+                "Disney" -> R.drawable.disney
+                else -> R.drawable.error
+            }
+
+            // Obtener usuario autenticado
+            //val usuarioActual = auth.currentUser
+
+            // GUARDAR LOS DATOS DEL USUARIO COMO ADMIN - EN FIREBASE DENTRO DEL GRUPO
+            /*
+            usuarioActual?.let { user ->
+                // Crear objeto User con la información del usuario
+                val usuario = User(user.displayName ?: "", "", "", user.email ?: "", "", "")
+
+                // Crear objeto Grupo con la información y el usuario actual como administrador
+                val grupo = Grupo(usuario, nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp)
+
+                val gruposRef = database.getReference("groups")
+
+                // Generar un nuevo ID para el grupo
+                val nuevoGrupoRef = gruposRef.push()
+
+                nuevoGrupoRef.setValue(grupo)
+                    .addOnSuccessListener {
+                        Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
+                        Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT).show()
+                    }
+            } ?: run {
+                // Si no se pudo obtener el usuario actual, mostrar un mensaje de error
+                Snackbar.make(binding.root, "Usuario no autenticado", Snackbar.LENGTH_SHORT).show()
+            }*/
+
+
+
             if (nombreGrupo.isEmpty() || emailRegistro.isEmpty() || contraseniaRegistro.isEmpty()) {
                 Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             } else { // TODO: Salir de la pantalla cuando el grupo esté creado??
-                val grupo = Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, 1)
+                // TODO: hacer que se use como admin a la persona que esta creando el grupo
+
+                val grupo = Grupo("", nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp)
 
                 val gruposRef = database.getReference("groups")
 

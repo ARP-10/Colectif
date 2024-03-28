@@ -47,4 +47,6 @@
         app:layout_constraintStart_toStartOf="@+id/nombreUsuario"
         app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
