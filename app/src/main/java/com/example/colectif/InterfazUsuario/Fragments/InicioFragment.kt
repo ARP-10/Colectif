@@ -23,11 +23,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.colectif.Adapter.AdapterInicio
 import com.example.colectif.InterfazUsuario.Activities.InicioActivity
 import com.example.colectif.InterfazUsuario.Activities.LoginActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentInicioBinding
+import com.example.colectif.models.Grupo
 import com.example.colectif.models.ImagenPerfil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -53,7 +56,13 @@ class InicioFragment: Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var storage: FirebaseStorage
     private lateinit var sharedP: SharedPreferences
+    private lateinit var adaptadorRecycler: AdapterInicio
+    private lateinit var listaGrupos: ArrayList<Grupo>
     var uri: Uri? = null
+
+    init {
+        listaGrupos = ArrayList()
+    }
 
 
 
@@ -79,6 +88,12 @@ class InicioFragment: Fragment() {
         var ref = database.getReference("users")
         sharedP = requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
         comprobarImagen()
+        adaptadorRecycler = context?.let { AdapterInicio(it,listaGrupos) }!!
+
+        binding.recyclerView.adapter = adaptadorRecycler
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recogerGrupos()
 
 
 
@@ -183,13 +198,44 @@ class InicioFragment: Fragment() {
         }
     }
 
+    fun recogerGrupos(){
+        var ref  = database.getReference("users")
+        var ref2 = database.getReference("groups")
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (i in 1 until snapshot.child(auth.currentUser!!.uid).child("numGrupos").value.toString().toInt() + 1){
+                    var idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups").child(i.toString()).value.toString()
+                    ref2.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            adaptadorRecycler.addGrupo(Grupo(
+                                snapshot.child(idGrupo).child("aministrador").value.toString(),
+                                snapshot.child(idGrupo).child("nombre").value.toString(),
+                                snapshot.child(idGrupo).child("app").value.toString(),
+                                snapshot.child(idGrupo).child("plan").value.toString(),
+                                snapshot.child(idGrupo).child("precio").value.toString(),
+                                snapshot.child(idGrupo).child("email").value.toString(),
+                                snapshot.child(idGrupo).child("contrasenia").value.toString(),
+                                snapshot.child(idGrupo).child("imagen").value.toString().toInt()
+                            ))
+
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+
+                    })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
 
 
-
-
-
-
-
+    }
 }
 
 
