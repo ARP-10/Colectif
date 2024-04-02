@@ -203,28 +203,41 @@ class InicioFragment: Fragment() {
         var ref2 = database.getReference("groups")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (i in 1 until snapshot.child(auth.currentUser!!.uid).child("numGrupos").value.toString().toInt() + 1){
-                    var idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups").child(i.toString()).value.toString()
-                    ref2.addValueEventListener(object : ValueEventListener{
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            adaptadorRecycler.addGrupo(Grupo(
-                                snapshot.child(idGrupo).child("aministrador").value.toString(),
-                                snapshot.child(idGrupo).child("nombre").value.toString(),
-                                snapshot.child(idGrupo).child("app").value.toString(),
-                                snapshot.child(idGrupo).child("plan").value.toString(),
-                                snapshot.child(idGrupo).child("precio").value.toString(),
-                                snapshot.child(idGrupo).child("email").value.toString(),
-                                snapshot.child(idGrupo).child("contrasenia").value.toString(),
-                                snapshot.child(idGrupo).child("imagen").value.toString().toInt()
-                            ))
+                if(snapshot.exists()) {
+                    for (i in 1 until snapshot.child(auth.currentUser!!.uid)
+                        .child("numGrupos").value.toString().toInt() + 1) {
+                        var idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups")
+                            .child(i.toString()).value.toString()
+                        ref2.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    adaptadorRecycler.addGrupo(
+                                        Grupo(
+                                            snapshot.child(idGrupo)
+                                                .child("aministrador").value.toString(),
+                                            snapshot.child(idGrupo)
+                                                .child("nombre").value.toString(),
+                                            snapshot.child(idGrupo).child("app").value.toString(),
+                                            snapshot.child(idGrupo).child("plan").value.toString(),
+                                            snapshot.child(idGrupo)
+                                                .child("precio").value.toString(),
+                                            snapshot.child(idGrupo).child("email").value.toString(),
+                                            snapshot.child(idGrupo)
+                                                .child("contrasenia").value.toString(),
+                                            snapshot.child(idGrupo).child("imagen").value.toString()
+                                                .toInt()
+                                        )
+                                    )
+                                }
 
-                        }
+                            }
 
-                        override fun onCancelled(error: DatabaseError) {
+                            override fun onCancelled(error: DatabaseError) {
 
-                        }
+                            }
 
-                    })
+                        })
+                    }
                 }
             }
 
