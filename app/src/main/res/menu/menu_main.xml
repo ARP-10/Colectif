@@ -8,11 +8,12 @@
         android:title="Perfil"
         />
     <item
-        android:id="@+id/itemFragmentCrearGrupo"
-        android:title="Crear grupo"
-        />
-    <item
         android:id="@+id/itemFragmentGrupos"
         android:title="Buscar grupos"
         />
+    <item
+        android:id="@+id/itemFragmentCrearGrupo"
+        android:title="Crear grupo"
+        />
+
 </menu>

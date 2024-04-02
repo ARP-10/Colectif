@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_inicioFragment_to_listaGruposFragment"
             app:destination="@id/listaGruposFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_verGrupoFragment"
+            app:destination="@id/verGrupoFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaGruposFragment"
@@ -41,4 +44,9 @@
             android:id="@+id/action_crearGrupoFragment_to_inicioFragment"
             app:destination="@id/inicioFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/verGrupoFragment"
+        android:name="com.example.colectif.InterfazUsuario.Fragments.VerGrupoFragment"
+        android:label="fragment_ver_grupo"
+        tools:layout="@layout/fragment_ver_grupo" />
 </navigation>
