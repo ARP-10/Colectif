@@ -95,11 +95,6 @@ class InicioFragment: Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recogerGrupos()
 
-
-
-
-
-
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.nombreUsuario.text =
@@ -109,6 +104,24 @@ class InicioFragment: Fragment() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        // Para hacer que funcione el boton:
+        adaptadorRecycler = context?.let { AdapterInicio(it, listaGrupos) } !!
+        binding.recyclerView.adapter = adaptadorRecycler
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
+            override fun onItemClick(position: Int, groupId: String) {
+                val fragmentManager = requireActivity().supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, VerGrupoFragment())
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
+
+
+        })
+
 
         binding.btnCerrarSesion.setOnClickListener {
             logOut()

@@ -21,6 +21,22 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
             lista = ArrayList()
         }
 
+    // Para el click del boton
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, groupId: String)
+    }
+
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.itemClickListener = listener
+    }
+
+
+    ///
+
+
+
 
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nombreGrupo: TextView
@@ -53,6 +69,11 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         holder.admin.text = grupo.administrador
         holder.plan.text = grupo.plan
         Log.v("grupo", "holaa")
+
+        // Para gestionar el click del boton
+        holder.boton.setOnClickListener {
+            itemClickListener?.onItemClick(position, grupo.id)
+        }
     }
 
 
@@ -60,5 +81,6 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         this.lista.add(grupo)
         notifyItemInserted(lista.size-1)
     }
+
 
 }
