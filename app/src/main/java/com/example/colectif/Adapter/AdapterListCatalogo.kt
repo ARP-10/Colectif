@@ -1,5 +1,6 @@
 package com.example.colectif.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.R
 import com.example.colectif.models.CatalogoGrupos
+import com.example.colectif.models.Grupo
 
-class AdapterListCatalogo (private val recycler_lista_catalogo: List<CatalogoGrupos>) :
+class AdapterListCatalogo (private val recycler_lista_catalogo: ArrayList<CatalogoGrupos>) :
     RecyclerView.Adapter<AdapterListCatalogo.CategoriasViewHolder>() {
+
+        private lateinit var adapter: AdapterListGrupos
 
     inner class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreCatalogo: TextView = itemView.findViewById(R.id.text_nombreCatalogo)
@@ -28,11 +32,21 @@ class AdapterListCatalogo (private val recycler_lista_catalogo: List<CatalogoGru
 
         holder.recyclerGrupos.setHasFixedSize(true)
         holder.recyclerGrupos.layoutManager = GridLayoutManager(holder.itemView.context, 3)
-        val adapter = AdapterListGrupos(catalogoGrupos.grupos)
+        adapter = AdapterListGrupos(ArrayList<Grupo>())
+        for (i in 0 until catalogoGrupos.grupos.size){
+            adapter.addGrupo(catalogoGrupos.grupos[i])
+        }
         holder.recyclerGrupos.adapter = adapter
+
     }
 
     override fun getItemCount(): Int {
         return recycler_lista_catalogo.size
     }
+
+    fun addCatalogo(catalogoGrupos: CatalogoGrupos){
+        recycler_lista_catalogo.add(catalogoGrupos)
+        notifyItemInserted(recycler_lista_catalogo.size-1)
+    }
+
 }
