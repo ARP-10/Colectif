@@ -28,7 +28,7 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GruposViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_horizontal_grupos, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_grupos, parent, false)
         return GruposViewHolder(view)
     }
 

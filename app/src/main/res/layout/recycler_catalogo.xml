@@ -18,9 +18,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_gruposCatalogo"
-        android:layout_width="369dp"
-        android:layout_height="151dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
+        tools:listitem="@layout/cardview_grupos"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
