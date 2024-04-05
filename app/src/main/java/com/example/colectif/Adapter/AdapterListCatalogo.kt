@@ -31,7 +31,7 @@ class AdapterListCatalogo (private val recycler_lista_catalogo: ArrayList<Catalo
         holder.nombreCatalogo.text = catalogoGrupos.catalogo
 
         holder.recyclerGrupos.setHasFixedSize(true)
-        holder.recyclerGrupos.layoutManager = GridLayoutManager(holder.itemView.context,3, RecyclerView.HORIZONTAL,false)
+        holder.recyclerGrupos.layoutManager = GridLayoutManager(holder.itemView.context,1, RecyclerView.HORIZONTAL,false)
         adapter = AdapterListGrupos(ArrayList<Grupo>())
         for (i in 0 until catalogoGrupos.grupos.size){
             adapter.addGrupo(catalogoGrupos.grupos[i])
