@@ -74,9 +74,6 @@ class ListaGruposFragment: Fragment(){
 
 
 
-        catalogo.add(CatalogoGrupos("Amazon Prime",recuperarGrupos()[1]))
-        catalogo.add(CatalogoGrupos("Disney +",recuperarGrupos()[2]))
-        catalogo.add(CatalogoGrupos("Spotify",recuperarGrupos()[3]))
 
         // Obtener referencia al RecyclerView desde el archivo de diseño
         val recyclerView: RecyclerView = binding.FragmentRecyclerView
@@ -98,78 +95,82 @@ class ListaGruposFragment: Fragment(){
         super.onDetach()
     }
 
-    private fun recuperarGrupos(): ArrayList<ArrayList<Grupo>>{
+    private fun recuperarGrupos() {
         var ref = database.getReference("groups")
-        ref.addValueEventListener(object: ValueEventListener{
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    for(ds in snapshot.children) {
-                        if (ds.child("app").value.toString().equals("Netflix")) {
-                            Log.v("ola0",ds.child("nombre").value.toString())
+                    for (snapshot in snapshot.children) {
+                        if (snapshot.child("app").value.toString().equals("Netflix")) {
+                            Log.v("ola0", snapshot.child("nombre").value.toString())
                             var grupo = Grupo(
-                                ds.child("aministrador").value.toString(),
-                                ds.child("nombre").value.toString(),
-                                ds.child("app").value.toString(),
-                                ds.child("plan").value.toString(),
-                                ds.child("precio").value.toString(),
-                                ds.child("email").value.toString(),
-                                ds.child("contrasenia").value.toString(),
-                                ds.child("imagen").value.toString()
+                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("nombre").value.toString(),
+                                snapshot.child("app").value.toString(),
+                                snapshot.child("plan").value.toString(),
+                                snapshot.child("precio").value.toString(),
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("contrasenia").value.toString(),
+                                snapshot.child("imagen").value.toString()
                                     .toInt()
                             )
                             listaNetflix.add(grupo)
-                            adapterListCatalogo.addCatalogo(CatalogoGrupos("Netflix",listaNetflix))
                             Log.v("ola4", catalogo.toString())
 
                         }
-                        if (ds.child("app").value.toString().equals("Amazon Prime")) {
+                        if (snapshot.child("app").value.toString().equals("Amazon Prime")) {
                             var grupo = Grupo(
-                                ds.child("aministrador").value.toString(),
-                                ds.child("nombre").value.toString(),
-                                ds.child("app").value.toString(),
-                                ds.child("plan").value.toString(),
-                                ds.child("precio").value.toString(),
-                                ds.child("email").value.toString(),
-                                ds.child("contrasenia").value.toString(),
-                                ds.child("imagen").value.toString()
+                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("nombre").value.toString(),
+                                snapshot.child("app").value.toString(),
+                                snapshot.child("plan").value.toString(),
+                                snapshot.child("precio").value.toString(),
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("contrasenia").value.toString(),
+                                snapshot.child("imagen").value.toString()
                                     .toInt()
                             )
                             listaAmazon.add(grupo)
-                            adapterListCatalogo.addCatalogo(CatalogoGrupos("Amazon Prime",listaAmazon))
+
                         }
-                        if (ds.child("app").value.toString().equals("Spotify")) {
+                        if (snapshot.child("app").value.toString().equals("Spotify")) {
                             var grupo = Grupo(
-                                ds.child("aministrador").value.toString(),
-                                ds.child("nombre").value.toString(),
-                                ds.child("app").value.toString(),
-                                ds.child("plan").value.toString(),
-                                ds.child("precio").value.toString(),
-                                ds.child("email").value.toString(),
-                                ds.child("contrasenia").value.toString(),
-                                ds.child("imagen").value.toString()
+                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("nombre").value.toString(),
+                                snapshot.child("app").value.toString(),
+                                snapshot.child("plan").value.toString(),
+                                snapshot.child("precio").value.toString(),
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("contrasenia").value.toString(),
+                                snapshot.child("imagen").value.toString()
                                     .toInt()
                             )
                             listaSpotify.add(grupo)
-                            adapterListCatalogo.addCatalogo(CatalogoGrupos("Spotify",listaSpotify))
+
                         }
-                        if (ds.child("app").value.toString().equals("Disney +")) {
+                        if (snapshot.child("app").value.toString().equals("Disney +")) {
                             var grupo = Grupo(
-                                ds.child("aministrador").value.toString(),
-                                ds.child("nombre").value.toString(),
-                                ds.child("app").value.toString(),
-                                ds.child("plan").value.toString(),
-                                ds.child("precio").value.toString(),
-                                ds.child("email").value.toString(),
-                                ds.child("contrasenia").value.toString(),
-                                ds.child("imagen").value.toString()
+                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("nombre").value.toString(),
+                                snapshot.child("app").value.toString(),
+                                snapshot.child("plan").value.toString(),
+                                snapshot.child("precio").value.toString(),
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("contrasenia").value.toString(),
+                                snapshot.child("imagen").value.toString()
                                     .toInt()
                             )
                             listaDisney.add(grupo)
-                            adapterListCatalogo.addCatalogo(CatalogoGrupos("Disney +",listaDisney))
-                        }
 
+                        }
                     }
+                    adapterListCatalogo.addCatalogo(CatalogoGrupos("Netflix", listaNetflix))
+                    adapterListCatalogo.addCatalogo(CatalogoGrupos("Amazon Prime", listaAmazon))
+                    adapterListCatalogo.addCatalogo(CatalogoGrupos("Spotify", listaSpotify))
+                    adapterListCatalogo.addCatalogo(CatalogoGrupos("Disney +", listaDisney))
+
+
                 }
             }
 
@@ -178,13 +179,6 @@ class ListaGruposFragment: Fragment(){
             }
 
         })
-        var listas: ArrayList<ArrayList<Grupo>> = ArrayList()
-        listas.add(listaNetflix)
-        listas.add(listaAmazon)
-        listas.add(listaDisney)
-        listas.add(listaSpotify)
-        return listas
-
     }
 
 }

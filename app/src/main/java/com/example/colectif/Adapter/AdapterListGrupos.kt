@@ -19,10 +19,11 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
         }
 
     inner class GruposViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //val imagenGrupo: ImageView = itemView.findViewById(R.id.grupo)
+        val imagenGrupo: ImageView = itemView.findViewById(R.id.grupo)
         val administrador: TextView = itemView.findViewById(R.id.text_administrador)
         val plan: TextView = itemView.findViewById(R.id.text_Plan)
         val precio: TextView = itemView.findViewById(R.id.text_precio)
+
 
 
     }
@@ -34,7 +35,20 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
 
     override fun onBindViewHolder(holder: GruposViewHolder, position: Int) {
         var grupo = cardview_grupos[position]
-        //holder.imagenGrupo.setImageResource(grupo.imagen)
+        var app = grupo.app.toString()
+        if(app.equals("Netflix")){
+            holder.imagenGrupo.setImageResource(R.drawable.netflix)
+        }
+        if(app.equals("Disney +")){
+            holder.imagenGrupo.setImageResource(R.drawable.disney)
+        }
+        if(app.equals("Amazon Prime")){
+            holder.imagenGrupo.setImageResource(R.drawable.amazon)
+        }
+        if(app.equals("Spotify")){
+            holder.imagenGrupo.setImageResource(R.drawable.spotify)
+        }
+
         holder.administrador.text = grupo.administrador
         holder.plan.text = grupo.plan
         holder.precio.text = grupo.precio
