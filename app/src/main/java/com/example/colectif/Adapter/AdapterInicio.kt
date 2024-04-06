@@ -1,6 +1,7 @@
 package com.example.colectif.Adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import kotlin.math.log
 
 class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
     RecyclerView.Adapter<AdapterInicio.MyHolder>() {
+
 
         init{
             lista = ArrayList()
@@ -70,11 +72,17 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         holder.plan.text = grupo.plan
         Log.v("grupo", "holaa")
 
+
+
         // Para gestionar el click del boton
         holder.boton.setOnClickListener {
+
             itemClickListener?.onItemClick(position, grupo.id)
+
         }
     }
+
+
 
 
     fun addGrupo(grupo:Grupo){

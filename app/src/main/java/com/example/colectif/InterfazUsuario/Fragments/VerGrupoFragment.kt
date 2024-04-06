@@ -1,14 +1,15 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentResultListener
 import com.example.colectif.R
-import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.models.Grupo
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +25,13 @@ class VerGrupoFragment : Fragment() {
 
     private lateinit var binding: FragmentVerGrupoBinding
     private lateinit var auth: FirebaseAuth
-    private var db = FirebaseFirestore.getInstance()
+    private lateinit var idGrupo: String
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        idGrupo = requireArguments().getString("idGrupo")!!
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +49,9 @@ class VerGrupoFragment : Fragment() {
         val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (childSnapshot in dataSnapshot.children) {
+                //var childSnapshot = dataSnapshot.children
                     // Obtén los valores de cada hijo
-                    val administrador = childSnapshot.child("administrador").value.toString()
+                    val administrador = dataSnapshot.child(idGrupo).child("administrador").value.toString()
                     var nombreAdmin = ""
                     databaseReference2.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -56,13 +63,13 @@ class VerGrupoFragment : Fragment() {
                         }
 
                     })
-                    val app = childSnapshot.child("app").value.toString()
-                    val contrasenia = childSnapshot.child("contrasenia").value.toString()
-                    val email = childSnapshot.child("email").value.toString()
+                    val app = dataSnapshot.child(idGrupo).child("app").value.toString()
+                    val contrasenia = dataSnapshot.child(idGrupo).child("contrasenia").value.toString()
+                    val email = dataSnapshot.child(idGrupo).child("email").value.toString()
 
-                    val nombre = childSnapshot.child("nombre").value.toString()
-                    val plan = childSnapshot.child("plan").value.toString()
-                    val precio = childSnapshot.child("precio").value.toString()
+                    val nombre = dataSnapshot.child(idGrupo).child("nombre").value.toString()
+                    val plan = dataSnapshot.child(idGrupo).child("plan").value.toString()
+                    val precio = dataSnapshot.child(idGrupo).child("precio").value.toString()
 
                     // Actualizar la interfaz de usuario con los datos recuperados
                     binding.txtAdministrador.text = nombreAdmin
@@ -73,8 +80,8 @@ class VerGrupoFragment : Fragment() {
                     val drawableApp = when (app) {
                         "Netflix" -> R.drawable.netflix
                         "Spotify" -> R.drawable.spotify
-                        "Amazon" -> R.drawable.amazon
-                        "Disney" -> R.drawable.disney
+                        "Amazon Prime" -> R.drawable.amazon
+                        "Disney +" -> R.drawable.disney
                         else -> R.drawable.error
                     }
                     binding.imgGrupo.setImageResource(drawableApp)
@@ -91,7 +98,7 @@ class VerGrupoFragment : Fragment() {
                     Log.d(TAG, "Nombre: $nombre")
                     Log.d(TAG, "Plan: $plan")
                     Log.d(TAG, "Precio: $precio")
-                }
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

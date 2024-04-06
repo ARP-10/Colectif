@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.colectif.Adapter.AdapterInicio
@@ -106,17 +107,19 @@ class InicioFragment: Fragment() {
         })
 
         // Para hacer que funcione el boton:
-        adaptadorRecycler = context?.let { AdapterInicio(it, listaGrupos) } !!
-        binding.recyclerView.adapter = adaptadorRecycler
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
+
             override fun onItemClick(position: Int, groupId: String) {
+                val bundle = Bundle()
+                bundle.putString("idGrupo", groupId)
                 val fragmentManager = requireActivity().supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, VerGrupoFragment())
+                findNavController().navigate(R.id.action_inicioFragment_to_verGrupoFragment, bundle)
+                //fragmentTransaction.replace(R.id.nav_host_fragment_content_main, VerGrupoFragment())
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
+                Log.v("prueba1", groupId)
             }
 
 

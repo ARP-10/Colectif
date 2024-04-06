@@ -52,5 +52,9 @@
         <action
             android:id="@+id/action_verGrupoFragment_to_inicioFragment"
             app:destination="@id/inicioFragment" />
+        <argument
+            android:name="idGrupo"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
