@@ -226,19 +226,16 @@ class InicioFragment: Fragment() {
                                 if (snapshot.exists()) {
                                     adaptadorRecycler.addGrupo(
                                         Grupo(
-                                            snapshot.child(idGrupo)
-                                                .child("aministrador").value.toString(),
-                                            snapshot.child(idGrupo)
-                                                .child("nombre").value.toString(),
+                                            "",
+                                            snapshot.child(idGrupo).child("aministrador").value.toString(),
                                             snapshot.child(idGrupo).child("app").value.toString(),
-                                            snapshot.child(idGrupo).child("plan").value.toString(),
-                                            snapshot.child(idGrupo)
-                                                .child("precio").value.toString(),
+                                            snapshot.child(idGrupo).child("contrasenia").value.toString(),
                                             snapshot.child(idGrupo).child("email").value.toString(),
-                                            snapshot.child(idGrupo)
-                                                .child("contrasenia").value.toString(),
-                                            snapshot.child(idGrupo).child("imagen").value.toString()
-                                                .toInt()
+                                            snapshot.child(idGrupo).child("imagen").value.toString().toInt(),
+                                            snapshot.child(idGrupo).child("nombre").value.toString(),
+                                            snapshot.child(idGrupo).child("plan").value.toString(),
+                                            snapshot.child(idGrupo).child("precio").value.toString()
+
                                         )
                                     )
                                 }

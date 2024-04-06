@@ -48,5 +48,9 @@
         android:id="@+id/verGrupoFragment"
         android:name="com.example.colectif.InterfazUsuario.Fragments.VerGrupoFragment"
         android:label="fragment_ver_grupo"
-        tools:layout="@layout/fragment_ver_grupo" />
+        tools:layout="@layout/fragment_ver_grupo" >
+        <action
+            android:id="@+id/action_verGrupoFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
 </navigation>

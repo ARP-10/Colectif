@@ -62,36 +62,6 @@ class CrearGrupoFragment: Fragment() {
                 else -> R.drawable.error
             }
 
-            // Obtener usuario autenticado
-            //val usuarioActual = auth.currentUser
-
-            // GUARDAR LOS DATOS DEL USUARIO COMO ADMIN - EN FIREBASE DENTRO DEL GRUPO - BORRAR
-            /*
-            usuarioActual?.let { user ->
-                // Crear objeto User con la información del usuario
-                val usuario = User(user.displayName ?: "", "", "", user.email ?: "", "", "")
-
-                // Crear objeto Grupo con la información y el usuario actual como administrador
-                val grupo = Grupo(usuario, nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp)
-
-                val gruposRef = database.getReference("groups")
-
-                // Generar un nuevo ID para el grupo
-                val nuevoGrupoRef = gruposRef.push()
-
-                nuevoGrupoRef.setValue(grupo)
-                    .addOnSuccessListener {
-                        Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
-                        Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT).show()
-                    }
-            } ?: run {
-                // Si no se pudo obtener el usuario actual, mostrar un mensaje de error
-                Snackbar.make(binding.root, "Usuario no autenticado", Snackbar.LENGTH_SHORT).show()
-            }*/
-
             // TODO: comprobar que el admin tenga un grupo igual y no dejarle duplicar
 
             if (nombreGrupo.isEmpty() || emailRegistro.isEmpty() || contraseniaRegistro.isEmpty()) {

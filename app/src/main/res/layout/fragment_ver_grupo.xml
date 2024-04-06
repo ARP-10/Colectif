@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InterfazUsuario.Fragments.VerGrupoFragment"
-    android:orientation="vertical"
-    android:padding="20dp">
+
+    android:paddingBottom="35dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- MOSTRAR FOTO GRUPO -->
     <ImageView
@@ -57,7 +66,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RECYCLER???"
+        android:text="LISTA???"
         android:textSize="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
@@ -95,6 +104,20 @@
         android:layout_marginLeft="20dp"/>
 
     <TextView
+        android:text="Precio:"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txt_precio"
+        android:text="Precio..."
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Correo:"
@@ -126,4 +149,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
 
+
 </LinearLayout>
+
+
+</ScrollView>
