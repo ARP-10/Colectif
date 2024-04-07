@@ -50,12 +50,52 @@ class VerGrupoFragment : Fragment() {
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(childSnapshot: DataSnapshot) {
 
-                    // Obtén los valores de cada hijo
-                    val administrador = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
+                    // Obtener los valores de cada hijo
+                    val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
+                    /*
                     var nombreAdmin = ""
                     databaseReference2.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            nombreAdmin = snapshot.child(administrador).child("name").value.toString()
+                            nombreAdmin = snapshot.child(administradorId).child("name").value.toString()
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+
+                    })*/
+                    val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
+                    val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
+                    val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
+                    val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
+                    val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
+                    val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
+
+                    // Obtener el nombre del admin de la bbdd de "users"
+                    databaseReference2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val nombreAdmin = snapshot.child("name").value.toString()
+
+                            // Actualizar la interfaz de usuario con los datos recuperados
+                            binding.txtAdministrador.text = nombreAdmin
+                            binding.txtApp.text = app
+                            binding.txtPassword.text = contrasenia
+                            binding.txtCorreo.text = email
+
+                            val drawableApp = when (app) {
+                                "Netflix" -> R.drawable.netflix
+                                "Spotify" -> R.drawable.spotify
+                                "Amazon Prime" -> R.drawable.amazon
+                                "Disney +" -> R.drawable.disney
+                                else -> R.drawable.error
+                            }
+                            binding.imgGrupo.setImageResource(drawableApp)
+                            binding.txtNombregrupo.text = nombre
+                            binding.txtPlan.text = plan
+                            binding.txtPrecio.text = precio
+
+                            // Comprobar si los datos llegan correctamente
+                            Log.v("administrador", nombreAdmin)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
@@ -63,41 +103,9 @@ class VerGrupoFragment : Fragment() {
                         }
 
                     })
-                    val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
-                    val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
-                    val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
 
-                    val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
-                    val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
-                    val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
 
-                    // Actualizar la interfaz de usuario con los datos recuperados
-                    binding.txtAdministrador.text = nombreAdmin
-                    binding.txtApp.text = app
-                    binding.txtPassword.text = contrasenia
-                    binding.txtCorreo.text = email
 
-                    val drawableApp = when (app) {
-                        "Netflix" -> R.drawable.netflix
-                        "Spotify" -> R.drawable.spotify
-                        "Amazon Prime" -> R.drawable.amazon
-                        "Disney +" -> R.drawable.disney
-                        else -> R.drawable.error
-                    }
-                    binding.imgGrupo.setImageResource(drawableApp)
-                    binding.txtNombregrupo.text = nombre
-                    binding.txtPlan.text = plan
-                    binding.txtPrecio.text = precio
-
-                    // Comprobar si los datos llegan correctamente
-                    Log.v("administrador", administrador)
-                    Log.d(TAG, "App: $app")
-                    Log.d(TAG, "Contraseña: $contrasenia")
-                    Log.d(TAG, "Email: $email")
-
-                    Log.d(TAG, "Nombre: $nombre")
-                    Log.d(TAG, "Plan: $plan")
-                    Log.d(TAG, "Precio: $precio")
 
             }
 

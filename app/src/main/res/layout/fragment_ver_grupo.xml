@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,25 +12,30 @@
     android:paddingRight="20dp"
     android:paddingTop="10dp">
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <!-- MOSTRAR FOTO GRUPO -->
     <ImageView
         android:id="@+id/img_grupo"
-        android:src="@drawable/netflix"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:src="@drawable/netflix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/txt_etiqueta_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre del grupo:"
         android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_grupo" />
 
     <TextView
         android:id="@+id/txt_nombregrupo"
@@ -37,15 +43,20 @@
         android:layout_height="wrap_content"
         android:text="Nombre..."
         android:textSize="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_nombre"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_nombre"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_nombre" />
 
     <TextView
+        android:id="@+id/txt_etiqueta_admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Administrador:"
         android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_nombre" />
 
     <TextView
         android:id="@+id/txt_administrador"
@@ -53,30 +64,21 @@
         android:layout_height="wrap_content"
         android:text="Administrador..."
         android:textSize="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_admin"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_admin"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_admin" />
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Usuarios:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LISTA???"
-        android:textSize="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
+        android:id="@+id/txt_etiqueta_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="App:"
         android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_admin" />
 
     <TextView
         android:id="@+id/txt_app"
@@ -84,15 +86,20 @@
         android:layout_height="wrap_content"
         android:text="App..."
         android:textSize="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_app"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_app"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_app" />
 
     <TextView
+        android:id="@+id/txt_etiqueta_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Plan:"
         android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_app" />
 
     <TextView
         android:id="@+id/txt_plan"
@@ -100,31 +107,41 @@
         android:layout_height="wrap_content"
         android:text="Plan..."
         android:textSize="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_plan"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_plan"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_plan" />
 
     <TextView
+        android:id="@+id/txt_etiqueta_precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Precio:"
         android:textSize="18dp"
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
 
     <TextView
         android:id="@+id/txt_precio"
-        android:text="Precio..."
-        android:textSize="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:text="Precio..."
+        android:textSize="15dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_precio"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_precio"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_precio" />
 
     <TextView
+        android:id="@+id/txt_etiqueta_correo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Correo:"
         android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_precio" />
 
     <TextView
         android:id="@+id/txt_correo"
@@ -132,15 +149,20 @@
         android:layout_height="wrap_content"
         android:text="Correo..."
         android:textSize="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_correo"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_correo"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_correo" />
 
     <TextView
+        android:id="@+id/txt_etiqueta_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contraseña:"
         android:textSize="18dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_correo" />
 
     <TextView
         android:id="@+id/txt_password"
@@ -148,11 +170,32 @@
         android:layout_height="wrap_content"
         android:text="Contraseña..."
         android:textSize="15dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_password"
+        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_password"
+        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />
+
+    <TextView
+        android:id="@+id/txt_etiqueta_usuarios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usuarios:"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_usuarios" />
 
 
-</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </ScrollView>
