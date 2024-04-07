@@ -215,7 +215,9 @@ class InicioFragment: Fragment() {
         }
     }
 
-    fun recogerGrupos(){
+    fun recogerGrupos() {
+
+        /*
         var ref  = database.getReference("users")
         var ref2 = database.getReference("groups")
         ref.addValueEventListener(object : ValueEventListener{
@@ -225,20 +227,21 @@ class InicioFragment: Fragment() {
                         .child("numGrupos").value.toString().toInt() + 1) {
                         var idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups")
                             .child(i.toString()).value.toString()
+
                         ref2.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                if (snapshot.exists()) {
+                            override fun onDataChange(gruposnapshot: DataSnapshot) {
+                                if (gruposnapshot.exists()) {
                                     adaptadorRecycler.addGrupo(
                                         Grupo(
                                             idGrupo,
-                                            snapshot.child(idGrupo).child("aministrador").value.toString(),
-                                            snapshot.child(idGrupo).child("app").value.toString(),
-                                            snapshot.child(idGrupo).child("contrasenia").value.toString(),
-                                            snapshot.child(idGrupo).child("email").value.toString(),
-                                            snapshot.child(idGrupo).child("imagen").value.toString().toInt(),
-                                            snapshot.child(idGrupo).child("nombre").value.toString(),
-                                            snapshot.child(idGrupo).child("plan").value.toString(),
-                                            snapshot.child(idGrupo).child("precio").value.toString()
+                                            gruposnapshot.child(idGrupo).child("administrador").value.toString(),
+                                            gruposnapshot.child(idGrupo).child("app").value.toString(),
+                                            gruposnapshot.child(idGrupo).child("contrasenia").value.toString(),
+                                            gruposnapshot.child(idGrupo).child("email").value.toString(),
+                                            gruposnapshot.child(idGrupo).child("imagen").value.toString().toInt(),
+                                            gruposnapshot.child(idGrupo).child("nombre").value.toString(),
+                                            gruposnapshot.child(idGrupo).child("plan").value.toString(),
+                                            gruposnapshot.child(idGrupo).child("precio").value.toString()
 
                                         )
                                     )
@@ -259,10 +262,67 @@ class InicioFragment: Fragment() {
 
             }
 
+        })*/
+
+        val ref = database.getReference("users")
+        val ref2 = database.getReference("groups")
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    for (i in 1 until snapshot.child(auth.currentUser!!.uid).child("numGrupos").value.toString().toInt() + 1) {
+                        val idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups").child(i.toString()).value.toString()
+
+                        ref2.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(gruposnapshot: DataSnapshot) {
+                                if (gruposnapshot.exists()) {
+                                    val administradorId = gruposnapshot.child(idGrupo).child("administrador").value.toString()
+
+                                    ref.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(adminSnapshot: DataSnapshot) {
+                                            if (adminSnapshot.exists()) {
+                                                val nombreAdmin = adminSnapshot.child("name").value.toString()
+
+                                                adaptadorRecycler.addGrupo(
+                                                    Grupo(
+                                                        idGrupo,
+                                                        nombreAdmin,
+                                                        gruposnapshot.child(idGrupo).child("app").value.toString(),
+                                                        gruposnapshot.child(idGrupo).child("contrasenia").value.toString(),
+                                                        gruposnapshot.child(idGrupo).child("email").value.toString(),
+                                                        gruposnapshot.child(idGrupo).child("imagen").value.toString().toInt(),
+                                                        gruposnapshot.child(idGrupo).child("nombre").value.toString(),
+                                                        gruposnapshot.child(idGrupo).child("plan").value.toString(),
+                                                        gruposnapshot.child(idGrupo).child("precio").value.toString()
+                                                    )
+                                                )
+                                            }
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                            // Manejar errores de base de datos
+                                        }
+                                    })
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // Manejar errores de base de datos
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar errores de base de datos
+            }
         })
 
 
     }
+
+
 
 
 }
