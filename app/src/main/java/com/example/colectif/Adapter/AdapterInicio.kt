@@ -70,14 +70,14 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         holder.nombreGrupo.text = grupo.nombre
         holder.admin.text = grupo.administrador
         holder.plan.text = grupo.plan
-        Log.v("grupo", "holaa")
+
 
 
 
         // Para gestionar el click del boton
         holder.boton.setOnClickListener {
-
             itemClickListener?.onItemClick(position, grupo.id)
+            Log.v("prueba2", grupo.id)
 
         }
     }

@@ -105,7 +105,7 @@ class ListaGruposFragment: Fragment(){
                         if (snapshot.child("app").value.toString().equals("Netflix")) {
                             Log.v("ola0", snapshot.child("nombre").value.toString())
                             var grupo = Grupo(
-                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("administrador").value.toString(),
                                 snapshot.child("nombre").value.toString(),
                                 snapshot.child("app").value.toString(),
                                 snapshot.child("plan").value.toString(),

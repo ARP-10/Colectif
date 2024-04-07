@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentResultListener
 import com.example.colectif.R
+import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.models.Grupo
 import com.google.firebase.auth.FirebaseAuth
@@ -25,13 +25,13 @@ class VerGrupoFragment : Fragment() {
 
     private lateinit var binding: FragmentVerGrupoBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var idGrupo: String
-
+    private var idGrupo:String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        idGrupo = requireArguments().getString("idGrupo")!!
+        idGrupo = arguments?.getString("idGrupo", "")
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,10 +48,10 @@ class VerGrupoFragment : Fragment() {
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
         val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
         databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //var childSnapshot = dataSnapshot.children
+            override fun onDataChange(childSnapshot: DataSnapshot) {
+
                     // Obtén los valores de cada hijo
-                    val administrador = dataSnapshot.child(idGrupo).child("administrador").value.toString()
+                    val administrador = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
                     var nombreAdmin = ""
                     databaseReference2.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -63,13 +63,13 @@ class VerGrupoFragment : Fragment() {
                         }
 
                     })
-                    val app = dataSnapshot.child(idGrupo).child("app").value.toString()
-                    val contrasenia = dataSnapshot.child(idGrupo).child("contrasenia").value.toString()
-                    val email = dataSnapshot.child(idGrupo).child("email").value.toString()
+                    val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
+                    val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
+                    val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
 
-                    val nombre = dataSnapshot.child(idGrupo).child("nombre").value.toString()
-                    val plan = dataSnapshot.child(idGrupo).child("plan").value.toString()
-                    val precio = dataSnapshot.child(idGrupo).child("precio").value.toString()
+                    val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
+                    val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
+                    val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
 
                     // Actualizar la interfaz de usuario con los datos recuperados
                     binding.txtAdministrador.text = nombreAdmin

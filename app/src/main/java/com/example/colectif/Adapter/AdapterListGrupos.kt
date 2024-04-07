@@ -9,6 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.R
 import com.example.colectif.models.Grupo
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
@@ -23,6 +28,8 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
         val administrador: TextView = itemView.findViewById(R.id.text_administrador)
         val plan: TextView = itemView.findViewById(R.id.text_Plan)
         val precio: TextView = itemView.findViewById(R.id.text_precio)
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+
 
 
 
@@ -35,7 +42,7 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
 
     override fun onBindViewHolder(holder: GruposViewHolder, position: Int) {
         var grupo = cardview_grupos[position]
-        var app = grupo.app.toString()
+        var app = grupo.app
         if(app.equals("Netflix")){
             holder.imagenGrupo.setImageResource(R.drawable.netflix)
         }
@@ -49,7 +56,20 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
             holder.imagenGrupo.setImageResource(R.drawable.spotify)
         }
 
-        holder.administrador.text = grupo.administrador
+        var ref = holder.database.getReference("users")
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                holder.administrador.text = "Admin: " + snapshot.child(grupo.administrador).child("name").value.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+
         holder.plan.text = grupo.plan
         holder.precio.text = grupo.precio
 

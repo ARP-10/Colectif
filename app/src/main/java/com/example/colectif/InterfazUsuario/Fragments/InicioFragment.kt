@@ -111,6 +111,7 @@ class InicioFragment: Fragment() {
         adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
 
             override fun onItemClick(position: Int, groupId: String) {
+                Log.v("prueba1", groupId)
                 val bundle = Bundle()
                 bundle.putString("idGrupo", groupId)
                 val fragmentManager = requireActivity().supportFragmentManager
@@ -229,7 +230,7 @@ class InicioFragment: Fragment() {
                                 if (snapshot.exists()) {
                                     adaptadorRecycler.addGrupo(
                                         Grupo(
-                                            "",
+                                            idGrupo,
                                             snapshot.child(idGrupo).child("aministrador").value.toString(),
                                             snapshot.child(idGrupo).child("app").value.toString(),
                                             snapshot.child(idGrupo).child("contrasenia").value.toString(),
@@ -262,6 +263,8 @@ class InicioFragment: Fragment() {
 
 
     }
+
+
 }
 
 
