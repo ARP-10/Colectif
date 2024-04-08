@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -79,5 +80,26 @@ class InicioActivity : AppCompatActivity() {
 
     }
 
+    // Menu toolbar de arriba de la pantalla
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
+/*
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
 
+            R.id.action_logout -> {
+                // Aquí puedes colocar el código para cerrar sesión
+                return true
+            }
+            R.id.action_notifications -> {
+                // Aquí puedes colocar el código para navegar a la pantalla de notificaciones
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        }
+
+    }*/
 }

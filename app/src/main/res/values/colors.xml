@@ -2,6 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="fondo">#f1f2f6</color>
+    <color name="texto">#27187E</color>
+    <color name="boton">#758BFD</color>
+    <color name="menu_seleccionado">#FF8600</color>
+
     <color name="colorLink">#3F51B5</color>
     <color name="pink">#ff85f9</color>
 </resources>

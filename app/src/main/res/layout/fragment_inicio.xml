@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:backgroundTint="@color/fondo">
 
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginStart="56dp"
         android:text="NOMBRE"
         android:textSize="40dp"
+        android:textColor="@color/texto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toEndOf="@+id/imagenUsuario"
@@ -37,6 +39,7 @@
         android:layout_marginTop="44dp"
         android:text="Tus grupos"
         android:textSize="18dp"
+        android:textColor="@color/texto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagenUsuario" />
 
@@ -45,6 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cerrar Sesión"
+        android:textColor="@color/texto"
+        android:backgroundTint="@color/boton"
         app:layout_constraintStart_toStartOf="@+id/nombreUsuario"
         app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
 
@@ -53,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/texto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
