@@ -19,14 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/netflix" />
+            android:src="@drawable/amazon" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/material_dynamic_tertiary80">
+            android:background="@color/fondo">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewImagenUsuario"
@@ -34,7 +34,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 app:cardCornerRadius="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/button_unirse_grupo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -67,7 +67,6 @@
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 android:textStyle="bold"
-
                 app:layout_constraintBottom_toTopOf="@+id/text_precio"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardViewImagenUsuario"
@@ -85,6 +84,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardViewImagenUsuario" />
+
+            <Button
+                android:id="@+id/button_unirse_grupo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/boton"
+                android:textColor="@color/texto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cardViewImagenUsuario"
+                app:layout_constraintStart_toStartOf="@+id/cardViewImagenUsuario"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewImagenUsuario" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
