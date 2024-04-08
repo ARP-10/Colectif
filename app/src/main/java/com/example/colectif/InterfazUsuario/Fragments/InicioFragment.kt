@@ -217,53 +217,6 @@ class InicioFragment: Fragment() {
 
     fun recogerGrupos() {
 
-        /*
-        var ref  = database.getReference("users")
-        var ref2 = database.getReference("groups")
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    for (i in 1 until snapshot.child(auth.currentUser!!.uid)
-                        .child("numGrupos").value.toString().toInt() + 1) {
-                        var idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups")
-                            .child(i.toString()).value.toString()
-
-                        ref2.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(gruposnapshot: DataSnapshot) {
-                                if (gruposnapshot.exists()) {
-                                    adaptadorRecycler.addGrupo(
-                                        Grupo(
-                                            idGrupo,
-                                            gruposnapshot.child(idGrupo).child("administrador").value.toString(),
-                                            gruposnapshot.child(idGrupo).child("app").value.toString(),
-                                            gruposnapshot.child(idGrupo).child("contrasenia").value.toString(),
-                                            gruposnapshot.child(idGrupo).child("email").value.toString(),
-                                            gruposnapshot.child(idGrupo).child("imagen").value.toString().toInt(),
-                                            gruposnapshot.child(idGrupo).child("nombre").value.toString(),
-                                            gruposnapshot.child(idGrupo).child("plan").value.toString(),
-                                            gruposnapshot.child(idGrupo).child("precio").value.toString()
-
-                                        )
-                                    )
-                                }
-
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-
-                            }
-
-                        })
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })*/
-
         val ref = database.getReference("users")
         val ref2 = database.getReference("groups")
 
@@ -320,8 +273,8 @@ class InicioFragment: Fragment() {
         })
 
 
+    
     }
-
 
 
 
