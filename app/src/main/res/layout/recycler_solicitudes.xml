@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="168dp">
+
+            <TextView
+                android:id="@+id/textViewPersonaX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="64dp"
+                android:text="Persona x"
+                android:textSize="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
+                android:text="quiere unirse a tu grupo: "
+                android:textSize="30dp"
+                app:layout_constraintStart_toEndOf="@+id/textViewPersonaX"
+                app:layout_constraintTop_toTopOf="@+id/textViewPersonaX" />
+
+            <TextView
+                android:id="@+id/textViewGrupoX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="grupo x"
+                android:textSize="30dp"
+                app:layout_constraintStart_toEndOf="@+id/textViewBase"
+                app:layout_constraintTop_toTopOf="@+id/textViewBase" />
+
+            <Button
+                android:id="@+id/btnAceptarSoli"
+                android:layout_width="105dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="24dp"
+                android:text="Aceptar"
+                app:layout_constraintStart_toEndOf="@+id/textViewGrupoX"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnRechazarSoli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Rechazar"
+                app:layout_constraintStart_toStartOf="@+id/btnAceptarSoli"
+                app:layout_constraintTop_toBottomOf="@+id/btnAceptarSoli" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

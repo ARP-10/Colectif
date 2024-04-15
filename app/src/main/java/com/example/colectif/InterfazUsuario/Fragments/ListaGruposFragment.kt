@@ -88,6 +88,8 @@ class ListaGruposFragment: Fragment(){
         // Establecer el adaptador en el RecyclerView
         recyclerView.adapter = adapterListCatalogo
 
+
+
     }
 
     ////permite desasociar elementos del activity con el fragment
@@ -180,5 +182,7 @@ class ListaGruposFragment: Fragment(){
 
         })
     }
+
+
 
 }

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
@@ -85,7 +86,7 @@ class InicioActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
     }
-/*
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
@@ -94,12 +95,12 @@ class InicioActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_notifications -> {
-                // Aquí puedes colocar el código para navegar a la pantalla de notificaciones
+                navController.navigate(R.id.action_global_solicitudesFragment)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
-        }
 
-    }*/
+
+    }
 }
