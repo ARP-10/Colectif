@@ -7,22 +7,27 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="168dp">
+            android:layout_height="200dp">
+
 
             <TextView
                 android:id="@+id/textViewPersonaX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:text="Persona x"
-                android:textSize="30dp"
+                android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,41 +35,54 @@
                 android:id="@+id/textViewBase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:text="quiere unirse a tu grupo: "
-                android:textSize="30dp"
-                app:layout_constraintStart_toEndOf="@+id/textViewPersonaX"
-                app:layout_constraintTop_toTopOf="@+id/textViewPersonaX" />
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPersonaX" />
 
             <TextView
                 android:id="@+id/textViewGrupoX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:text="grupo x"
-                android:textSize="30dp"
-                app:layout_constraintStart_toEndOf="@+id/textViewBase"
-                app:layout_constraintTop_toTopOf="@+id/textViewBase" />
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBase" />
 
             <Button
                 android:id="@+id/btnAceptarSoli"
                 android:layout_width="105dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
                 android:text="Aceptar"
-                app:layout_constraintStart_toEndOf="@+id/textViewGrupoX"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="@color/texto"
+                android:backgroundTint="@color/boton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGrupoX" />
 
             <Button
                 android:id="@+id/btnRechazarSoli"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
                 android:text="Rechazar"
-                app:layout_constraintStart_toStartOf="@+id/btnAceptarSoli"
-                app:layout_constraintTop_toBottomOf="@+id/btnAceptarSoli" />
+                android:textColor="@color/texto"
+                android:backgroundTint="@color/boton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGrupoX" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="205dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

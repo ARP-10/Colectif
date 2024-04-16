@@ -25,9 +25,8 @@
         android:id="@+id/imagenUsuario"
         android:layout_width="97dp"
         android:layout_height="87dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tusGrupos"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -35,21 +34,23 @@
         android:id="@+id/tusGrupos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
         android:layout_marginTop="44dp"
-        android:text="Tus grupos"
-        android:textSize="18dp"
+        android:text="Mis grupos"
+        android:textStyle="bold"
         android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toBottomOf="@+id/imagenUsuario" />
 
     <Button
         android:id="@+id/btnCerrarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/boton"
         android:text="Cerrar Sesión"
         android:textColor="@color/texto"
-        android:backgroundTint="@color/boton"
+        app:layout_constraintEnd_toEndOf="@+id/nombreUsuario"
         app:layout_constraintStart_toStartOf="@+id/nombreUsuario"
         app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
 
@@ -57,8 +58,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+
         android:textColor="@color/texto"
+        tools:listitem="@layout/recycler_inicio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
