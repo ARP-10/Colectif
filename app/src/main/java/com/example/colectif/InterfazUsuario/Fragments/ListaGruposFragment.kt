@@ -105,7 +105,6 @@ class ListaGruposFragment: Fragment(){
 
                     for (snapshot in snapshot.children) {
                         if (snapshot.child("app").value.toString().equals("Netflix")) {
-                            Log.v("ola0", snapshot.child("nombre").value.toString())
                             var grupo = Grupo(
                                 snapshot.child("administrador").value.toString(),
                                 snapshot.child("nombre").value.toString(),
@@ -118,12 +117,10 @@ class ListaGruposFragment: Fragment(){
                                     .toInt()
                             )
                             listaNetflix.add(grupo)
-                            Log.v("ola4", catalogo.toString())
-
                         }
                         if (snapshot.child("app").value.toString().equals("Amazon Prime")) {
                             var grupo = Grupo(
-                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("administrador").value.toString(),
                                 snapshot.child("nombre").value.toString(),
                                 snapshot.child("app").value.toString(),
                                 snapshot.child("plan").value.toString(),
@@ -138,7 +135,7 @@ class ListaGruposFragment: Fragment(){
                         }
                         if (snapshot.child("app").value.toString().equals("Spotify")) {
                             var grupo = Grupo(
-                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("administrador").value.toString(),
                                 snapshot.child("nombre").value.toString(),
                                 snapshot.child("app").value.toString(),
                                 snapshot.child("plan").value.toString(),
@@ -153,7 +150,7 @@ class ListaGruposFragment: Fragment(){
                         }
                         if (snapshot.child("app").value.toString().equals("Disney +")) {
                             var grupo = Grupo(
-                                snapshot.child("aministrador").value.toString(),
+                                snapshot.child("administrador").value.toString(),
                                 snapshot.child("nombre").value.toString(),
                                 snapshot.child("app").value.toString(),
                                 snapshot.child("plan").value.toString(),
@@ -167,6 +164,7 @@ class ListaGruposFragment: Fragment(){
 
                         }
                     }
+
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Netflix", listaNetflix))
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Amazon Prime", listaAmazon))
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Spotify", listaSpotify))

@@ -48,17 +48,15 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
         var grupo = cardview_grupos[position]
         var app = grupo.app
         var auth = FirebaseAuth.getInstance()
-        if(app.equals("Netflix")){
-            holder.imagenGrupo.setImageResource(R.drawable.netflix)
-        }
-        if(app.equals("Disney +")){
-            holder.imagenGrupo.setImageResource(R.drawable.disney)
-        }
-        if(app.equals("Amazon Prime")){
-            holder.imagenGrupo.setImageResource(R.drawable.amazon)
-        }
-        if(app.equals("Spotify")){
-            holder.imagenGrupo.setImageResource(R.drawable.spotify)
+
+        when (app) {
+            "Netflix" -> holder.imagenGrupo.setImageResource(R.drawable.netflix)
+            "Disney +" -> holder.imagenGrupo.setImageResource(R.drawable.disney)
+            "Amazon Prime" -> holder.imagenGrupo.setImageResource(R.drawable.amazon)
+            "Spotify" -> holder.imagenGrupo.setImageResource(R.drawable.spotify)
+            else -> {
+                holder.imagenGrupo.setImageResource(R.drawable.error)
+            }
         }
 
         var ref = holder.database.getReference("users")
@@ -102,7 +100,6 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
         val newRef = ref.push()
         newRef.setValue(solicitud)
         nuevaId = newRef.key!!
-        Log.v("idCreada" , nuevaId)
 
         var ref2 = database.getReference("users")
         ref2.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -110,7 +107,6 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
                 var numSolicitudActual = snapshot.child(idAdmin).child("numSolicitudes").getValue(Int::class.java) ?: 0
                 numSolicitudActual++
                 ref2.child(idAdmin).child("numSolicitudes").setValue(numSolicitudActual)
-                Log.v("idCreada2" , nuevaId)
                 database.getReference("users").child(idAdmin).child("solicitudes").child(numSolicitudActual.toString()).setValue(nuevaId)
             }
 
@@ -118,7 +114,6 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
                 TODO("Not yet implemented")
             }
         })
-        Log.v("solicitud", "Creada la solicitud")
 
     }
 }
