@@ -5,8 +5,8 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="160dp"
-        android:layout_height="220dp"
+        android:layout_width="210dp"
+        android:layout_height="250dp"
         app:cardCornerRadius="20dp"
         android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="98dp"
             android:layout_gravity="bottom"
             android:background="@color/fondo">
 
@@ -62,35 +62,38 @@
                 android:id="@+id/text_Plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
                 android:text="Plan"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/text_precio"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardViewImagenUsuario"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/text_administrador"
+                app:layout_constraintStart_toStartOf="@+id/text_administrador"
                 app:layout_constraintTop_toBottomOf="@+id/text_administrador" />
 
             <TextView
                 android:id="@+id/text_precio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
                 android:text="Precio"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardViewImagenUsuario" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/text_Plan"
+                app:layout_constraintStart_toStartOf="@+id/text_Plan"
+                app:layout_constraintTop_toBottomOf="@+id/text_Plan" />
 
             <Button
                 android:id="@+id/button_unirse_grupo"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="58dp"
+                android:layout_height="47dp"
+                android:layout_marginLeft="17dp"
                 android:backgroundTint="@color/boton"
+                android:text="+"
+                android:textStyle="bold"
                 android:textColor="@color/texto"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/cardViewImagenUsuario"
                 app:layout_constraintStart_toStartOf="@+id/cardViewImagenUsuario"

@@ -24,11 +24,6 @@ class RegistroActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
 
-
-
-
-
-
         binding.buttonRegistrarGuardarUsuario.setOnClickListener {
                 val name = binding.editTextRegistrarNombre.text.toString()
                 val firstSurName = binding.editTextRegistrarPrimerApellido.text.toString()

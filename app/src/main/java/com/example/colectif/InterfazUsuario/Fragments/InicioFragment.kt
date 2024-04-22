@@ -11,6 +11,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -64,6 +67,8 @@ class InicioFragment: Fragment() {
     init {
         listaGrupos = ArrayList()
     }
+
+
 
 
 
@@ -127,6 +132,9 @@ class InicioFragment: Fragment() {
         })
 
 
+
+
+        /*
         binding.btnCerrarSesion.setOnClickListener {
             logOut()
         }
@@ -135,6 +143,25 @@ class InicioFragment: Fragment() {
 
 
             //subirImagen()
+        }*/
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_notifications -> {
+
+                true
+            }
+            R.id.action_logout -> {
+                logOut()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
