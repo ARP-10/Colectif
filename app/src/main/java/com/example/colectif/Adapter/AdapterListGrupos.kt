@@ -1,5 +1,6 @@
 package com.example.colectif.Adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.colectif.R
 import com.example.colectif.models.Grupo
 import com.example.colectif.models.Solicitud
@@ -19,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
+class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Grupo>) :
     RecyclerView.Adapter<AdapterListGrupos.GruposViewHolder>() {
 
         init {
@@ -33,7 +36,7 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
         val precio: TextView = itemView.findViewById(R.id.text_precio)
         val boton: Button = itemView.findViewById(R.id.button_unirse_grupo)
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
-
+        val imagenUsuario: ImageView = itemView.findViewById(R.id.imagenUsuarioGrupo)
 
 
 
@@ -59,10 +62,13 @@ class AdapterListGrupos(var cardview_grupos: ArrayList<Grupo>) :
             }
         }
 
+
+
         var ref = holder.database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 holder.administrador.text = "Admin: " + snapshot.child(grupo.administrador).child("name").value.toString()
+                Glide.with(context).load(snapshot.child(grupo.administrador).child("imagen").value.toString().toUri()).into(holder.imagenUsuario)
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -1,5 +1,6 @@
 package com.example.colectif.Adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import com.example.colectif.R
 import com.example.colectif.models.CatalogoGrupos
 import com.example.colectif.models.Grupo
 
-class AdapterListCatalogo (private val recycler_lista_catalogo: ArrayList<CatalogoGrupos>) :
+class AdapterListCatalogo (var context: Context, private val recycler_lista_catalogo: ArrayList<CatalogoGrupos>) :
     RecyclerView.Adapter<AdapterListCatalogo.CategoriasViewHolder>() {
 
         private lateinit var adapter: AdapterListGrupos
@@ -32,7 +33,7 @@ class AdapterListCatalogo (private val recycler_lista_catalogo: ArrayList<Catalo
 
         holder.recyclerGrupos.setHasFixedSize(true)
         holder.recyclerGrupos.layoutManager = GridLayoutManager(holder.itemView.context,1, RecyclerView.HORIZONTAL,false)
-        adapter = AdapterListGrupos(ArrayList<Grupo>())
+        adapter = AdapterListGrupos(context,ArrayList<Grupo>())
         for (i in 0 until catalogoGrupos.grupos.size){
             adapter.addGrupo(catalogoGrupos.grupos[i])
         }

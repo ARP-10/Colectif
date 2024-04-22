@@ -83,7 +83,7 @@ class ListaGruposFragment: Fragment(){
 
         recuperarGrupos()
         // Crear un adaptador para el RecyclerView que esté vinculado a la lista de catálogos y grupos
-        adapterListCatalogo = AdapterListCatalogo(catalogo)
+        adapterListCatalogo = context?.let { AdapterListCatalogo(it,catalogo) }!!
 
         // Establecer el adaptador en el RecyclerView
         recyclerView.adapter = adapterListCatalogo
