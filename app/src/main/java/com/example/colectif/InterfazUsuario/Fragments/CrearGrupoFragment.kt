@@ -11,10 +11,14 @@ import androidx.fragment.app.Fragment
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.models.Grupo
+import com.example.colectif.models.Solicitud
 import com.example.colectif.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class CrearGrupoFragment: Fragment() {
 
@@ -77,13 +81,20 @@ class CrearGrupoFragment: Fragment() {
 
                 nuevoGrupoRef.setValue(grupo)
                     .addOnSuccessListener {
+                        // Sumar +1 en la ID de los grupos que el usuario tiene
+                        sumarId(nuevoGrupoRef.key!!)
+                        database.getReference("groups").child(nuevoGrupoRef.key!!).child("id").setValue(nuevoGrupoRef.key!!)
                         Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->
                         Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
                         Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT).show()
                     }
+
+
             }
+
+
         }
 
         // Configuración spinner
@@ -179,10 +190,26 @@ class CrearGrupoFragment: Fragment() {
 
     }
 
+    fun sumarId(idGrupo: String){
+        var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        val ref = database.getReference("users")
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var numGrupoActual = snapshot.child(auth.currentUser!!.uid).child("numGrupos").getValue(Int::class.java) ?: 0
+                numGrupoActual++
+                ref.child(auth.currentUser!!.uid).child("numGrupos").setValue(numGrupoActual)
+                database.getReference("users").child(auth.currentUser!!.uid).child("groups").child(numGrupoActual.toString()).setValue(idGrupo)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+    }
 
 
-
-    // Permite desasociar elementos de la Activity (InicioActivity) con el fragment
     override fun onDetach() {
         super.onDetach()
     }

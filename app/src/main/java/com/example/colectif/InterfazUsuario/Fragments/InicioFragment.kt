@@ -36,6 +36,7 @@ import com.example.colectif.R
 import com.example.colectif.databinding.FragmentInicioBinding
 import com.example.colectif.models.Grupo
 import com.example.colectif.models.ImagenPerfil
+import com.example.colectif.models.Solicitud
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -112,7 +113,6 @@ class InicioFragment: Fragment() {
         })
 
         // Para hacer que funcione el boton:
-
         adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
 
             override fun onItemClick(position: Int, groupId: String) {
@@ -269,6 +269,8 @@ class InicioFragment: Fragment() {
 
     
     }
+
+
 
 
 

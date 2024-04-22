@@ -65,11 +65,19 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
             }
 
         })
+        holder.btnAceptarSoli.setOnClickListener {
+            //aceptarSolicitud()
+        }
     }
 
 
     fun addSolicitud(solicitud: Solicitud){
         listaSolicitudes.add(solicitud)
         notifyItemInserted(listaSolicitudes.size - 1 )
+    }
+
+    fun aceptarSolicitud(idUser: String, idGrupo: String){
+
+
     }
 }

@@ -100,7 +100,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
     fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String){
         var solicitud = Solicitud(idAdmin,idUser,idGrupo)
         var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
-        val ref = database.getReference("solicitudes")
+        val ref = database.getReference("groups")
         var nuevaId= ""
 
         val newRef = ref.push()
