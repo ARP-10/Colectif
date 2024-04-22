@@ -130,20 +130,10 @@ class InicioFragment: Fragment() {
 
 
         })
-
-
-
-
-        /*
-        binding.btnCerrarSesion.setOnClickListener {
-            logOut()
-        }
         binding.imagenUsuario.setOnClickListener{
             seleccionarImagen()
 
-
-            //subirImagen()
-        }*/
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -151,34 +141,11 @@ class InicioFragment: Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_notifications -> {
-
-                true
-            }
-            R.id.action_logout -> {
-                logOut()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     override fun onDetach() {
         super.onDetach()
     }
 
-    private fun logOut(){
-        auth.signOut()
-        val sharedP: SharedPreferences
-        sharedP = requireContext().getSharedPreferences("com.example.colectif",Context.MODE_PRIVATE)
-        val editor = sharedP.edit()
-        editor.putBoolean("estado",false)
-        editor.apply()
-        startActivity(Intent(context, LoginActivity::class.java))
-        activity?.finish()
-    }
 
     private fun saveImage(uri: String){
         val sharedPreferences = requireContext().getSharedPreferences("com.example.colectif",Context.MODE_PRIVATE)

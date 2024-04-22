@@ -3,6 +3,8 @@ package com.example.colectif.InterfazUsuario.Activities
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -27,6 +30,7 @@ import com.example.colectif.InterfazUsuario.Fragments.ListaGruposFragment
 import com.example.colectif.R
 import com.example.colectif.databinding.ActivityInicioBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -37,6 +41,7 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +96,14 @@ class InicioActivity : AppCompatActivity() {
         when (item.itemId) {
 
             R.id.action_logout -> {
-                // Aquí puedes colocar el código para cerrar sesión
+                auth.signOut()
+                val sharedP: SharedPreferences
+                sharedP = this.getSharedPreferences("com.example.colectif",Context.MODE_PRIVATE)
+                val editor = sharedP.edit()
+                editor.putBoolean("estado",false)
+                editor.apply()
+                startActivity(Intent(this, LoginActivity::class.java))
+                this.finish()
                 return true
             }
             R.id.action_notifications -> {
