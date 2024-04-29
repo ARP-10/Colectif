@@ -2,11 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.InicioActivity"
-    android:backgroundTint="@color/fondo">
+    android:backgroundTint="@color/black">
 
     <item
         android:id="@+id/itemFragmentInicio"
         android:title="Perfil"
+
         />
     <item
         android:id="@+id/itemFragmentGrupos"

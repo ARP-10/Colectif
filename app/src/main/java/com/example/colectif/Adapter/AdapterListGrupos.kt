@@ -114,6 +114,9 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
                 numSolicitudActual++
                 ref2.child(idAdmin).child("numSolicitudes").setValue(numSolicitudActual)
                 database.getReference("users").child(idAdmin).child("solicitudes").child(numSolicitudActual.toString()).setValue(nuevaId)
+                // SNACKBAR
+                //Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
+                //Snackbar.make(view, "Solicitud enviada exitosamente", Snackbar.LENGTH_SHORT).show()
             }
 
             override fun onCancelled(error: DatabaseError) {

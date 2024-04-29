@@ -8,6 +8,8 @@
     <color name="boton">#758BFD</color>
     <color name="menu_seleccionado">#FF8600</color>
 
+    <color name="spotify">#1ED760</color>
+
     <color name="colorLink">#3F51B5</color>
     <color name="pink">#ff85f9</color>
 </resources>

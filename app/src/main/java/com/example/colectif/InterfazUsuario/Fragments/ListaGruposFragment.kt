@@ -104,65 +104,69 @@ class ListaGruposFragment: Fragment(){
                 if (snapshot.exists()) {
 
                     for (snapshot in snapshot.children) {
-                        if (snapshot.child("app").value.toString().equals("Netflix")) {
-                            var grupo = Grupo(
-                                snapshot.child("id").value.toString(),
-                                snapshot.child("administrador").value.toString(),
-                                snapshot.child("app").value.toString(),
-                                snapshot.child("contrasenia").value.toString(),
-                                snapshot.child("email").value.toString(),
-                                snapshot.child("imagen").value.toString().toInt(),
-                                snapshot.child("nombre").value.toString(),
-                                snapshot.child("plan").value.toString(),
-                                snapshot.child("precio").value.toString(),
-                            )
-                            listaNetflix.add(grupo)
-                        }
-                        if (snapshot.child("app").value.toString().equals("Amazon Prime")) {
-                            var grupo = Grupo(
-                                snapshot.child("id").value.toString(),
-                                snapshot.child("administrador").value.toString(),
-                                snapshot.child("app").value.toString(),
-                                snapshot.child("contrasenia").value.toString(),
-                                snapshot.child("email").value.toString(),
-                                snapshot.child("imagen").value.toString().toInt(),
-                                snapshot.child("nombre").value.toString(),
-                                snapshot.child("plan").value.toString(),
-                                snapshot.child("precio").value.toString(),
-                            )
-                            listaAmazon.add(grupo)
+                        if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
+                            if (snapshot.child("app").value.toString().equals("Netflix")) {
+                                var grupo = Grupo(
+                                    snapshot.child("id").value.toString(),
+                                    snapshot.child("administrador").value.toString(),
+                                    snapshot.child("app").value.toString(),
+                                    snapshot.child("contrasenia").value.toString(),
+                                    snapshot.child("email").value.toString(),
+                                    snapshot.child("imagen").value.toString().toInt(),
+                                    snapshot.child("nombre").value.toString(),
+                                    snapshot.child("plan").value.toString(),
+                                    snapshot.child("precio").value.toString(),
+                                )
+                                listaNetflix.add(grupo)
+                            }
+                            if (snapshot.child("app").value.toString().equals("Amazon Prime")) {
+                                var grupo = Grupo(
+                                    snapshot.child("id").value.toString(),
+                                    snapshot.child("administrador").value.toString(),
+                                    snapshot.child("app").value.toString(),
+                                    snapshot.child("contrasenia").value.toString(),
+                                    snapshot.child("email").value.toString(),
+                                    snapshot.child("imagen").value.toString().toInt(),
+                                    snapshot.child("nombre").value.toString(),
+                                    snapshot.child("plan").value.toString(),
+                                    snapshot.child("precio").value.toString(),
+                                )
+                                listaAmazon.add(grupo)
 
-                        }
-                        if (snapshot.child("app").value.toString().equals("Spotify")) {
-                            var grupo = Grupo(
-                                snapshot.child("id").value.toString(),
-                                snapshot.child("administrador").value.toString(),
-                                snapshot.child("app").value.toString(),
-                                snapshot.child("contrasenia").value.toString(),
-                                snapshot.child("email").value.toString(),
-                                snapshot.child("imagen").value.toString().toInt(),
-                                snapshot.child("nombre").value.toString(),
-                                snapshot.child("plan").value.toString(),
-                                snapshot.child("precio").value.toString(),
-                            )
-                            listaSpotify.add(grupo)
+                            }
+                            if (snapshot.child("app").value.toString().equals("Spotify")) {
+                                var grupo = Grupo(
+                                    snapshot.child("id").value.toString(),
+                                    snapshot.child("administrador").value.toString(),
+                                    snapshot.child("app").value.toString(),
+                                    snapshot.child("contrasenia").value.toString(),
+                                    snapshot.child("email").value.toString(),
+                                    snapshot.child("imagen").value.toString().toInt(),
+                                    snapshot.child("nombre").value.toString(),
+                                    snapshot.child("plan").value.toString(),
+                                    snapshot.child("precio").value.toString(),
+                                )
+                                listaSpotify.add(grupo)
 
-                        }
-                        if (snapshot.child("app").value.toString().equals("Disney +")) {
-                            var grupo = Grupo(
-                                snapshot.child("id").value.toString(),
-                                snapshot.child("administrador").value.toString(),
-                                snapshot.child("app").value.toString(),
-                                snapshot.child("contrasenia").value.toString(),
-                                snapshot.child("email").value.toString(),
-                                snapshot.child("imagen").value.toString().toInt(),
-                                snapshot.child("nombre").value.toString(),
-                                snapshot.child("plan").value.toString(),
-                                snapshot.child("precio").value.toString(),
-                            )
-                            listaDisney.add(grupo)
+                            }
+                            if (snapshot.child("app").value.toString().equals("Disney +")) {
+                                var grupo = Grupo(
+                                    snapshot.child("id").value.toString(),
+                                    snapshot.child("administrador").value.toString(),
+                                    snapshot.child("app").value.toString(),
+                                    snapshot.child("contrasenia").value.toString(),
+                                    snapshot.child("email").value.toString(),
+                                    snapshot.child("imagen").value.toString().toInt(),
+                                    snapshot.child("nombre").value.toString(),
+                                    snapshot.child("plan").value.toString(),
+                                    snapshot.child("precio").value.toString(),
+                                )
+                                listaDisney.add(grupo)
 
+                            }
                         }
+
+
                     }
 
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Netflix", listaNetflix))

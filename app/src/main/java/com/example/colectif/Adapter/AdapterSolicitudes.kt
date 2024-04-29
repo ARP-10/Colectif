@@ -43,31 +43,37 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         var solicitud = listaSolicitudes[position]
-        var ref = holder.database.getReference("users")
-        var ref2 = holder.database.getReference("groups")
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                holder.nombrePersona.text = snapshot.child(solicitud.idMandatario).child("name").value.toString()
-            }
+        if (solicitud != null) {
+            var ref = holder.database.getReference("users")
+            var ref2 = holder.database.getReference("groups")
+            ref.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    holder.nombrePersona.text = snapshot.child(solicitud.idMandatario).child("name").value.toString()
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
 
-        })
-        ref2.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                holder.nombreGrupo.text = snapshot.child(solicitud.idGrupo).child("nombre").value.toString()
-            }
+            })
+            ref2.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    holder.nombreGrupo.text = snapshot.child(solicitud.idGrupo).child("nombre").value.toString()
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
 
-        })
-        holder.btnAceptarSoli.setOnClickListener {
-            //aceptarSolicitud()
+            })
+
+            holder.btnAceptarSoli.setOnClickListener {
+                //aceptarSolicitud()
+            }
+        } else {
+
         }
+
     }
 
 

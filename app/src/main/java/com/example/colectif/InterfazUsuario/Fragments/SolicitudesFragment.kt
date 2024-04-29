@@ -1,6 +1,7 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,16 +56,19 @@ class SolicitudesFragment: Fragment() {
         var ref2 = database.getReference("solicitudes")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                for(i in 0 until snapshot.child(auth.currentUser!!.uid).child("numSolicitudes").value.toString().toInt()){
+                for(i in 1 until snapshot.child(auth.currentUser!!.uid).child("numSolicitudes").value.toString().toInt() + 1){
                     val idSolicitud = snapshot.child(auth.currentUser!!.uid).child("solicitudes").child(i.toString()).value.toString()
                     ref2.addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            adapterSolicitudes.addSolicitud(
-                                Solicitud(
-                                snapshot.child(idSolicitud).child("idReceptor").value.toString(),
-                                snapshot.child(idSolicitud).child("idMandatario").value.toString(),
-                                snapshot.child(idSolicitud).child("idGrupo").value.toString()
-                            ))
+                            // Hacer que no aparezcan los nulos / borrados de la bbdd
+                            if (snapshot.child(idSolicitud).child("idGrupo").value.toString() != "null" && snapshot.child(idSolicitud).child("idMandatario").value.toString() != "null" && snapshot.child(idSolicitud).child("idReceptor").value.toString() != "null") {
+                                adapterSolicitudes.addSolicitud(
+                                    Solicitud(
+                                        snapshot.child(idSolicitud).child("idReceptor").value.toString(),
+                                        snapshot.child(idSolicitud).child("idMandatario").value.toString(),
+                                        snapshot.child(idSolicitud).child("idGrupo").value.toString()
+                                    ))
+                            }
                         }
 
                         override fun onCancelled(error: DatabaseError) {
