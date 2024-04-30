@@ -64,10 +64,12 @@ class SolicitudesFragment: Fragment() {
                             if (snapshot.child(idSolicitud).child("idGrupo").value.toString() != "null" && snapshot.child(idSolicitud).child("idMandatario").value.toString() != "null" && snapshot.child(idSolicitud).child("idReceptor").value.toString() != "null") {
                                 adapterSolicitudes.addSolicitud(
                                     Solicitud(
+                                        snapshot.child(idSolicitud).child("id").value.toString(),
                                         snapshot.child(idSolicitud).child("idReceptor").value.toString(),
                                         snapshot.child(idSolicitud).child("idMandatario").value.toString(),
                                         snapshot.child(idSolicitud).child("idGrupo").value.toString()
                                     ))
+                                Log.v("SERGIOOO", snapshot.child(idSolicitud).child("id").value.toString())
                             }
                         }
 

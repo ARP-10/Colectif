@@ -106,6 +106,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val newRef = ref.push()
         newRef.setValue(solicitud)
         nuevaId = newRef.key!!
+        ref.child(nuevaId).child("id").setValue(nuevaId)
 
         var ref2 = database.getReference("users")
         ref2.addListenerForSingleValueEvent(object : ValueEventListener{
