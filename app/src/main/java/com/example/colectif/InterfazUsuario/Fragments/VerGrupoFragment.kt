@@ -43,7 +43,7 @@ class VerGrupoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        // Ubicar la BBDD
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
         val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -51,18 +51,6 @@ class VerGrupoFragment : Fragment() {
 
                     // Obtener los valores de cada hijo
                     val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
-                    /*
-                    var nombreAdmin = ""
-                    databaseReference2.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            nombreAdmin = snapshot.child(administradorId).child("name").value.toString()
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-
-                        }
-
-                    })*/
                     val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
                     val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
                     val email = childSnapshot.child(idGrupo!!).child("email").value.toString()

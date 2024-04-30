@@ -21,6 +21,11 @@
             android:scaleType="centerCrop"
             android:src="@drawable/amazon" />
 
+        <Button
+            android:id="@+id/btn_info_grupo"
+            android:text="Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -43,6 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/foto_perfil" />
+
+
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -98,6 +105,9 @@
                 app:layout_constraintEnd_toEndOf="@+id/cardViewImagenUsuario"
                 app:layout_constraintStart_toStartOf="@+id/cardViewImagenUsuario"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewImagenUsuario" />
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

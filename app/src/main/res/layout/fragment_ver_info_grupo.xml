@@ -200,6 +200,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
 
+        <TextView
+            android:id="@+id/txt_usuarios_permitidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/texto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_usuarios"
+            app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_usuarios" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

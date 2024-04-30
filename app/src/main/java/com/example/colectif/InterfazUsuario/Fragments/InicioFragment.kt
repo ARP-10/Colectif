@@ -125,7 +125,6 @@ class InicioFragment: Fragment() {
                 //fragmentTransaction.replace(R.id.nav_host_fragment_content_main, VerGrupoFragment())
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
-                Log.v("prueba1", groupId)
             }
 
 
