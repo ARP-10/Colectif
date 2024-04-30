@@ -14,14 +14,12 @@
         <item>Premium</item>
     </string-array>
     <string-array name="plan_sopitfy">
-        <item>Individual</item>
-        <item>Estudiantes</item>
         <item>Duo</item>
         <item>Familiar</item>
     </string-array>
     <string-array name="plan_amazon">
-        <item>Plan único</item>
-        <item>Plan student</item>
+        <item>Plan con anuncios</item>
+        <item>Plan sin anuncios</item>
     </string-array>
     <string-array name="plan_disney">
         <item>Estándar con anuncios</item>

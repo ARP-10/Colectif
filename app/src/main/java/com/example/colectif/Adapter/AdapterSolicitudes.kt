@@ -179,4 +179,6 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
         ref2.child(idSolicitud).removeValue()
 
     }
+
+
 }
