@@ -11,7 +11,7 @@
         android:id="@+id/action_notifications"
         android:title="Notificaciones"
         app:showAsAction="always"
-        android:icon="@drawable/campana"
+        android:icon="@drawable/campana_notificacion"
         />
 
     <item
