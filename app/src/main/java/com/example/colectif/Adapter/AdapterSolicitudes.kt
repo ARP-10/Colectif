@@ -86,4 +86,6 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
 
 
     }
+
+
 }

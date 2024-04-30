@@ -131,10 +131,8 @@ class CrearGrupoFragment: Fragment() {
                         binding.spinnerPlan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 when (position) {
-                                    0 -> binding.txtPrecioCorrecto.text = "10.99 €/mes"
-                                    1 -> binding.txtPrecioCorrecto.text = "5.99 €/mes"
-                                    2 -> binding.txtPrecioCorrecto.text = "14.99 €/mes"
-                                    3 -> binding.txtPrecioCorrecto.text = "17.99 €/mes"
+                                    0 -> binding.txtPrecioCorrecto.text = "14.99 €/mes"
+                                    1 -> binding.txtPrecioCorrecto.text = "17.99 €/mes"
                                 }
                             }
 
@@ -152,7 +150,7 @@ class CrearGrupoFragment: Fragment() {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 when (position) {
                                     0 -> binding.txtPrecioCorrecto.text = "4.99 €/mes"
-                                    1 -> binding.txtPrecioCorrecto.text = "2.49 €/mes"
+                                    1 -> binding.txtPrecioCorrecto.text = "6.98 €/mes"
                                 }
                             }
 
