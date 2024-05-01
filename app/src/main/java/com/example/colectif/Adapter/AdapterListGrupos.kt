@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -34,7 +35,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val administrador: TextView = itemView.findViewById(R.id.text_administrador)
         val plan: TextView = itemView.findViewById(R.id.text_Plan)
         val precio: TextView = itemView.findViewById(R.id.text_precio)
-        val boton: Button = itemView.findViewById(R.id.button_unirse_grupo)
+        val boton: AppCompatImageButton = itemView.findViewById(R.id.button_unirse_grupo)
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val imagenUsuario: ImageView = itemView.findViewById(R.id.imagenUsuarioGrupo)
 
@@ -67,7 +68,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         var ref = holder.database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                holder.administrador.text = "Admin: " + snapshot.child(grupo.administrador).child("name").value.toString()
+                holder.administrador.text = snapshot.child(grupo.administrador).child("name").value.toString()
                 Glide.with(context).load(snapshot.child(grupo.administrador).child("imagen").value.toString().toUri()).into(holder.imagenUsuario)
             }
 

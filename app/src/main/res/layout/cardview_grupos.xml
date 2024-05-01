@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="5dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="210dp"
-        android:layout_height="250dp"
-        app:cardCornerRadius="20dp"
-        android:layout_margin="10dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="20dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="260dp"
+        android:layout_height="240dp"
+        app:cardCornerRadius="16dp"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/grupo"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/amazon" />
-
-        <Button
-            android:id="@+id/btn_info_grupo"
-            android:text="Info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="98dp"
-            android:layout_gravity="bottom"
-            android:background="@color/fondo">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/grupo"
+                android:layout_width="260dp"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/amazon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewImagenUsuario"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 app:cardCornerRadius="100dp"
-                app:layout_constraintBottom_toTopOf="@+id/button_unirse_grupo"
+                android:layout_marginTop="105dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="@+id/grupo">
 
                 <ImageView
                     android:id="@+id/imagenUsuarioGrupo"
@@ -49,68 +52,99 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/foto_perfil" />
 
-
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/text_administrador"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:text="administrador"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardViewImagenUsuario"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_Plan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Plan"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/text_administrador"
-                app:layout_constraintStart_toStartOf="@+id/text_administrador"
-                app:layout_constraintTop_toBottomOf="@+id/text_administrador" />
-
-            <TextView
-                android:id="@+id/text_precio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Precio"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/text_Plan"
-                app:layout_constraintStart_toStartOf="@+id/text_Plan"
-                app:layout_constraintTop_toBottomOf="@+id/text_Plan" />
-
-            <Button
-                android:id="@+id/button_unirse_grupo"
-                android:layout_width="58dp"
-                android:layout_height="47dp"
-                android:layout_marginLeft="17dp"
-                android:backgroundTint="@color/boton"
-                android:text="+"
-                android:textStyle="bold"
-                android:textColor="@color/texto"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/cardViewImagenUsuario"
-                app:layout_constraintStart_toStartOf="@+id/cardViewImagenUsuario"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewImagenUsuario" />
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:background="@color/fondo"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/text_administrador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="administrador"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/text_grupo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/text_grupo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="grupo"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_Plan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_Plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Plan"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Precio"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+                <ImageButton
+                    android:id="@+id/button_unirse_grupo"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/anadir"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btn_info_grupo"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/buscar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.cardview.widget.CardView>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

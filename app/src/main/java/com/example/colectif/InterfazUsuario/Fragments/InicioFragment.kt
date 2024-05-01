@@ -55,7 +55,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 
-class InicioFragment: Fragment() {
+class
+InicioFragment: Fragment() {
     private lateinit var binding: FragmentInicioBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase

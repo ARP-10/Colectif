@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.Objetos.ObjetoGrupos
 import com.example.colectif.R
@@ -44,7 +45,7 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         var nombreGrupo: TextView
         var plan: TextView
         var admin: TextView
-        var boton: Button
+        var boton: AppCompatImageButton
 
         init {
             nombreGrupo = itemView.findViewById(R.id.nombreGrupo)
