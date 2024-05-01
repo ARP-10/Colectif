@@ -42,11 +42,11 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val administrador: TextView = itemView.findViewById(R.id.text_administrador)
         val plan: TextView = itemView.findViewById(R.id.text_Plan)
         val precio: TextView = itemView.findViewById(R.id.text_precio)
-        val boton: AppCompatImageButton = itemView.findViewById(R.id.button_unirse_grupo)
+        val imageButton: AppCompatImageButton = itemView.findViewById(R.id.button_unirse_grupo)
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val imagenUsuario: ImageView = itemView.findViewById(R.id.imagenUsuarioGrupo)
 
-        val btnInfoGrupo: Button = itemView.findViewById(R.id.btn_info_grupo)
+        val btnInfoGrupo: AppCompatImageButton = itemView.findViewById(R.id.btn_info_grupo)
 
         init {
             btnInfoGrupo.setOnClickListener {
@@ -106,7 +106,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
         holder.plan.text = grupo.plan
         holder.precio.text = grupo.precio
-        holder.boton.setOnClickListener {
+        holder.imageButton.setOnClickListener {
             enviarSolicitud(auth.currentUser!!.uid, grupo.administrador, grupo.id)
         }
 
