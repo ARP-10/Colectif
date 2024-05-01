@@ -33,66 +33,110 @@ class VerInfoGrupoFragment : Fragment() {
         return binding.root
     }
 
+    /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Ubicar la BBDD
-        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
-        val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(childSnapshot: DataSnapshot) {
+        idGrupo?.let { id ->
+            val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
+            val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(childSnapshot: DataSnapshot) {
+                    childSnapshot.child(id).let { grupoSnapshot ->
+                        if (grupoSnapshot.exists()) {
+                            val administradorId = grupoSnapshot.child("administrador").value.toString()
+                            databaseReference2.child(administradorId).addListenerForSingleValueEvent(object :
+                                ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val nombreAdmin = snapshot.child("name").value.toString()
+                                    binding.txtAdministrador.text = nombreAdmin
+                                    binding.txtApp.text = grupoSnapshot.child("app").value.toString()
+                                    binding.txtPassword.text = grupoSnapshot.child("contrasenia").value.toString()
+                                    binding.txtCorreo.text = grupoSnapshot.child("email").value.toString()
 
-                // Obtener los valores de cada hijo
-                val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
-                val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
-                val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
-                val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
-                val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
-                val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
-                val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
+                                    val drawableApp = when (grupoSnapshot.child("app").value.toString()) {
+                                        "Netflix" -> R.drawable.netflix
+                                        "Spotify" -> R.drawable.spotify
+                                        "Amazon Prime" -> R.drawable.amazon
+                                        "Disney +" -> R.drawable.disney
+                                        else -> R.drawable.error
+                                    }
+                                    binding.imgGrupo.setImageResource(drawableApp)
+                                    binding.txtNombregrupo.text = grupoSnapshot.child("nombre").value.toString()
+                                    binding.txtPlan.text = grupoSnapshot.child("plan").value.toString()
+                                    binding.txtPrecio.text = grupoSnapshot.child("precio").value.toString()
 
-                // Obtener el nombre del admin de la bbdd de "users"
-                databaseReference2.child(administradorId).addListenerForSingleValueEvent(object :
-                    ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val nombreAdmin = snapshot.child("name").value.toString()
 
-                        // Actualizar la interfaz de usuario con los datos recuperados
-                        binding.txtAdministrador.text = nombreAdmin
-                        binding.txtApp.text = app
-                        binding.txtPassword.text = contrasenia
-                        binding.txtCorreo.text = email
+                                }
 
-                        val drawableApp = when (app) {
-                            "Netflix" -> R.drawable.netflix
-                            "Spotify" -> R.drawable.spotify
-                            "Amazon Prime" -> R.drawable.amazon
-                            "Disney +" -> R.drawable.disney
-                            else -> R.drawable.error
+                                override fun onCancelled(error: DatabaseError) {
+                                }
+                            })
                         }
-                        binding.imgGrupo.setImageResource(drawableApp)
-                        binding.txtNombregrupo.text = nombre
-                        binding.txtPlan.text = plan
-                        binding.txtPrecio.text = precio
-
-                        // Comprobar si los datos llegan correctamente
-                        Log.v("administrador", nombreAdmin)
                     }
+                }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            })
+        } ?: run {
+        }
+    }*/
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        idGrupo?.let { id ->
+            val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
+            val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
+
+            databaseReference.child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    Log.d("VerInfoGrupoFragment", "DataSnapshot: $dataSnapshot")
+                    val grupoSnapshot = dataSnapshot
+
+                    if (grupoSnapshot.exists()) {
+                        Log.d("VerInfoGrupoFragment", "GrupoSnapshot exists")
+                        val administradorId = grupoSnapshot.child("administrador").value.toString()
+                        Log.d("VerInfoGrupoFragment", "AdministradorId: $administradorId")
+
+                        databaseReference2.child(administradorId).addListenerForSingleValueEvent(object :
+                            ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val nombreAdmin = snapshot.child("name").value.toString()
+
+                                binding.txtAdministrador.text = nombreAdmin
+                                binding.txtApp.text = grupoSnapshot.child("app").value.toString()
+                                binding.txtPassword.text = grupoSnapshot.child("contrasenia").value.toString()
+                                binding.txtCorreo.text = grupoSnapshot.child("email").value.toString()
+
+                                val drawableApp = when (grupoSnapshot.child("app").value.toString()) {
+                                    "Netflix" -> R.drawable.netflix
+                                    "Spotify" -> R.drawable.spotify
+                                    "Amazon Prime" -> R.drawable.amazon
+                                    "Disney +" -> R.drawable.disney
+                                    else -> R.drawable.error
+                                }
+                                binding.imgGrupo.setImageResource(drawableApp)
+                                binding.txtNombregrupo.text = grupoSnapshot.child("nombre").value.toString()
+                                binding.txtPlan.text = grupoSnapshot.child("plan").value.toString()
+                                binding.txtPrecio.text = grupoSnapshot.child("precio").value.toString()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.e("VerInfoGrupoFragment", "Error al leer datos del administrador: ${error.message}")
+                            }
+                        })
+                    } else {
+                        Log.e("VerInfoGrupoFragment", "No existe el grupo con ID: $id")
                     }
+                }
 
-                })
-
-
-
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.e(ContentValues.TAG, "Error al leer los datos", databaseError.toException())
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("VerInfoGrupoFragment", "Error al leer datos del grupo: ${error.message}")
+                }
+            })
+        } ?: run {
+            Log.e("VerInfoGrupoFragment", "ID de grupo es nulo")
+        }
     }
+
 
 
 

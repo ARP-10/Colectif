@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.colectif.R
@@ -26,6 +28,11 @@ import com.google.firebase.database.ValueEventListener
 class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Grupo>) :
     RecyclerView.Adapter<AdapterListGrupos.GruposViewHolder>() {
 
+        interface OnInfoButtonClickListener {
+            fun onInfoButtonClick(grupo: Grupo)
+        }
+        var infoButtonClickListener: OnInfoButtonClickListener? = null
+
         init {
             cardview_grupos = ArrayList()
         }
@@ -39,7 +46,24 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val imagenUsuario: ImageView = itemView.findViewById(R.id.imagenUsuarioGrupo)
 
+        val btnInfoGrupo: Button = itemView.findViewById(R.id.btn_info_grupo)
 
+        init {
+            btnInfoGrupo.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val grupo = cardview_grupos[position]
+                    // Obtener el NavController desde el contexto del itemView
+                    val navController = Navigation.findNavController(itemView)
+
+                    // Crear un Bundle para pasar el id del grupo a VerInfoGrupoFragment
+                    val bundle = bundleOf("idGrupo" to grupo.id)
+
+                    // Navegar a VerInfoGrupoFragment con el id del grupo
+                    navController.navigate(R.id.action_listaGruposFragment_to_verInfoGrupoFragment, bundle)
+                }
+            }
+        }
 
     }
 

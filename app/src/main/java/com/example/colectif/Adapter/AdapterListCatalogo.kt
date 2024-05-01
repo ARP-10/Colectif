@@ -15,7 +15,7 @@ import com.example.colectif.models.Grupo
 class AdapterListCatalogo (var context: Context, private val recycler_lista_catalogo: ArrayList<CatalogoGrupos>) :
     RecyclerView.Adapter<AdapterListCatalogo.CategoriasViewHolder>() {
 
-        private lateinit var adapter: AdapterListGrupos
+    private lateinit var adapter: AdapterListGrupos
 
     inner class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreCatalogo: TextView = itemView.findViewById(R.id.text_nombreCatalogo)
