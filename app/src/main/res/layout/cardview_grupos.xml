@@ -21,15 +21,11 @@
             android:scaleType="centerCrop"
             android:src="@drawable/amazon" />
 
-        <Button
-            android:id="@+id/btn_info_grupo"
-            android:text="Info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="98dp"
+            android:layout_height="135dp"
             android:layout_gravity="bottom"
             android:background="@color/fondo">
 
@@ -105,6 +101,14 @@
                 app:layout_constraintEnd_toEndOf="@+id/cardViewImagenUsuario"
                 app:layout_constraintStart_toStartOf="@+id/cardViewImagenUsuario"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewImagenUsuario" />
+
+            <Button
+                android:id="@+id/btn_info_grupo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Info"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
 

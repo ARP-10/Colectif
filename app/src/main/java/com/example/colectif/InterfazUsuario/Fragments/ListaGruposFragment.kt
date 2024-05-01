@@ -6,7 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.Adapter.AdapterListCatalogo
@@ -22,13 +25,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ListaGruposFragment: Fragment(){
+class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListener {
 
     private lateinit var binding: FragmentListaGruposBinding
     private lateinit var listaGrupos: ArrayList<Grupo>
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var adapterListCatalogo: AdapterListCatalogo
+    private lateinit var  adapterListGrupos: AdapterListGrupos
     private lateinit var listaNetflix: ArrayList<Grupo>
     private lateinit var listaAmazon: ArrayList<Grupo>
     private lateinit var listaDisney: ArrayList<Grupo>
@@ -88,11 +92,30 @@ class ListaGruposFragment: Fragment(){
         // Establecer el adaptador en el RecyclerView
         recyclerView.adapter = adapterListCatalogo
 
+        // Inicializar adapterListGrupos
+        adapterListGrupos = AdapterListGrupos(requireContext(), ArrayList())
 
+        adapterListGrupos.infoButtonClickListener = this
 
     }
 
-    ////permite desasociar elementos del activity con el fragment
+    override fun onInfoButtonClick(grupo: Grupo) {
+        // Manejar el clic del botón de información aquí
+        // Puedes mostrar la información del grupo como desees, por ejemplo, en un diálogo o en otro fragmento
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Información del grupo")
+        alertDialogBuilder.setMessage("Nombre: ${grupo.nombre}\n" +
+                "Administrador: ${grupo.administrador}\n" +
+                "Plan: ${grupo.plan}\n" +
+                "Precio: ${grupo.precio}")
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss()
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+    }
+
+    //permite desasociar elementos del activity con el fragment
     override fun onDetach() {
         super.onDetach()
     }
@@ -104,6 +127,7 @@ class ListaGruposFragment: Fragment(){
                 if (snapshot.exists()) {
 
                     for (snapshot in snapshot.children) {
+
                         if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
                             if (snapshot.child("app").value.toString().equals("Netflix")) {
                                 var grupo = Grupo(
@@ -168,7 +192,6 @@ class ListaGruposFragment: Fragment(){
 
 
                     }
-
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Netflix", listaNetflix))
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Amazon Prime", listaAmazon))
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Spotify", listaSpotify))

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.models.Grupo
@@ -84,7 +85,7 @@ class CrearGrupoFragment: Fragment() {
                         // Sumar +1 en la ID de los grupos que el usuario tiene
                         sumarId(nuevoGrupoRef.key!!)
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("id").setValue(nuevoGrupoRef.key!!)
-                        Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
+                        //Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->
                         Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
@@ -93,6 +94,9 @@ class CrearGrupoFragment: Fragment() {
 
 
             }
+
+            findNavController().navigate(R.id.action_crearGrupoFragment_to_inicioFragment)
+            // TODO: se crea un recycler infinito en inicio fragment, hay que cambiar de pantalla y volver para que salga bien
 
 
         }

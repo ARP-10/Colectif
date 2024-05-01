@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_listaGruposFragment_to_inicioFragment"
             app:destination="@id/inicioFragment" />
+        <action
+            android:id="@+id/action_listaGruposFragment_to_verInfoGrupoFragment"
+            app:destination="@id/verInfoGrupoFragment" />
     </fragment>
     <fragment
         android:id="@+id/crearGrupoFragment"
@@ -61,4 +64,9 @@
         android:id="@+id/solicitudesFragment"
         android:name="com.example.colectif.InterfazUsuario.Fragments.SolicitudesFragment"
         android:label="SolicitudesFragment" /><action android:id="@+id/action_global_solicitudesFragment" app:destination="@id/solicitudesFragment"/>
+    <fragment
+        android:id="@+id/verInfoGrupoFragment"
+        android:name="com.example.colectif.InterfazUsuario.Fragments.VerInfoGrupoFragment"
+        android:label="fragment_ver_info_grupo"
+        tools:layout="@layout/fragment_ver_info_grupo" />
 </navigation>
