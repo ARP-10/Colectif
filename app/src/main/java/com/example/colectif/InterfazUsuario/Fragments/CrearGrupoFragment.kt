@@ -117,9 +117,18 @@ class CrearGrupoFragment: Fragment() {
                         binding.spinnerPlan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 when (position) {
-                                    0 -> binding.txtPrecioCorrecto.text = "5.49 €/mes"
-                                    1 -> binding.txtPrecioCorrecto.text = "12.99 €/mes"
-                                    2 -> binding.txtPrecioCorrecto.text = "17.99 €/mes"
+                                    0 -> {
+                                        binding.txtPrecioCorrecto.text = "5.49 €/mes"
+                                        binding.txtUsuariosTotal.text = "2"
+                                    }
+                                    1 -> {
+                                        binding.txtPrecioCorrecto.text = "12.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "2"
+                                    }
+                                    2 -> {
+                                        binding.txtPrecioCorrecto.text = "17.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "6"
+                                    }
                                 }
                             }
                             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -135,8 +144,14 @@ class CrearGrupoFragment: Fragment() {
                         binding.spinnerPlan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 when (position) {
-                                    0 -> binding.txtPrecioCorrecto.text = "14.99 €/mes"
-                                    1 -> binding.txtPrecioCorrecto.text = "17.99 €/mes"
+                                    0 -> {
+                                        binding.txtPrecioCorrecto.text = "14.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "2"
+                                    }
+                                    1 -> {
+                                        binding.txtPrecioCorrecto.text = "17.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "6"
+                                    }
                                 }
                             }
 
@@ -153,8 +168,14 @@ class CrearGrupoFragment: Fragment() {
                         binding.spinnerPlan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 when (position) {
-                                    0 -> binding.txtPrecioCorrecto.text = "4.99 €/mes"
-                                    1 -> binding.txtPrecioCorrecto.text = "6.98 €/mes"
+                                    0 -> {
+                                        binding.txtPrecioCorrecto.text = "4.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "6"
+                                    }
+                                    1 -> {
+                                        binding.txtPrecioCorrecto.text = "6.98 €/mes"
+                                        binding.txtUsuariosTotal.text = "6"
+                                    }
                                 }
                             }
 
@@ -171,9 +192,18 @@ class CrearGrupoFragment: Fragment() {
                         binding.spinnerPlan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 when (position) {
-                                    0 -> binding.txtPrecioCorrecto.text = "5.99 €/mes"
-                                    1 -> binding.txtPrecioCorrecto.text = "8.99 €/mes"
-                                    2 -> binding.txtPrecioCorrecto.text = "11.99 €/mes"
+                                    0 -> {
+                                        binding.txtPrecioCorrecto.text = "5.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "7"
+                                    }
+                                    1 -> {
+                                        binding.txtPrecioCorrecto.text = "8.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "7"
+                                    }
+                                    2 -> {
+                                        binding.txtPrecioCorrecto.text = "11.99 €/mes"
+                                        binding.txtUsuariosTotal.text = "7"
+                                    }
                                 }
                             }
 
