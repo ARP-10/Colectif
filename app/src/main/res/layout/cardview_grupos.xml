@@ -15,8 +15,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="260dp"
         android:layout_height="240dp"
-        app:cardCornerRadius="16dp"
-        android:layout_margin="5dp"
+        app:cardCornerRadius="17dp"
+        android:layout_margin="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
