@@ -1,20 +1,15 @@
 package com.example.colectif.Adapter
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
-import com.example.colectif.Objetos.ObjetoGrupos
 import com.example.colectif.R
 import com.example.colectif.models.Grupo
-import kotlin.math.log
 
 class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
     RecyclerView.Adapter<AdapterInicio.MyHolder>() {
@@ -82,8 +77,6 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
 
         }
     }
-
-
 
 
     fun addGrupo(grupo:Grupo){

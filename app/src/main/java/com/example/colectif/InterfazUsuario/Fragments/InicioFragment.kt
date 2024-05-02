@@ -89,18 +89,24 @@ InicioFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Inicialización de Firebase
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+
+        // Obtención del nombre de usuario
         var idUser = auth.currentUser!!.uid
         var ref = database.getReference("users")
         sharedP = requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
-        comprobarImagen()
-        adaptadorRecycler = context?.let { AdapterInicio(it,listaGrupos) }!!
 
+        comprobarImagen()
+
+        // Configuración del RecyclerView
+        adaptadorRecycler = context?.let { AdapterInicio(it,listaGrupos) }!!
         binding.recyclerView.adapter = adaptadorRecycler
         binding.recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         recogerGrupos()
 
         ref.addValueEventListener(object : ValueEventListener {
@@ -123,7 +129,6 @@ InicioFragment: Fragment() {
                 val fragmentManager = requireActivity().supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 findNavController().navigate(R.id.action_inicioFragment_to_verGrupoFragment, bundle)
-                //fragmentTransaction.replace(R.id.nav_host_fragment_content_main, VerGrupoFragment())
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
             }
@@ -147,7 +152,7 @@ InicioFragment: Fragment() {
         super.onDetach()
     }
 
-
+    // Guarda la URI de la imagen seleccionada en SharedPreferences
     private fun saveImage(uri: String){
         val sharedPreferences = requireContext().getSharedPreferences("com.example.colectif",Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -177,7 +182,7 @@ InicioFragment: Fragment() {
         }
     }
 
-
+    // Método para seleccionar una imagen de la galería
     private fun seleccionarImagen(){
         Dexter.withContext(context).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
             .withListener(object: PermissionListener {
@@ -198,6 +203,7 @@ InicioFragment: Fragment() {
                 }).check()
     }
 
+    // Método para subir la imagen seleccionada a Firebase
     private fun subirImagen(){
         val reference = storage!!.reference.child("fotos_perfil").child(auth.currentUser!!.uid).child(System.currentTimeMillis().toString() + "")
         reference.putFile(uri!!).addOnSuccessListener {
@@ -210,6 +216,7 @@ InicioFragment: Fragment() {
         }
     }
 
+    // Método para obtener y mostrar los grupos del usuario
     fun recogerGrupos() {
 
         val ref = database.getReference("users")
