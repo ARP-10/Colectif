@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_inicioFragment_to_verGrupoFragment"
             app:destination="@id/verGrupoFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_verGrupoAdminFragment"
+            app:destination="@id/verGrupoAdminFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaGruposFragment"
@@ -69,4 +72,9 @@
         android:name="com.example.colectif.InterfazUsuario.Fragments.VerInfoGrupoFragment"
         android:label="fragment_ver_info_grupo"
         tools:layout="@layout/fragment_ver_info_grupo" />
+    <fragment
+        android:id="@+id/verGrupoAdminFragment"
+        android:name="com.example.colectif.InterfazUsuario.Fragments.VerGrupoAdminFragment"
+        android:label="fragment_ver_grupo_admin"
+        tools:layout="@layout/fragment_ver_grupo_admin" />
 </navigation>

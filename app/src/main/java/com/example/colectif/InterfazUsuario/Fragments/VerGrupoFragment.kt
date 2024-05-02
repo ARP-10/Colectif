@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.colectif.Adapter.AdapterUsuarios
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.models.Grupo
+import com.example.colectif.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +29,9 @@ class VerGrupoFragment : Fragment() {
     private lateinit var binding: FragmentVerGrupoBinding
     private lateinit var auth: FirebaseAuth
     private var idGrupo:String? = null
+    private lateinit var adaptadorUsuarios : AdapterUsuarios
+    private lateinit var listaUsuarios: ArrayList<String>
+    private lateinit var database: FirebaseDatabase
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,10 +49,21 @@ class VerGrupoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        listaUsuarios = ArrayList()
+        // Configuración del RecyclerView
+        adaptadorUsuarios = context?.let { AdapterUsuarios(it, listaUsuarios) }!!
+        binding.recyclerVerUsuarios.adapter = adaptadorUsuarios
+        binding.recyclerVerUsuarios.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        recogerUsuarios()
+
         // Ubicar la BBDD
-        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
-        val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
-        databaseReference.addValueEventListener(object : ValueEventListener {
+
+        var ref = database.getReference("groups")
+        var ref2 = database.getReference("users")
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(childSnapshot: DataSnapshot) {
 
                     // Obtener los valores de cada hijo
@@ -59,7 +76,7 @@ class VerGrupoFragment : Fragment() {
                     val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
 
                     // Obtener el nombre del admin de la bbdd de "users"
-                    databaseReference2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
+                ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val nombreAdmin = snapshot.child("name").value.toString()
 
@@ -103,12 +120,42 @@ class VerGrupoFragment : Fragment() {
 
     }
 
+    fun recogerUsuarios() {
+        val ref = database.getReference("groups")
+        val ref2 = database.getReference("users")
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (i in 1 until snapshot.child(idGrupo!!)
+                        .child("numUsuarios").value.toString().toInt() + 1) {
+                        var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).value.toString()
+                        Log.v("verUsuario", idGrupo!!.toString())
+                        ref2.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
+                                if (usuaruiosSnapshot.exists()) {
+                                    var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
+                                    adaptadorUsuarios.addUsuario(nombreUsuario)
 
 
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // Manejar errores de base de datos
+                            }
+                        })
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
 
-    override fun onDetach() {
-        super.onDetach()
     }
 
 }
