@@ -1,11 +1,9 @@
 package com.example.colectif.Adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
@@ -45,7 +43,6 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val imageButton: AppCompatImageButton = itemView.findViewById(R.id.button_unirse_grupo)
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val imagenUsuario: ImageView = itemView.findViewById(R.id.imagenUsuarioGrupo)
-
         val btnInfoGrupo: AppCompatImageButton = itemView.findViewById(R.id.btn_info_grupo)
 
         init {
@@ -107,7 +104,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         holder.plan.text = grupo.plan
         holder.precio.text = grupo.precio
         holder.imageButton.setOnClickListener {
-            enviarSolicitud(auth.currentUser!!.uid, grupo.administrador, grupo.id)
+            enviarSolicitud(auth.currentUser!!.uid, grupo.administrador, grupo.id, holder.itemView)
         }
 
 
@@ -122,7 +119,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         notifyItemInserted(cardview_grupos.size - 1)
     }
 
-    fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String){
+    fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String, view: View){
         var solicitud = Solicitud(idAdmin,idUser,idGrupo)
         var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("solicitudes")
@@ -140,9 +137,9 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
                 numSolicitudActual++
                 ref2.child(idAdmin).child("numSolicitudes").setValue(numSolicitudActual)
                 database.getReference("users").child(idAdmin).child("solicitudes").child(numSolicitudActual.toString()).setValue(nuevaId)
-                // SNACKBAR
-                //Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
-                //Snackbar.make(view, "Solicitud enviada exitosamente", Snackbar.LENGTH_SHORT).show()
+
+                val mensaje = if (idAdmin == idUser) "Grupo creado exitosamente" else "Solicitud enviada exitosamente"
+                Snackbar.make(view, mensaje, Snackbar.LENGTH_SHORT).show()
             }
 
             override fun onCancelled(error: DatabaseError) {
