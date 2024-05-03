@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.colectif.InterfazUsuario.Fragments.VerGrupoAdminFragment
 import com.example.colectif.R
 
 class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<String>):
@@ -17,6 +19,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<String>):
 
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nombreUsuario: TextView
+        var btnEcharGrupo: ImageButton = itemView.findViewById(R.id.btn_echar_grupo)
 
         init {
             nombreUsuario = itemView.findViewById(R.id.txt_nombre_usuario_admin)
@@ -30,6 +33,10 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<String>):
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val nombre = lista[position]
         holder.nombreUsuario.text = nombre
+        holder.btnEcharGrupo.setOnClickListener {
+            val usuario = lista[position]
+            (contexto as VerGrupoAdminFragment).echarUsuarioDelGrupo(usuario)
+        }
     }
 
     override fun getItemCount(): Int {

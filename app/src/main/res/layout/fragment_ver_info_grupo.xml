@@ -75,9 +75,9 @@
                     android:id="@+id/txt_nombregrupo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_nombre"
                     app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_nombre"
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_nombre" />
@@ -86,10 +86,10 @@
                     android:id="@+id/txt_etiqueta_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Administrador:"
-                    android:textSize="18dp"
                     android:layout_marginTop="20dp"
+                    android:text="Administrador:"
                     android:textColor="@color/texto"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_nombre" />
 
@@ -98,9 +98,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:textSize="15dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_admin"
                     app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_admin"
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_admin" />
@@ -109,10 +109,10 @@
                     android:id="@+id/txt_etiqueta_app"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="App:"
-                    android:textSize="18dp"
                     android:layout_marginTop="20dp"
+                    android:text="App:"
                     android:textColor="@color/texto"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_admin" />
 
@@ -121,9 +121,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:textSize="15dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_app"
                     app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_app"
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_app" />
@@ -132,10 +132,10 @@
                     android:id="@+id/txt_etiqueta_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Plan:"
-                    android:textSize="18dp"
                     android:layout_marginTop="20dp"
+                    android:text="Plan:"
                     android:textColor="@color/texto"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_app" />
 
@@ -144,9 +144,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:textSize="15dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_plan"
                     app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_plan"
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_plan" />
@@ -155,10 +155,10 @@
                     android:id="@+id/txt_etiqueta_precio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Precio:"
-                    android:textSize="18dp"
                     android:layout_marginTop="20dp"
+                    android:text="Precio:"
                     android:textColor="@color/texto"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
 
@@ -166,7 +166,6 @@
                     android:id="@+id/txt_precio"
                     android:layout_width="1dp"
                     android:layout_height="16dp"
-
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
                     android:textSize="15dp"
@@ -179,10 +178,10 @@
                     android:id="@+id/txt_etiqueta_usuarios"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Usuarios:"
-                    android:textSize="18dp"
                     android:layout_marginTop="20dp"
+                    android:text="Usuarios totales permitidos:"
                     android:textColor="@color/texto"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_precio" />
 
@@ -190,12 +189,34 @@
                     android:id="@+id/txt_usuarios_permitidos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_usuarios"
                     app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_usuarios"
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_usuarios" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Usuarios actualmente en el grupo:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_usuarios" />
+
+                <TextView
+                    android:id="@+id/txt_usuarios_actuales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

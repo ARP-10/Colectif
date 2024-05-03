@@ -1,6 +1,7 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -145,5 +146,28 @@ class VerGrupoAdminFragment : Fragment() {
         })
 
 
-    }}
+    }
+    fun echarUsuarioDelGrupo(usuario: String) {
+        val ref = database.getReference("groups").child(idGrupo!!)
+
+        ref.child("users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (usuarioSnapshot in snapshot.children) {
+                    if (usuarioSnapshot.value == usuario) {
+                        usuarioSnapshot.ref.removeValue()
+                        break
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "Error al leer los datos", error.toException())
+            }
+        })
+    }
+
+}
+
+
+
 
