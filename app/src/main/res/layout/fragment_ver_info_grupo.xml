@@ -40,6 +40,7 @@
                         android:id="@+id/img_grupo"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:src="@drawable/netflix"
                         android:layout_gravity="center" />
 
                 </androidx.cardview.widget.CardView>
@@ -52,8 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView3">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,7 +100,6 @@
                     android:id="@+id/txt_administrador"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
                     android:textSize="15dp"
@@ -120,7 +122,6 @@
                     android:id="@+id/txt_app"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
                     android:textSize="15dp"
@@ -143,7 +144,6 @@
                     android:id="@+id/txt_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
                     android:textSize="15dp"
@@ -197,7 +197,7 @@
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_usuarios" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/text_etiqueta_usuarios_actuales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -211,12 +211,12 @@
                     android:id="@+id/txt_usuarios_actuales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
                     android:textSize="15dp"
-                    android:layout_marginLeft="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
-                    app:layout_constraintTop_toTopOf="@+id/textView" />
+                    app:layout_constraintBottom_toBottomOf="@+id/text_etiqueta_usuarios_actuales"
+                    app:layout_constraintStart_toEndOf="@+id/text_etiqueta_usuarios_actuales"
+                    app:layout_constraintTop_toTopOf="@+id/text_etiqueta_usuarios_actuales" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

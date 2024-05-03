@@ -4,216 +4,250 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:backgroundTint="@color/fondo">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txt_titulo"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear nuevo grupo"
-            android:textSize="30dp"
-            android:textColor="@color/texto"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/img_grupo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/netflix"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_servicio"
-            android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    android:layout_margin="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img_grupo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/netflix"
+                        android:layout_gravity="center" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Selecciona un servicio:"
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_grupo" />
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3">
 
-        <Spinner
-            android:id="@+id/spinner_apps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/apps"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/texto"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_servicio"
-            app:layout_constraintStart_toEndOf="@+id/txt_servicio"
-            app:layout_constraintTop_toTopOf="@+id/txt_servicio" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
+                <TextView
+                    android:id="@+id/txt_servicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selecciona un servicio:"
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txt_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Nombre del grupo: "
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_servicio" />
-
-        <EditText
-            android:id="@+id/edit_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Nombre..."
-            android:textSize="15dp"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/texto"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_nombre"
-            app:layout_constraintStart_toEndOf="@+id/txt_nombre"
-            app:layout_constraintTop_toTopOf="@+id/txt_nombre" />
-
-        <TextView
-            android:id="@+id/txt_plan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Plan de suscripción: "
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
-
-        <Spinner
-            android:id="@+id/spinner_plan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/texto"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_plan"
-            app:layout_constraintStart_toEndOf="@+id/txt_plan"
-            app:layout_constraintTop_toTopOf="@+id/txt_plan" />
-
-        <TextView
-            android:id="@+id/txt_precio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Precio: "
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_plan" />
-
-        <TextView
-            android:id="@+id/txt_precio_correcto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="0,00€"
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_precio"
-            app:layout_constraintStart_toEndOf="@+id/txt_precio"
-            app:layout_constraintTop_toTopOf="@+id/txt_precio" />
-
-        <TextView
-            android:id="@+id/txt_etiqueta_usuarios_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Capacidad Usuarios:"
-            android:textColor="@color/texto"
-            android:textSize="18dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_precio" />
-
-        <TextView
-            android:id="@+id/txt_usuarios_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/texto"
-            android:textSize="18dp"
-            android:layout_marginLeft="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_usuarios_total"
-            app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_usuarios_total"
-            app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_usuarios_total" />
-
-        <TextView
-            android:id="@+id/txt_credenciales"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Introduce el usuario y contraseña de la aplicación:"
-            android:textSize="18dp"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_usuarios_total" />
-
-        <TextView
-            android:id="@+id/txt_email_registro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Usuario / email:"
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_credenciales" />
-
-        <EditText
-            android:id="@+id/edit_email_registro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Usuario / email..."
-            android:textSize="15dp"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/texto"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_email_registro"
-            app:layout_constraintStart_toEndOf="@+id/txt_email_registro"
-            app:layout_constraintTop_toTopOf="@+id/txt_email_registro" />
-
-        <TextView
-            android:id="@+id/txt_contrasenia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Contraseña:"
-            android:textSize="18dp"
-            android:textColor="@color/texto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_email_registro" />
-
-        <EditText
-            android:id="@+id/edit_contrasenia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Contraseña..."
-            android:textSize="15dp"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/texto"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_contrasenia"
-            app:layout_constraintStart_toEndOf="@+id/txt_contrasenia"
-            app:layout_constraintTop_toTopOf="@+id/txt_contrasenia" />
+                <Spinner
+                    android:id="@+id/spinner_apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/apps"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_servicio"
+                    app:layout_constraintStart_toEndOf="@+id/txt_servicio"
+                    app:layout_constraintTop_toTopOf="@+id/txt_servicio" />
 
 
-        <Button
-            android:id="@+id/btn_crear_grupo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Crear grupo"
-            android:textSize="15dp"
-            android:textColor="@color/texto"
-            android:backgroundTint="@color/boton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_contrasenia" />
+                <TextView
+                    android:id="@+id/txt_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Nombre del grupo: "
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_servicio" />
+
+                <EditText
+                    android:id="@+id/edit_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre..."
+                    android:textSize="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_nombre"
+                    app:layout_constraintStart_toEndOf="@+id/txt_nombre"
+                    app:layout_constraintTop_toTopOf="@+id/txt_nombre" />
+
+                <TextView
+                    android:id="@+id/txt_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Plan de suscripción: "
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
+
+                <Spinner
+                    android:id="@+id/spinner_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_plan"
+                    app:layout_constraintStart_toEndOf="@+id/txt_plan"
+                    app:layout_constraintTop_toTopOf="@+id/txt_plan" />
+
+                <TextView
+                    android:id="@+id/txt_precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Precio: "
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_plan" />
+
+                <TextView
+                    android:id="@+id/txt_precio_correcto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="0,00€"
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_precio"
+                    app:layout_constraintStart_toEndOf="@+id/txt_precio"
+                    app:layout_constraintTop_toTopOf="@+id/txt_precio" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_usuarios_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Capacidad Usuarios:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_precio" />
+
+                <TextView
+                    android:id="@+id/txt_usuarios_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_usuarios_total"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_usuarios_total"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_usuarios_total" />
+
+                <TextView
+                    android:id="@+id/txt_credenciales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Introduce el usuario y contraseña de la aplicación:"
+                    android:textSize="18dp"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_usuarios_total" />
+
+                <TextView
+                    android:id="@+id/txt_email_registro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Usuario / email:"
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_credenciales" />
+
+                <EditText
+                    android:id="@+id/edit_email_registro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Usuario / email..."
+                    android:textSize="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_email_registro"
+                    app:layout_constraintStart_toEndOf="@+id/txt_email_registro"
+                    app:layout_constraintTop_toTopOf="@+id/txt_email_registro" />
+
+                <TextView
+                    android:id="@+id/txt_contrasenia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Contraseña:"
+                    android:textSize="18dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_email_registro" />
+
+                <EditText
+                    android:id="@+id/edit_contrasenia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña..."
+                    android:textSize="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_contrasenia"
+                    app:layout_constraintStart_toEndOf="@+id/txt_contrasenia"
+                    app:layout_constraintTop_toTopOf="@+id/txt_contrasenia" />
+
+
+                <Button
+                    android:id="@+id/btn_crear_grupo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Crear grupo"
+                    android:textSize="15dp"
+                    android:textColor="@color/texto"
+                    android:backgroundTint="@color/boton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_contrasenia" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </ScrollView>

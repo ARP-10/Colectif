@@ -1,231 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InterfazUsuario.Fragments.VerGrupoFragment"
-
-    android:paddingBottom="35dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="10dp"
     android:backgroundTint="@color/fondo" >
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/img_grupo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre del grupo:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_grupo" />
-
-    <TextView
-        android:id="@+id/txt_nombregrupo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_nombre"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_nombre"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_nombre" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Administrador:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_nombre" />
-
-    <TextView
-        android:id="@+id/txt_administrador"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_admin"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_admin"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_admin" />
-
-
-    <TextView
-        android:id="@+id/txt_etiqueta_app"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="App:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_admin" />
-
-    <TextView
-        android:id="@+id/txt_app"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_app"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_app"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_app" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_plan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Plan:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_app" />
-
-    <TextView
-        android:id="@+id/txt_plan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_plan"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_plan"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_plan" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_precio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Precio:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
-
-    <TextView
-        android:id="@+id/txt_precio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_precio"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_precio"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_precio" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_correo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Correo:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_precio" />
-
-    <TextView
-        android:id="@+id/txt_correo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_correo"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_correo"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_correo" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contraseña:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_correo" />
-
-    <TextView
-        android:id="@+id/txt_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_password"
-        app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_password"
-        app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />
-
-    <TextView
-        android:id="@+id/txt_etiqueta_usuarios"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Usuarios:"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/texto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_ver_usuarios"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:textColor="@color/texto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_usuarios"
-        app:layout_constraintVertical_bias="0.127"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_salir_grupo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/menu_seleccionado"
-        android:text="Salir grupo"
-        android:textColor="@color/texto"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_ver_usuarios" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    android:layout_margin="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img_grupo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/netflix"
+                        android:layout_gravity="center" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del grupo:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_nombregrupo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_nombre"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_nombre"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_nombre" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Administrador:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_nombre" />
+
+                <TextView
+                    android:id="@+id/txt_administrador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_admin"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_admin"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_admin" />
 
 
+                <TextView
+                    android:id="@+id/txt_etiqueta_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="App:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_admin" />
 
+                <TextView
+                    android:id="@+id/txt_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_app"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_app"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_app" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/txt_etiqueta_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Plan:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_app" />
 
+                <TextView
+                    android:id="@+id/txt_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_plan"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_plan"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_plan" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Precio:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
+
+                <TextView
+                    android:id="@+id/txt_precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_precio"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_precio"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_precio" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_correo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Correo:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_precio" />
+
+                <TextView
+                    android:id="@+id/txt_correo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_correo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_correo"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_correo" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Contraseña:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_correo" />
+
+                <TextView
+                    android:id="@+id/txt_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_password"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_password"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_usuarios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Usuarios:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_ver_usuarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:textColor="@color/texto"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_usuarios"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <Button
+                    android:id="@+id/btn_salir_grupo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/menu_seleccionado"
+                    android:text="Salir grupo"
+                    android:textColor="@color/texto"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_ver_usuarios" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
