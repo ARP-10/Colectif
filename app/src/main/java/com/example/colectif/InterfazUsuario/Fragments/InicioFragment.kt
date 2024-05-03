@@ -70,10 +70,6 @@ InicioFragment: Fragment() {
         listaGrupos = ArrayList()
     }
 
-
-
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
@@ -97,6 +93,8 @@ InicioFragment: Fragment() {
         // Obtención del nombre de usuario
         var idUser = auth.currentUser!!.uid
         var ref = database.getReference("users")
+        //var ref2 = database.getReference("users")
+
         sharedP = requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
 
         comprobarImagen()
@@ -119,22 +117,48 @@ InicioFragment: Fragment() {
             }
         })
 
-        // Para hacer que funcione el boton:
+
+
         adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
 
             override fun onItemClick(position: Int, groupId: String) {
-                Log.v("prueba1", groupId)
-                val bundle = Bundle()
-                bundle.putString("idGrupo", groupId)
-                val fragmentManager = requireActivity().supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                findNavController().navigate(R.id.action_inicioFragment_to_verGrupoFragment, bundle)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
+                Log.v("Boton", "Clic en el botón")
+                var ref2 = database.getReference("groups")
+
+                ref2.child(groupId).child("administrador").addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val adminId = snapshot.value.toString()
+                        val idUser = auth.currentUser!!.uid
+                        Log.v("id admin", "ID del administrador: $adminId")
+
+                        if (idUser == adminId) {
+                            // El usuario es administrador del grupo
+                            Log.v("Boton", "El usuario es administrador")
+
+                            val bundle = Bundle()
+                            bundle.putString("idGrupo", groupId)
+
+                            findNavController().navigate(R.id.action_inicioFragment_to_verGrupoAdminFragment, bundle)
+
+                        } else {
+                            // El usuario no es administrador del grupo
+                            Log.v("Boton", "El usuario no es administrador")
+
+                            val bundle = Bundle()
+                            bundle.putString("idGrupo", groupId)
+
+                            findNavController().navigate(R.id.action_inicioFragment_to_verGrupoFragment, bundle)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Manejar errores
+                    }
+                })
             }
-
-
         })
+
+
         binding.imagenUsuario.setOnClickListener{
             seleccionarImagen()
 

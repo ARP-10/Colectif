@@ -1,5 +1,6 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.colectif.R
@@ -85,7 +87,9 @@ class CrearGrupoFragment: Fragment() {
                         // Sumar +1 en la ID de los grupos que el usuario tiene
                         sumarId(nuevoGrupoRef.key!!)
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("id").setValue(nuevoGrupoRef.key!!)
-                        //Snackbar.make(binding.root,"Grupo creado exitosamente", Snackbar.LENGTH_SHORT).show()
+                        database.getReference("groups").child(nuevoGrupoRef.key!!).child("numMax").setValue(binding.txtUsuariosTotal.text.toString())
+                        database.getReference("groups").child(nuevoGrupoRef.key!!).child("numUsuarios").setValue(1)
+                        database.getReference("groups").child(nuevoGrupoRef.key!!).child("users").child("1").setValue(auth.currentUser!!.uid)
                     }
                     .addOnFailureListener { e ->
                         Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
@@ -94,12 +98,14 @@ class CrearGrupoFragment: Fragment() {
 
 
             }
+            context?.let { it1 -> mostrarMensaje(it1, "Grupo creado exitosamente", "¡Has creado un grupo!") }
+            // TODO: Dejar lo rellenado en blanco
 
-            findNavController().navigate(R.id.action_crearGrupoFragment_to_inicioFragment)
-            // TODO: se crea un recycler infinito en inicio fragment, hay que cambiar de pantalla y volver para que salga bien
 
 
         }
+
+
 
         // Configuración spinner
         binding.spinnerApps.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -239,6 +245,22 @@ class CrearGrupoFragment: Fragment() {
             }
         })
 
+    }
+
+    //findNavController().navigate(R.id.action_crearGrupoFragment_to_inicioFragment)
+    fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String){
+        val builder = AlertDialog.Builder(contexto)
+        builder.setTitle(titulo)
+        builder.setMessage(mensaje)
+
+        builder.setPositiveButton("Aceptar") {dialog, _ ->
+
+            dialog.dismiss()
+
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
 

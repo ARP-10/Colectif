@@ -1,5 +1,6 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -21,6 +22,12 @@ class VerGrupoAdminFragment : Fragment() {
     private lateinit var adaptadorUsuariosAdmin : AdapterUsuarioAdmin
     private lateinit var listaUsuarios: ArrayList<String>
     private lateinit var database: FirebaseDatabase
+
+    // Recoger id grupo
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        idGrupo = arguments?.getString("idGrupo", "")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
