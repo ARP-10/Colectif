@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
@@ -34,6 +35,7 @@ class CrearGrupoFragment: Fragment() {
     private lateinit var contraseniaRegistro: String
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,7 +77,7 @@ class CrearGrupoFragment: Fragment() {
                 Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             } else {
 
-                val grupo = Grupo(auth.currentUser!!.uid.toString(),nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp)
+                val grupo = Grupo(auth.currentUser!!.uid,nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp)
 
                 val gruposRef = database.getReference("groups")
 

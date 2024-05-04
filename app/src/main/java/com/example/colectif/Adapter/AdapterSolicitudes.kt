@@ -1,5 +1,6 @@
 package com.example.colectif.Adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,20 +9,25 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.R
+import com.example.colectif.interfaces.SolicitudListener
 import com.example.colectif.models.Solicitud
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerView.Adapter<AdapterSolicitudes.MyHolder>() {
+
+class AdapterSolicitudes(var context: Context, var listaSolicitudes: ArrayList<Solicitud>): RecyclerView.Adapter<AdapterSolicitudes.MyHolder>() {
+
+    var haySolicitudes: Boolean = false
+
+
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nombrePersona: TextView
         var nombreGrupo: TextView
         var btnAceptarSoli: Button
         var btnRechazarSoli: Button
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
-
         init {
             nombreGrupo = itemView.findViewById(R.id.textViewGrupoX)
             nombrePersona = itemView.findViewById(R.id.textViewPersonaX)
@@ -76,10 +82,14 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
 
         holder.btnAceptarSoli.setOnClickListener {
             aceptarSolicitud(solicitud.id,solicitud.idReceptor,solicitud.idMandatario,solicitud.idGrupo)
+            notifyItemRemoved(position-1)
+            haySolicitudes = comprobarVacio()
         }
 
         holder.btnRechazarSoli.setOnClickListener {
             rechazarSolicitud(solicitud.id,solicitud.idReceptor)
+            notifyItemRemoved(position-1)
+            haySolicitudes = comprobarVacio()
         }
 
     }
@@ -88,6 +98,9 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
     fun addSolicitud(solicitud: Solicitud){
         listaSolicitudes.add(solicitud)
         notifyItemInserted(listaSolicitudes.size - 1 )
+        haySolicitudes = true
+
+        (context as? SolicitudListener)?.onSolicitudesActualizadas(haySolicitudes)
     }
 
     fun aceptarSolicitud(idSolicitud: String, idAdmin: String, idUser: String, idGrupo: String) {
@@ -131,6 +144,7 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
                     numUsuariosActual++
                     ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())
                         .setValue(idUser)
+                    ref3.child(idGrupo).child("numUsuarios").setValue(numUsuariosActual)
 
                     // Desvincular el ValueEventListener después de realizar la operación
                     solicitudAceptada2 = true
@@ -148,7 +162,7 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     snapshot.ref.removeValue()
-                    Log.v("timon", snapshot.ref.toString())
+                    Log.v("timon3", snapshot.ref.toString())
                 }
             }
 
@@ -178,6 +192,12 @@ class AdapterSolicitudes(var listaSolicitudes: ArrayList<Solicitud>): RecyclerVi
         })
         ref2.child(idSolicitud).removeValue()
 
+
+    }
+
+    fun comprobarVacio(): Boolean{
+        this.listaSolicitudes.isEmpty()
+        return false
     }
 
 

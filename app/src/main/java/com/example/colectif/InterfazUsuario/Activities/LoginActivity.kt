@@ -97,6 +97,7 @@ class LoginActivity : AppCompatActivity() {
     private fun saveData(id:String){
         val sharedPreferences = getSharedPreferences(sharedPref,Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
+        editor.putBoolean("primeraVez",true)
         editor.putBoolean("estado",true)
         editor.putString("id",id)
         editor.apply()

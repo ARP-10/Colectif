@@ -2,8 +2,11 @@ package com.example.colectif.InterfazUsuario.Activities
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +32,9 @@ import com.example.colectif.InterfazUsuario.Fragments.InicioFragment
 import com.example.colectif.InterfazUsuario.Fragments.ListaGruposFragment
 import com.example.colectif.R
 import com.example.colectif.databinding.ActivityInicioBinding
+import com.example.colectif.interfaces.SolicitudListener
+import com.example.colectif.models.Solicitud
+import com.example.colectif.services.VerificarSolicitudesService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -42,10 +48,34 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+    private var listaSolicitudes: ArrayList<Solicitud> = ArrayList()
+    private lateinit var sharedP: SharedPreferences
+    private var sharedPref: String = "com.example.colectif"
+    private var haySolicitudes: Boolean = false
+    private var primeraVez: Boolean = true
 
+    val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val flag = intent?.getBooleanExtra("haySolicitudes", false) ?: false
+            cambiarHaySolicitudes(flag)
+            if(!flag){
+                cambiarHaySolicitudes(flag)
+            }
+            Log.v("eladio", flag.toString())
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val filter = IntentFilter("com.example.myapplication.ACTUALIZACION_SOLICITUDES")
+        registerReceiver(broadcastReceiver, filter)
+        startService(Intent(this, VerificarSolicitudesService::class.java))
+        sharedP = getSharedPreferences(sharedPref, Context.MODE_PRIVATE)
+        primeraVez = sharedP.getBoolean("primeraVez", true)
+
+
+
 
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -82,13 +112,29 @@ class InicioActivity : AppCompatActivity() {
             }
 
         }
-
+        recogerListaSolicitudes()
+        if(primeraVez) {
+            mostrarMensaje(this, "Advertencia", "Por favor ten en cuenta que al unirte a grupos en esta aplicación, eres completamente responsable de cualquier interacción, acción o consecuencia que pueda surgir dentro de esos grupos. Los creadores de la aplicación no asumen ninguna responsabilidad por las actividades que ocurran en los grupos.\n" +
+                    "\n" +
+                    "Te recomendamos encarecidamente que actúes de manera responsable y respetuosa en todos tus intercambios dentro de la aplicación.")
+        }
 
     }
+
+    private fun comprobarVacio() {
+        if(listaSolicitudes.isEmpty()){
+            haySolicitudes = false
+        } else {
+            haySolicitudes = true
+        }
+        Log.v("eladio2", haySolicitudes.toString())
+    }
+
 
     // Menu toolbar de arriba de la pantalla
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
+        onSolicitudesActualizadas(menu,haySolicitudes)
         return true
     }
 
@@ -115,4 +161,81 @@ class InicioActivity : AppCompatActivity() {
 
 
     }
+
+     fun onSolicitudesActualizadas(menu: Menu?, haySolicitudes: Boolean) {
+        val menuItem = menu?.findItem(R.id.action_notifications)
+        if(menuItem != null) {
+            if (haySolicitudes) {
+                menuItem.setIcon(R.drawable.campana_notificacion)
+                invalidateOptionsMenu()
+            } else {
+                menuItem.setIcon(R.drawable.campana)
+                invalidateOptionsMenu()
+            }
+        }
+
+    }
+
+
+    private fun recogerListaSolicitudes(){
+        var ref = database.getReference("users")
+        var ref2 = database.getReference("solicitudes")
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listaSolicitudes.clear()
+                for(i in 1 until snapshot.child(auth.currentUser!!.uid).child("numSolicitudes").value.toString().toInt() + 1){
+                    val idSolicitud = snapshot.child(auth.currentUser!!.uid).child("solicitudes").child(i.toString()).value.toString()
+                    ref2.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            // Hacer que no aparezcan los nulos / borrados de la bbdd
+                            if (snapshot.child(idSolicitud).child("idGrupo").value.toString() != "null" && snapshot.child(idSolicitud).child("idMandatario").value.toString() != "null" && snapshot.child(idSolicitud).child("idReceptor").value.toString() != "null") {
+                                listaSolicitudes.add(
+                                    Solicitud(
+                                        snapshot.child(idSolicitud).child("id").value.toString(),
+                                        snapshot.child(idSolicitud).child("idReceptor").value.toString(),
+                                        snapshot.child(idSolicitud).child("idMandatario").value.toString(),
+                                        snapshot.child(idSolicitud).child("idGrupo").value.toString()
+                                    ))
+                                comprobarVacio()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+
+                    })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+    fun cambiarHaySolicitudes(flag : Boolean){
+        haySolicitudes = flag
+    }
+
+    fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String){
+        val builder = AlertDialog.Builder(contexto)
+        builder.setTitle(titulo)
+        builder.setMessage(mensaje)
+
+        builder.setPositiveButton("Aceptar") {dialog, _ ->
+
+            dialog.dismiss()
+
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+        val sharedPreferences = getSharedPreferences(sharedPref,Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("primeraVez",false)
+        editor.apply()
+    }
+
 }

@@ -70,6 +70,10 @@ InicioFragment: Fragment() {
         listaGrupos = ArrayList()
     }
 
+
+
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
@@ -93,8 +97,6 @@ InicioFragment: Fragment() {
         // Obtención del nombre de usuario
         var idUser = auth.currentUser!!.uid
         var ref = database.getReference("users")
-        //var ref2 = database.getReference("users")
-
         sharedP = requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
 
         comprobarImagen()
@@ -117,8 +119,7 @@ InicioFragment: Fragment() {
             }
         })
 
-
-
+        // Para hacer que funcione el boton:
         adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
 
             override fun onItemClick(position: Int, groupId: String) {
@@ -157,8 +158,6 @@ InicioFragment: Fragment() {
                 })
             }
         })
-
-
         binding.imagenUsuario.setOnClickListener{
             seleccionarImagen()
 

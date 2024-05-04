@@ -37,7 +37,7 @@ class SolicitudesFragment: Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         var listaSolicitudes = ArrayList<Solicitud>()
-        adapterSolicitudes = AdapterSolicitudes(listaSolicitudes)
+        adapterSolicitudes = context?.let { AdapterSolicitudes(it,listaSolicitudes) }!!
         binding.recyclerSolicitudes.adapter = adapterSolicitudes
         binding.recyclerSolicitudes.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -69,7 +69,6 @@ class SolicitudesFragment: Fragment() {
                                         snapshot.child(idSolicitud).child("idMandatario").value.toString(),
                                         snapshot.child(idSolicitud).child("idGrupo").value.toString()
                                     ))
-                                Log.v("SERGIOOO", snapshot.child(idSolicitud).child("id").value.toString())
                             }
                         }
 
