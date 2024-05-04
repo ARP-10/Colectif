@@ -2,6 +2,7 @@ package com.example.colectif.InterfazUsuario.Fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -92,6 +93,7 @@ class CrearGrupoFragment: Fragment() {
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("numMax").setValue(binding.txtUsuariosTotal.text.toString())
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("numUsuarios").setValue(1)
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("users").child("1").setValue(auth.currentUser!!.uid)
+                        context?.let { it1 -> mostrarMensaje(it1, "Grupo creado exitosamente", "¡Has creado un grupo!") }
                     }
                     .addOnFailureListener { e ->
                         Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
@@ -100,10 +102,13 @@ class CrearGrupoFragment: Fragment() {
 
 
             }
-            context?.let { it1 -> mostrarMensaje(it1, "Grupo creado exitosamente", "¡Has creado un grupo!") }
-            // TODO: Dejar lo rellenado en blanco
 
-
+            // Dejar lo rellenado en blanco
+            var texto = ""
+            val editable = Editable.Factory.getInstance().newEditable(texto)
+            binding.editNombre.text = editable
+            binding.editEmailRegistro.text = editable
+            binding.editContrasenia.text = editable
 
         }
 
@@ -249,7 +254,7 @@ class CrearGrupoFragment: Fragment() {
 
     }
 
-    //findNavController().navigate(R.id.action_crearGrupoFragment_to_inicioFragment)
+    // Cuadro que muestra mensaje de aviso
     fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String){
         val builder = AlertDialog.Builder(contexto)
         builder.setTitle(titulo)

@@ -40,6 +40,8 @@ class VerInfoGrupoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        // Mostrar los datos en el fragment
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
         val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
 
@@ -52,6 +54,8 @@ class VerInfoGrupoFragment : Fragment() {
                 val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
                 val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
                 val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
+                val usuariosMax = childSnapshot.child(idGrupo!!).child("numMax").value.toString()
+                val usuariosActuales = childSnapshot.child(idGrupo!!).child("numUsuarios").value.toString()
 
                 // Obtener el nombre del admin de la bbdd de "users"
                 databaseReference2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -72,7 +76,11 @@ class VerInfoGrupoFragment : Fragment() {
                         binding.imgGrupo.setImageResource(drawableApp)
                         binding.txtNombregrupo.text = nombre
                         binding.txtPlan.text = plan
-                        binding.txtPrecio.text = precio
+                        binding.txtPrecio.text = precio // TODO: no se ve
+                        Log.d("VerInfoGrupoFragment", "Precio: $precio")
+                        binding.txtUsuariosPermitidos.text = usuariosMax
+                        binding.txtUsuariosActuales.text = usuariosActuales
+
                         }
 
                         override fun onCancelled(error: DatabaseError) {

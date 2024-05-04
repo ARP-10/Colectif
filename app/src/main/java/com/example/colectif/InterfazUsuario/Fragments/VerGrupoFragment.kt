@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarios
 import com.example.colectif.R
@@ -66,16 +68,16 @@ class VerGrupoFragment : Fragment() {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(childSnapshot: DataSnapshot) {
 
-                    // Obtener los valores de cada hijo
-                    val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
-                    val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
-                    val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
-                    val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
-                    val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
-                    val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
-                    val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
+                // Obtener los valores de cada hijo
+                val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
+                val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
+                val contrasenia = childSnapshot.child(idGrupo!!).child("contrasenia").value.toString()
+                val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
+                val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
+                val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
+                val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
 
-                    // Obtener el nombre del admin de la bbdd de "users"
+                // Obtener el nombre del admin de la bbdd de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val nombreAdmin = snapshot.child("name").value.toString()
@@ -97,20 +99,12 @@ class VerGrupoFragment : Fragment() {
                             binding.txtNombregrupo.text = nombre
                             binding.txtPlan.text = plan
                             binding.txtPrecio.text = precio
-
-                            // Comprobar si los datos llegan correctamente
-                            Log.v("administrador", nombreAdmin)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
                             TODO("Not yet implemented")
                         }
-
-                    })
-
-
-
-
+                })
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -118,6 +112,10 @@ class VerGrupoFragment : Fragment() {
             }
         })
 
+        // Botón salir grupo
+        binding.btnSalirGrupo.setOnClickListener {
+            context?.let { it1 -> mostrarMensaje(it1, "Abandonar grupo", "¿Deseas salir del grupo?") }
+        }
     }
 
     fun recogerUsuarios() {
@@ -136,8 +134,6 @@ class VerGrupoFragment : Fragment() {
                                 if (usuaruiosSnapshot.exists()) {
                                     var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
                                     adaptadorUsuarios.addUsuario(nombreUsuario)
-
-
                                 }
                             }
 
@@ -147,15 +143,63 @@ class VerGrupoFragment : Fragment() {
                         })
                     }
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    // Cuadro que muestra mensaje de aviso
+    fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String){
+        val builder = AlertDialog.Builder(contexto)
+        builder.setTitle(titulo)
+        builder.setMessage(mensaje)
+
+        // Botón aceptar
+        builder.setPositiveButton("Sí, estoy de acuerdo") { dialog, _ ->
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            Log.d(TAG, "Usuario actual: $userId")
+
+            if (userId != null) {
+                val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+                val referenciaUsuario = database.getReference("users").child(userId)
+
+                referenciaUsuario.child("groups").addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (grupoSnapshot in snapshot.children) {
+                            val grupoId = grupoSnapshot.value.toString()
+                            if (grupoId == idGrupo) {
+                                Log.d(TAG, "Grupo encontrado en los grupos del usuario")
+                                grupoSnapshot.ref.removeValue()
+                                break
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e(TAG, "Error al leer los datos", error.toException())
+                    }
+                })
+            }
+
+            // Volver a la pantalla de inicio
+            //findNavController().navigate(R.id.action_verGrupoFragment_to_inicioFragment)
+            // Ir a pantalla buscar grupos
+            findNavController().navigate(R.id.action_verGrupoFragment_to_listaGruposFragment)
+
+            dialog.dismiss()
+        }
 
 
+        // Botón Rechazar
+        builder.setNegativeButton("No, quiero seguir en el grupo") {dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }
