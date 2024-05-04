@@ -11,7 +11,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#AEB8FE"
+        android:backgroundTint="@color/menu_seleccionado_claro"
         android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
@@ -42,12 +42,13 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navMenu"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        app:layout_anchorGravity="bottom|center"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/menu_seleccionado_claro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_main" />
+        app:menu="@menu/menu_main"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

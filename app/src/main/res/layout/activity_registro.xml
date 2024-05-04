@@ -1,179 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     tools:context=".InterfazUsuario.Activities.RegistroActivity">
 
-    <TextView
-        android:id="@+id/textview_registrar_titulo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Registrar Usuario"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textview_registrar_nombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Nombre"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_titulo" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/editText_registrar_nombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Nombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_nombre" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textview_registrar_primerApellido"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Primer Apellido"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_registrar_nombre" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/editText_registrar_primerApellido"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Primer Apellido"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_primerApellido" />
+                    <TextView
+                        android:id="@+id/textview_registrar_titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Registrar Usuario"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/texto"
+                        android:textSize="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textview_registrar_segundoApellido"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Segundo Apellido"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_registrar_primerApellido" />
+                </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/editText_registrar_segundoApellido"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Segundo Apellido"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_segundoApellido" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textview_registrar_correo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Correo"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_registrar_segundoApellido" />
+        </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/editText_registrar_correo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Correo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_correo" />
-    <TextView
-        android:id="@+id/textview_registrar_usuario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Usuario"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_registrar_correo" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4">
 
-    <EditText
-        android:id="@+id/editText_registrar_usuario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Usuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_usuario" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textview_registrar_contraseña"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Contraseña"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_registrar_usuario" />
+                <TextView
+                    android:id="@+id/textview_registrar_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/editText_registrar_contraseña"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_contraseña" />
+                <EditText
+                    android:id="@+id/editText_registrar_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_nombre"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_nombre"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_nombre" />
 
-    <TextView
-        android:id="@+id/textview_registrar_confirmarContraseña"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Confirmar Contraseña"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_registrar_contraseña" />
+                <TextView
+                    android:id="@+id/textview_registrar_primerApellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Primer Apellido"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_registrar_nombre" />
+
+                <EditText
+                    android:id="@+id/editText_registrar_primerApellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_primerApellido"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_primerApellido"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_primerApellido" />
+
+                <TextView
+                    android:id="@+id/textview_registrar_segundoApellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Segundo Apellido"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_registrar_primerApellido" />
+
+                <EditText
+                    android:id="@+id/editText_registrar_segundoApellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_segundoApellido"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_segundoApellido"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_segundoApellido" />
+
+                <TextView
+                    android:id="@+id/textview_registrar_correo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Correo"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_registrar_segundoApellido" />
+
+                <EditText
+                    android:id="@+id/editText_registrar_correo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_correo"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_correo"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_correo" />
+                <TextView
+                    android:id="@+id/textview_registrar_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_registrar_correo" />
+
+                <EditText
+                    android:id="@+id/editText_registrar_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_usuario"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_usuario"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_usuario"  />
+
+                <TextView
+                    android:id="@+id/textview_registrar_contraseña"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contraseña"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_registrar_usuario" />
+
+                <EditText
+                    android:id="@+id/editText_registrar_contraseña"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_contraseña"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_contraseña"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_contraseña"/>
+
+                <TextView
+                    android:id="@+id/textview_registrar_confirmarContraseña"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirmar Contraseña"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_registrar_contraseña" />
 
 
-    <EditText
-        android:id="@+id/editText_registrar_confirmarContraseña"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Confirmar Contraseña"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_registrar_confirmarContraseña" />
+                <EditText
+                    android:id="@+id/editText_registrar_confirmarContraseña"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_confirmarContraseña"
+                    app:layout_constraintStart_toEndOf="@+id/textview_registrar_confirmarContraseña"
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_confirmarContraseña" />
 
-    <Button
-        android:id="@+id/button_registrar_GuardarUsuario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Guardar"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                <Button
+                    android:id="@+id/button_registrar_GuardarUsuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Registrar"
+                    android:textSize="20dp"
+                    android:textColor="@color/texto"
+                    android:backgroundTint="@color/menu_seleccionado"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_registrar_confirmarContraseña" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

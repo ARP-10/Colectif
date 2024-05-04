@@ -6,7 +6,9 @@
     <color name="fondo">#f1f2f6</color>
     <color name="texto">#27187E</color>
     <color name="boton">#758BFD</color>
+    <color name="boton_claro">#AEB8FE</color>
     <color name="menu_seleccionado">#FF8600</color>
+    <color name="menu_seleccionado_claro">#F8BC7B</color>
 
     <color name="spotify">#1ED760</color>
 

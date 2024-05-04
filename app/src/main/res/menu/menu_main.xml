@@ -7,15 +7,17 @@
     <item
         android:id="@+id/itemFragmentInicio"
         android:title="Perfil"
-
+        android:icon="@drawable/baseline_person_24"
         />
     <item
         android:id="@+id/itemFragmentGrupos"
         android:title="Buscar grupos"
+        android:icon="@drawable/baseline_groups_24"
         />
     <item
         android:id="@+id/itemFragmentCrearGrupo"
         android:title="Crear grupo"
+        android:icon="@drawable/baseline_group_add_24"
         />
 
 </menu>

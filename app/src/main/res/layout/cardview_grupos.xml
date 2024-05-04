@@ -134,7 +134,7 @@
                     android:layout_height="35dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/buscar"
+                    android:background="@drawable/buscar32px"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
