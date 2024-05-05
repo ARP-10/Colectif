@@ -26,6 +26,13 @@
         <item>Estándar</item>
         <item>Premium</item>
     </string-array>
+    <string-array name="app_filtro">
+        <item>Todos</item>
+        <item>Netflix</item>
+        <item>Spotify</item>
+        <item>Amazon Prime</item>
+        <item>Disney +</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

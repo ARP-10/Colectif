@@ -20,6 +20,7 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         init{
             lista = ArrayList()
         }
+    private var listaCompleta: ArrayList<Grupo> = lista
 
     // Para el click del boton
     interface OnItemClickListener {
@@ -94,6 +95,18 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
     fun addGrupo(grupo:Grupo){
         this.lista.add(grupo)
         notifyItemInserted(lista.size-1)
+    }
+
+    fun filtrarLista(app : String){
+        if(app.equals("Todos")){
+            this.lista = listaCompleta
+        } else {
+            this.lista = listaCompleta.filter{
+                it.app.equals(app, true)
+            } as ArrayList<Grupo>
+        }
+        notifyDataSetChanged()
+        Log.v("filipinos", app)
     }
 
 

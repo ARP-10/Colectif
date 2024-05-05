@@ -16,6 +16,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -37,6 +39,7 @@ import com.example.colectif.databinding.FragmentInicioBinding
 import com.example.colectif.models.Grupo
 import com.example.colectif.models.ImagenPerfil
 import com.example.colectif.models.Solicitud
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -92,17 +95,19 @@ InicioFragment: Fragment() {
         // Inicialización de Firebase
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
-        database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        database =
+            FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
 
         // Obtención del nombre de usuario
         var idUser = auth.currentUser!!.uid
         var ref = database.getReference("users")
-        sharedP = requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
+        sharedP =
+            requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
 
         comprobarImagen()
 
         // Configuración del RecyclerView
-        adaptadorRecycler = context?.let { AdapterInicio(it,listaGrupos) }!!
+        adaptadorRecycler = context?.let { AdapterInicio(it, listaGrupos) }!!
         binding.recyclerView.adapter = adaptadorRecycler
         binding.recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -126,42 +131,72 @@ InicioFragment: Fragment() {
                 Log.v("Boton", "Clic en el botón")
                 var ref2 = database.getReference("groups")
 
-                ref2.child(groupId).child("administrador").addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val adminId = snapshot.value.toString()
-                        val idUser = auth.currentUser!!.uid
-                        Log.v("id admin", "ID del administrador: $adminId")
+                ref2.child(groupId).child("administrador")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val adminId = snapshot.value.toString()
+                            val idUser = auth.currentUser!!.uid
+                            Log.v("id admin", "ID del administrador: $adminId")
 
-                        if (idUser == adminId) {
-                            // El usuario es administrador del grupo
-                            Log.v("Boton", "El usuario es administrador")
+                            if (idUser == adminId) {
+                                // El usuario es administrador del grupo
+                                Log.v("Boton", "El usuario es administrador")
 
-                            val bundle = Bundle()
-                            bundle.putString("idGrupo", groupId)
+                                val bundle = Bundle()
+                                bundle.putString("idGrupo", groupId)
 
-                            findNavController().navigate(R.id.action_inicioFragment_to_verGrupoAdminFragment, bundle)
+                                findNavController().navigate(
+                                    R.id.action_inicioFragment_to_verGrupoAdminFragment,
+                                    bundle
+                                )
 
-                        } else {
-                            // El usuario no es administrador del grupo
-                            Log.v("Boton", "El usuario no es administrador")
+                            } else {
+                                // El usuario no es administrador del grupo
+                                Log.v("Boton", "El usuario no es administrador")
 
-                            val bundle = Bundle()
-                            bundle.putString("idGrupo", groupId)
+                                val bundle = Bundle()
+                                bundle.putString("idGrupo", groupId)
 
-                            findNavController().navigate(R.id.action_inicioFragment_to_verGrupoFragment, bundle)
+                                findNavController().navigate(
+                                    R.id.action_inicioFragment_to_verGrupoFragment,
+                                    bundle
+                                )
+                            }
                         }
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        // Manejar errores
-                    }
-                })
+                        override fun onCancelled(error: DatabaseError) {
+                            // Manejar errores
+                        }
+                    })
             }
         })
-        binding.imagenUsuario.setOnClickListener{
+        binding.imagenUsuario.setOnClickListener {
             seleccionarImagen()
 
         }
+
+        binding.SpinnerMisGrupos.onItemSelectedListener =
+            object : NavigationBarView.OnItemSelectedListener,
+                OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val seleccionado = parent!!.adapter.getItem(position).toString()
+                    adaptadorRecycler.filtrarLista(seleccionado)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+            }
     }
 
     // menu superior
