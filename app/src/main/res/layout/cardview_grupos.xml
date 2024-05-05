@@ -12,138 +12,138 @@
         app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="20dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="260dp"
-        android:layout_height="240dp"
-        app:cardCornerRadius="17dp"
-        android:layout_margin="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/grupo"
-                android:layout_width="260dp"
-                android:layout_height="140dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/amazon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewImagenUsuario"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                app:cardCornerRadius="100dp"
-                android:layout_marginTop="105dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/grupo">
-
-                <ImageView
-                    android:id="@+id/imagenUsuarioGrupo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/foto_perfil" />
-
-            </androidx.cardview.widget.CardView>
-
-
+        <androidx.cardview.widget.CardView
+            android:layout_width="260dp"
+            android:layout_height="240dp"
+            app:cardCornerRadius="17dp"
+            android:layout_margin="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="bottom"
-                android:background="@color/fondo"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/text_administrador"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="administrador"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/text_grupo"
+                <ImageView
+                    android:id="@+id/grupo"
+                    android:layout_width="260dp"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/amazon"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/text_grupo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="grupo"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="5dp"
-                    app:layout_constraintBottom_toTopOf="@+id/text_Plan"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_Plan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Plan"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_precio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Precio"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-                <ImageButton
-                    android:id="@+id/button_unirse_grupo"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/anadir"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btn_info_grupo"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/buscar32px"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewImagenUsuario"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    app:cardCornerRadius="100dp"
+                    android:layout_marginTop="105dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/grupo">
+
+                    <ImageView
+                        android:id="@+id/imagenUsuarioGrupo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/foto_perfil" />
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/fondo"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_administrador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="administrador"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/text_grupo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/text_grupo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="grupo"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"
+                        app:layout_constraintBottom_toTopOf="@+id/text_Plan"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_Plan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Plan"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_precio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Precio"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <ImageButton
+                        android:id="@+id/button_unirse_grupo"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/anadir"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btn_info_grupo"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/buscar32px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </androidx.cardview.widget.CardView>
 

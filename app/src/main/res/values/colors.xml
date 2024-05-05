@@ -10,6 +10,9 @@
     <color name="menu_seleccionado">#FF8600</color>
     <color name="menu_seleccionado_claro">#F8BC7B</color>
 
+    <color name="netflix">#db0000</color>
+    <color name="amazon">#146eb4</color>
+    <color name="disney">#4a62d8</color>
     <color name="spotify">#1ED760</color>
 
     <color name="colorLink">#3F51B5</color>
