@@ -128,11 +128,13 @@ class VerGrupoFragment : Fragment() {
                     for (i in 1 until snapshot.child(idGrupo!!)
                         .child("numUsuarios").value.toString().toInt() + 1) {
                         var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).value.toString()
-                        Log.v("verUsuario", idGrupo!!.toString())
+                        Log.v("verGrupo", idGrupo!!.toString())
+                        Log.d("verUsuario", "Usuario: $idUsuario")
                         ref2.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
                                 if (usuaruiosSnapshot.exists()) {
                                     var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
+                                    Log.d("NombreUsuario", "Usuario: $nombreUsuario")
                                     adaptadorUsuarios.addUsuario(nombreUsuario)
                                 }
                             }

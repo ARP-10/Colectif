@@ -168,8 +168,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
 
                 <TextView
-                    android:id="@+id/txt_precio"
-                    android:layout_width="1dp"
+                    android:id="@+id/txt_precio_info"
+                    android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/texto"
@@ -222,6 +222,18 @@
                     app:layout_constraintBottom_toBottomOf="@+id/text_etiqueta_usuarios_actuales"
                     app:layout_constraintStart_toEndOf="@+id/text_etiqueta_usuarios_actuales"
                     app:layout_constraintTop_toTopOf="@+id/text_etiqueta_usuarios_actuales" />
+
+                <Button
+                    android:id="@+id/btn_solicitud_entrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unirme al grupo"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/texto"
+                    android:backgroundTint="@color/boton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_etiqueta_usuarios_actuales" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.databinding.FragmentVerInfoGrupoBinding
+import com.example.colectif.models.Solicitud
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -36,6 +38,7 @@ class VerInfoGrupoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVerInfoGrupoBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -76,10 +79,11 @@ class VerInfoGrupoFragment : Fragment() {
                         binding.imgGrupo.setImageResource(drawableApp)
                         binding.txtNombregrupo.text = nombre
                         binding.txtPlan.text = plan
-                        binding.txtPrecio.text = precio // TODO: no se ve
+                        binding.txtPrecioInfo.text = precio
                         Log.d("VerInfoGrupoFragment", "Precio: $precio")
                         binding.txtUsuariosPermitidos.text = usuariosMax
                         binding.txtUsuariosActuales.text = usuariosActuales
+                        Log.d("VerInfoGrupoFragment", "Valores asignados correctamente")
 
                         }
 
@@ -94,11 +98,58 @@ class VerInfoGrupoFragment : Fragment() {
                     Log.e("VerInfoGrupoFragment", "Error al leer datos del grupo: ${error.message}")
                 }
             })
+
+
+
+
+        binding.btnSolicitudEntrar.setOnClickListener {
+            auth = FirebaseAuth.getInstance()
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val adminId = auth.currentUser!!.uid
+            if (userId != null) {
+                // Llamar a la función enviarSolicitud
+                Log.d("VerInfoGrupoFragment", "Enviar solicitud. UserID: $userId, AdminID: $adminId, GrupoID: $idGrupo")
+                enviarSolicitud(userId, adminId, idGrupo!!, view)
+            } else {
+                Log.d("VerInfoGrupoFragment", "Usuario no autenticado al intentar enviar solicitud")
+                Snackbar.make(view, "Debe iniciar sesión para enviar una solicitud", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     override fun onDetach() {
         super.onDetach()
     }
 
+    fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String, view: View){
+        var solicitud = Solicitud(idAdmin,idUser,idGrupo)
+        var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        val ref = database.getReference("solicitudes")
+        var nuevaId= ""
+
+        val newRef = ref.push()
+        newRef.setValue(solicitud)
+        nuevaId = newRef.key!!
+        ref.child(nuevaId).child("id").setValue(nuevaId)
+
+        var ref2 = database.getReference("users")
+        ref2.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var numSolicitudActual = snapshot.child(idAdmin).child("numSolicitudes").getValue(Int::class.java) ?: 0
+                numSolicitudActual++
+                ref2.child(idAdmin).child("numSolicitudes").setValue(numSolicitudActual)
+                database.getReference("users").child(idAdmin).child("solicitudes").child(numSolicitudActual.toString()).setValue(nuevaId)
+
+                //val mensaje = if (idAdmin == idUser) "Grupo creado exitosamente" else "Solicitud enviada exitosamente"
+                Snackbar.make(view, "Solicitud enviada exitosamente", Snackbar.LENGTH_SHORT).show()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+    }
 
 }

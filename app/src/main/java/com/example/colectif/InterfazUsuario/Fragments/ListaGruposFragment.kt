@@ -100,8 +100,6 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
     }
 
     override fun onInfoButtonClick(grupo: Grupo) {
-        // Manejar el clic del botón de información aquí
-        // Puedes mostrar la información del grupo como desees, por ejemplo, en un diálogo o en otro fragmento
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.setTitle("Información del grupo")
         alertDialogBuilder.setMessage("Nombre: ${grupo.nombre}\n" +
