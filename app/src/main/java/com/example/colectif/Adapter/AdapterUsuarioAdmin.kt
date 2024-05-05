@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.colectif.InterfazUsuario.Fragments.VerGrupoAdminFragment
 import com.example.colectif.R
 import com.example.colectif.models.UsuarioGrupo
 import com.google.firebase.database.DataSnapshot
@@ -16,7 +17,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrupo>):
+class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrupo>, ):
     RecyclerView.Adapter<AdapterUsuarioAdmin.MyHolder>() {
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -41,7 +42,9 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         val usuario = lista[position]
         holder.nombreUsuario.text = usuario.nombreUsuario
         holder.btnEcharGrupo.setOnClickListener {
-            echarUsuarioDelGrupo(usuario.id, usuario.idGrupo, position)
+            // TODO: Activar alerta
+            mostrarMensaje(contexto, "Expulsar del grupo", "¿Deseas expulsar a este usuario del grupo?", usuario.id, usuario.idGrupo, position)
+
         }
     }
 
@@ -52,6 +55,24 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
     fun addUsuarioAdmin(usuarioGrupo : UsuarioGrupo) {
         this.lista.add(usuarioGrupo)
         notifyItemInserted(lista.size-1)
+    }
+
+    private fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String, usuarioId: String, idGrupo: String, position: Int) {
+        val builder = AlertDialog.Builder(contexto)
+        builder.setTitle(titulo)
+        builder.setMessage(mensaje)
+
+        builder.setPositiveButton("Sí, estoy de acuerdo") { dialog, _ ->
+            echarUsuarioDelGrupo(usuarioId, idGrupo, position)
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     fun echarUsuarioDelGrupo(usuarioId: String, idGrupo: String, position: Int) {
@@ -69,7 +90,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
         // borrar el grupo al usuario
@@ -90,18 +111,27 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         ref3.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 var numUsuariosActual = snapshot.child("numUsuarios").getValue(Int::class.java) ?: 0
-                numUsuariosActual--
+                numUsuariosActual-- // Restar 1 al número actual de usuarios
+                Log.d("AdapterUsuarioAdmin", "Número de usuarios actual antes de restar: $numUsuariosActual")
+
                 ref3.child("numUsuarios").setValue(numUsuariosActual)
+                // Navegar al fragmento principal
+                //val navController = contexto.findNavController(R.id.verGrupoAdminFragment)
+                //navController.navigate(R.id.inicioFragment)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("AdapterUsuarioAdmin", "Error al actualizar el número de usuarios: ${error.message}")
             }
-
         })
+
         notifyItemRemoved(position)
 
         // TODO: poner aviso antes de echar
     }
+
+
+
 
 }
