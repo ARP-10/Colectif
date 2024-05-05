@@ -244,7 +244,7 @@
                     android:text="Crear grupo"
                     android:textSize="15dp"
                     android:textColor="@color/texto"
-                    android:backgroundTint="@color/menu_seleccionado"
+                    android:backgroundTint="@color/boton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_contrasenia" />

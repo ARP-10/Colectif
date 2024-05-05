@@ -38,10 +38,13 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
     private lateinit var listaDisney: ArrayList<Grupo>
     private lateinit var listaSpotify: ArrayList<Grupo>
     private lateinit var catalogo: ArrayList<CatalogoGrupos>
+    private var idGrupo:String? = null
 
     //permite asociar elementos del activity con el fragment
+    // Recoger id grupo
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        idGrupo = arguments?.getString("idGrupo", "")
     }
 
     // Este metodo es llamado para que el fragmento cree su jerarquia de vistas asociada.
@@ -123,10 +126,16 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    Log.v("ListaGrupos", "Snapshot exists")
 
                     for (snapshot in snapshot.children) {
+                        // Comparar el max ususarios permitidos con el num actual
+                        //val numMax = snapshot.child("numMax").getValue(Int::class.java) ?: 0
+                        //val numUsuarios = snapshot.child("numUsuarios").getValue(Int::class.java) ?: 0
+                        //Log.v("ListaGrupos", "numMax: $numMax, numUsuarios: $numUsuarios")
 
                         if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
+                        //if (numUsuarios < numMax && !snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
                             if (snapshot.child("app").value.toString().equals("Netflix")) {
                                 var grupo = Grupo(
                                     snapshot.child("id").value.toString(),
@@ -196,6 +205,8 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Disney +", listaDisney))
 
 
+                } else {
+                Log.v("ListaGrupos", "Snapshot doesn't exist")
                 }
             }
 

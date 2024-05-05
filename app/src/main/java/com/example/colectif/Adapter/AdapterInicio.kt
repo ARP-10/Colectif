@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.R
 import com.example.colectif.models.Grupo
@@ -67,6 +69,16 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         holder.admin.text = grupo.administrador
         holder.plan.text = grupo.plan
 
+        // Cambiar el color del borde del CardView según la app
+        val cardView = holder.itemView.findViewById<CardView>(R.id.cardViewBordeColor)
+        val color = when (grupo.app) {
+            "Netflix" -> R.color.netflix
+            "Amazon Prime" -> R.color.amazon
+            "Spotify" -> R.color.spotify
+            "Disney +" -> R.color.disney
+            else -> R.color.texto
+        }
+        cardView.setCardBackgroundColor(ContextCompat.getColor(contexto, color))
 
 
 

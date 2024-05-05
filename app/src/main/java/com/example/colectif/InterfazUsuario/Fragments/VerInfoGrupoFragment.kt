@@ -104,16 +104,30 @@ class VerInfoGrupoFragment : Fragment() {
 
         binding.btnSolicitudEntrar.setOnClickListener {
             auth = FirebaseAuth.getInstance()
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
-            val adminId = auth.currentUser!!.uid
-            if (userId != null) {
-                // Llamar a la función enviarSolicitud
-                Log.d("VerInfoGrupoFragment", "Enviar solicitud. UserID: $userId, AdminID: $adminId, GrupoID: $idGrupo")
-                enviarSolicitud(userId, adminId, idGrupo!!, view)
-            } else {
-                Log.d("VerInfoGrupoFragment", "Usuario no autenticado al intentar enviar solicitud")
-                Snackbar.make(view, "Debe iniciar sesión para enviar una solicitud", Snackbar.LENGTH_SHORT).show()
-            }
+            var userId = auth.currentUser!!.uid
+            var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+            val ref = database.getReference("groups").child(idGrupo!!)
+            var adminId = ""
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    adminId = snapshot.child("administrador").value.toString()
+                    if (userId != null) {
+                        // Llamar a la función enviarSolicitud
+                        Log.d("VerInfoGrupoFragment", "Enviar solicitud. UserID: $userId, AdminID: $adminId, GrupoID: $idGrupo")
+                        enviarSolicitud(userId, adminId, idGrupo!!, view)
+                    } else {
+                        Log.d("VerInfoGrupoFragment", "Usuario no autenticado al intentar enviar solicitud")
+                        Snackbar.make(view, "Debe iniciar sesión para enviar una solicitud", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+
         }
 
     }

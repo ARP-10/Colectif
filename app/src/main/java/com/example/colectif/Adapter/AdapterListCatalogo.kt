@@ -39,6 +39,8 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
         }
         holder.recyclerGrupos.adapter = adapter
 
+
+
     }
 
     override fun getItemCount(): Int {

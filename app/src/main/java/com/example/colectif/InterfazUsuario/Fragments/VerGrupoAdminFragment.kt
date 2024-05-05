@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarioAdmin
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentVerGrupoAdminBinding
+import com.example.colectif.models.UsuarioGrupo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,7 +24,7 @@ class VerGrupoAdminFragment : Fragment() {
     private lateinit var binding: FragmentVerGrupoAdminBinding
     private var idGrupo:String? = null
     private lateinit var adaptadorUsuariosAdmin : AdapterUsuarioAdmin
-    private lateinit var listaUsuarios: ArrayList<String>
+    private lateinit var listaUsuarios: ArrayList<UsuarioGrupo>
     private lateinit var database: FirebaseDatabase
 
     // Recoger id grupo
@@ -125,7 +126,7 @@ class VerGrupoAdminFragment : Fragment() {
                             override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
                                 if (usuaruiosSnapshot.exists()) {
                                     var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
-                                    adaptadorUsuariosAdmin.addUsuarioAdmin(nombreUsuario)
+                                    adaptadorUsuariosAdmin.addUsuarioAdmin(UsuarioGrupo(idUsuario, nombreUsuario, idGrupo!!))
 
 
                                 }
@@ -147,24 +148,7 @@ class VerGrupoAdminFragment : Fragment() {
 
 
     }
-    fun echarUsuarioDelGrupo(usuario: String) {
-        val ref = database.getReference("groups").child(idGrupo!!)
 
-        ref.child("users").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (usuarioSnapshot in snapshot.children) {
-                    if (usuarioSnapshot.value == usuario) {
-                        usuarioSnapshot.ref.removeValue()
-                        break
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, "Error al leer los datos", error.toException())
-            }
-        })
-    }
 
 }
 

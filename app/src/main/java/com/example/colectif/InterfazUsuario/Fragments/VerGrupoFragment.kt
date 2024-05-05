@@ -159,6 +159,7 @@ class VerGrupoFragment : Fragment() {
         builder.setTitle(titulo)
         builder.setMessage(mensaje)
 
+
         // Botón aceptar
         builder.setPositiveButton("Sí, estoy de acuerdo") { dialog, _ ->
             val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -167,13 +168,17 @@ class VerGrupoFragment : Fragment() {
             if (userId != null) {
                 val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
                 val referenciaUsuario = database.getReference("users").child(userId)
+                val ref3 = database.getReference("groups").child(idGrupo!!)
+                val ref4 = database.getReference("groups").child(idGrupo!!).child("users")
 
                 referenciaUsuario.child("groups").addListenerForSingleValueEvent(object : ValueEventListener {
+
                     override fun onDataChange(snapshot: DataSnapshot) {
                         for (grupoSnapshot in snapshot.children) {
                             val grupoId = grupoSnapshot.value.toString()
                             if (grupoId == idGrupo) {
-                                Log.d(TAG, "Grupo encontrado en los grupos del usuario")
+                                Log.v("salir", grupoId)
+                                Log.v("salir", "$idGrupo")
                                 grupoSnapshot.ref.removeValue()
                                 break
                             }
@@ -183,6 +188,37 @@ class VerGrupoFragment : Fragment() {
                     override fun onCancelled(error: DatabaseError) {
                         Log.e(TAG, "Error al leer los datos", error.toException())
                     }
+                })
+
+                ref3.addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var numUsuariosActual = snapshot.child("numUsuarios").getValue(Int::class.java) ?: 0
+                        numUsuariosActual--
+                        ref3.child("numUsuarios").setValue(numUsuariosActual)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+                ref4.addValueEventListener(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (userSnapchot in snapshot.children) {
+                            val usuarioId = userSnapchot.value.toString()
+                            if (usuarioId == userId) {
+
+                                userSnapchot.ref.removeValue()
+                                break
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
                 })
             }
 

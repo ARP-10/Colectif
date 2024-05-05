@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
@@ -86,6 +88,8 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
 
 
+
+
         var ref = holder.database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -138,8 +142,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
                 ref2.child(idAdmin).child("numSolicitudes").setValue(numSolicitudActual)
                 database.getReference("users").child(idAdmin).child("solicitudes").child(numSolicitudActual.toString()).setValue(nuevaId)
 
-                val mensaje = if (idAdmin == idUser) "Grupo creado exitosamente" else "Solicitud enviada exitosamente"
-                Snackbar.make(view, mensaje, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, "Solicitud enviada exitosamente", Snackbar.LENGTH_SHORT).show()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -147,5 +150,9 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             }
         })
 
+
+
     }
+
+
 }
