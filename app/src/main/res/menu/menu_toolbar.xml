@@ -5,6 +5,12 @@
     tools:context="com.example.myapplication.InicioActivity"
     android:backgroundTint="@color/fondo">
 
+    <item
+        android:id="@+id/action_logo"
+        android:title="Logo"
+        app:showAsAction="always"
+        android:icon="@drawable/logo3"
+        />
 
 
     <item

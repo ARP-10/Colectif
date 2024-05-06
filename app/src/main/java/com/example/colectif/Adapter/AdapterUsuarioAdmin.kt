@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.R
 import com.example.colectif.models.UsuarioGrupo
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -21,6 +22,8 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
     RecyclerView.Adapter<AdapterUsuarioAdmin.MyHolder>() {
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     init{
         lista = ArrayList()
     }
@@ -53,8 +56,10 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
     }
 
     fun addUsuarioAdmin(usuarioGrupo : UsuarioGrupo) {
-        this.lista.add(usuarioGrupo)
-        notifyItemInserted(lista.size-1)
+        if (!usuarioGrupo.id.equals(auth.currentUser!!.uid)) {
+            this.lista.add(usuarioGrupo)
+            notifyItemInserted(lista.size-1)
+        }
     }
 
     private fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String, usuarioId: String, idGrupo: String, position: Int) {
@@ -115,7 +120,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
                 Log.d("AdapterUsuarioAdmin", "Número de usuarios actual antes de restar: $numUsuariosActual")
 
                 ref3.child("numUsuarios").setValue(numUsuariosActual)
-                // Navegar al fragmento principal
+                // TODO: Navegar al fragmento principal
                 //val navController = contexto.findNavController(R.id.verGrupoAdminFragment)
                 //navController.navigate(R.id.inicioFragment)
 

@@ -41,6 +41,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val imagenGrupo: ImageView = itemView.findViewById(R.id.grupo)
         val administrador: TextView = itemView.findViewById(R.id.text_administrador)
         val plan: TextView = itemView.findViewById(R.id.text_Plan)
+        val nombreGrupo: TextView = itemView.findViewById(R.id.text_grupo)
         val precio: TextView = itemView.findViewById(R.id.text_precio)
         val imageButton: AppCompatImageButton = itemView.findViewById(R.id.button_unirse_grupo)
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -86,10 +87,6 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             }
         }
 
-
-
-
-
         var ref = holder.database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -107,6 +104,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
         holder.plan.text = grupo.plan
         holder.precio.text = grupo.precio
+        holder.nombreGrupo.text = grupo.nombre
         holder.imageButton.setOnClickListener {
             enviarSolicitud(auth.currentUser!!.uid, grupo.administrador, grupo.id, holder.itemView)
         }

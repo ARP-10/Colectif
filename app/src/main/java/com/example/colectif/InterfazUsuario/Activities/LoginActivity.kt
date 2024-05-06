@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.colectif.R
 import com.example.colectif.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         if(estado){
+            Log.v("LoginActivity", "Usuario ya autenticado, redirigiendo a la pantalla de inicio")
             val intent = Intent(applicationContext, InicioActivity::class.java)
             intent.putExtra("id",auth.currentUser?.uid)
             startActivity(intent)
@@ -43,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
             correo = binding.editUsuario.text.toString()
             contraseña = binding.editPassword.text.toString()
             if(correo != ""||contraseña != ""){
+                Log.v("LoginActivity", "Iniciando sesión con correo: $correo")
                 loginUsuario(correo, contraseña)
             }else{
                 Snackbar.make(binding.root,"Rellene todos los campos", Snackbar.LENGTH_SHORT).show()
@@ -70,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(mail, pass).
                 addOnCompleteListener {
                     if(it.isSuccessful) {
+                        Log.v("LoginActivity", "Inicio de sesión exitoso")
                         auth.currentUser?.let { it1 -> saveData(it1.uid) }
                         val intent = Intent(applicationContext, InicioActivity::class.java)
                         intent.putExtra("id",auth.currentUser?.uid)
@@ -77,22 +81,14 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     }
                     else{
+                        Log.v("LoginActivity", "Error al iniciar sesión: ${it.exception?.message}")
                         Snackbar.make(binding.root, "No se ha podido iniciar sesión", Snackbar.LENGTH_SHORT).show()
                     }
                 }
     }
 
 
-    //TODO funcion para iniciar con google
-    /*private fun inicioGoogle(){
-        val googleConfig =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.SERVER_CLIENT_ID))
-                .requestEmail()
-                .build()
-        val googleClient = GoogleSignIn.getClient(this,googleConfig)
-        startActivityForResult(googleClient.signInIntent, )
-    }*/
+
 
     private fun saveData(id:String){
         val sharedPreferences = getSharedPreferences(sharedPref,Context.MODE_PRIVATE)

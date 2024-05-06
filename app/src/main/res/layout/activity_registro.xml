@@ -79,17 +79,20 @@
                     android:id="@+id/textview_registrar_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre:"
+                    android:text="Nombre"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <EditText
                     android:id="@+id/editText_registrar_nombre"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_nombre"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_nombre"
                     app:layout_constraintTop_toTopOf="@+id/textview_registrar_nombre" />
 
@@ -100,14 +103,17 @@
                     android:text="Primer Apellido"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText_registrar_nombre" />
 
                 <EditText
                     android:id="@+id/editText_registrar_primerApellido"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_primerApellido"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_primerApellido"
                     app:layout_constraintTop_toTopOf="@+id/textview_registrar_primerApellido" />
 
@@ -118,14 +124,17 @@
                     android:text="Segundo Apellido"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText_registrar_primerApellido" />
 
                 <EditText
                     android:id="@+id/editText_registrar_segundoApellido"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_segundoApellido"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_segundoApellido"
                     app:layout_constraintTop_toTopOf="@+id/textview_registrar_segundoApellido" />
 
@@ -133,6 +142,7 @@
                     android:id="@+id/textview_registrar_correo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="Correo"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
@@ -141,9 +151,11 @@
 
                 <EditText
                     android:id="@+id/editText_registrar_correo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_correo"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_correo"
                     app:layout_constraintTop_toTopOf="@+id/textview_registrar_correo" />
                 <TextView
@@ -153,22 +165,26 @@
                     android:text="Usuario"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText_registrar_correo" />
 
                 <EditText
                     android:id="@+id/editText_registrar_usuario"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_usuario"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_usuario"
-                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_usuario"  />
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_usuario" />
 
                 <TextView
                     android:id="@+id/textview_registrar_contraseña"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Contraseña"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -176,11 +192,13 @@
 
                 <EditText
                     android:id="@+id/editText_registrar_contraseña"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_contraseña"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_contraseña"
-                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_contraseña"/>
+                    app:layout_constraintTop_toTopOf="@+id/textview_registrar_contraseña" />
 
                 <TextView
                     android:id="@+id/textview_registrar_confirmarContraseña"
@@ -189,16 +207,19 @@
                     android:text="Confirmar Contraseña"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText_registrar_contraseña" />
 
 
                 <EditText
                     android:id="@+id/editText_registrar_confirmarContraseña"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textview_registrar_confirmarContraseña"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textview_registrar_confirmarContraseña"
                     app:layout_constraintTop_toTopOf="@+id/textview_registrar_confirmarContraseña" />
 
@@ -210,7 +231,8 @@
                     android:textSize="20dp"
                     android:textColor="@color/texto"
                     android:backgroundTint="@color/boton"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
