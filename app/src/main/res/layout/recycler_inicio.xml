@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="17dp">
+        app:cardCornerRadius="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -35,7 +35,9 @@
                     android:text="Nombre Grupo"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
-                    app:layout_constraintStart_toStartOf="@+id/admin"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -65,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
-                    android:src="@drawable/buscar1_32px"
+                    android:src="@drawable/baseline_aspect_ratio_24"
                     android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

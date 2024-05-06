@@ -23,11 +23,12 @@
                 android:id="@+id/textViewPersonaX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Persona x"
-                android:textSize="18dp"
                 android:textColor="@color/texto"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,11 +36,11 @@
                 android:id="@+id/textViewBase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="quiere unirse a tu grupo: "
-                android:textSize="18dp"
+                android:text="quiere unirse a tu grupo"
                 android:textColor="@color/texto"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPersonaX" />
 
@@ -47,11 +48,11 @@
                 android:id="@+id/textViewGrupoX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="grupo x"
-                android:textSize="18dp"
                 android:textColor="@color/texto"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewBase" />
 
@@ -73,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rechazar"
                 android:textColor="@color/texto"
-                android:backgroundTint="@color/menu_seleccionado"
+                android:backgroundTint="@color/boton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -84,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="205dp" />
+                app:layout_constraintGuide_begin="196dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

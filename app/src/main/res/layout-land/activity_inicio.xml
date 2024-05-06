@@ -42,8 +42,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navMenu"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:labelVisibilityMode="labeled"
+        android:layout_height="55dp"
+        app:labelVisibilityMode="unlabeled"
         android:background="@color/menu_seleccionado_claro"
         app:itemRippleColor="@color/boton"
         app:itemActiveIndicatorStyle="@color/boton"

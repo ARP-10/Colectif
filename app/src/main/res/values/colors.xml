@@ -5,9 +5,9 @@
 
     <color name="fondo">#f1f2f6</color>
     <color name="texto">#27187E</color>
-    <color name="boton">#758BFD</color>
+    <color name="boton">#FF8600</color>
     <color name="boton_claro">#AEB8FE</color>
-    <color name="menu_seleccionado">#FF8600</color>
+    <color name="menu_seleccionado">#758BFD</color>
     <color name="menu_seleccionado_claro">#AEB8FE</color><!--#F8BC7B-->
 
     <color name="netflix">#db0000</color>
