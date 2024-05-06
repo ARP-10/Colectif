@@ -75,7 +75,16 @@ class VerGrupoFragment : Fragment() {
                 val email = childSnapshot.child(idGrupo!!).child("email").value.toString()
                 val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
                 val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
-                val precio = childSnapshot.child(idGrupo!!).child("precio").value.toString()
+
+                val precioString = childSnapshot.child(idGrupo!!).child("precio").value.toString()
+                val precio = precioString.substringBefore(" ")
+                    .replace(",", ".")
+                    .toDoubleOrNull() ?: 0.0
+
+                var numUsuariosActual = childSnapshot.child(idGrupo!!).child("numUsuarios").value.toString().toDouble()
+
+                Log.v(TAG, "Precio: $precio")
+                Log.v(TAG, "NumUsuariosActual: $numUsuariosActual")
 
                 // Obtener el nombre del admin de la bbdd de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -98,7 +107,19 @@ class VerGrupoFragment : Fragment() {
                             binding.imgGrupo.setImageResource(drawableApp)
                             binding.txtNombregrupo.text = nombre
                             binding.txtPlan.text = plan
-                            binding.txtPrecio.text = precio
+                            numUsuariosActual = precio / numUsuariosActual
+                            // Redondear el resultado de la división a dos decimales
+                            val gastosRedondeados = String.format("%.2f", numUsuariosActual)
+
+                            binding.txtPrecio.text = "$precio €"
+                            binding.txtGastos.text = "$gastosRedondeados €"
+                            /*
+                            val gastosRedondeados = String.format("%.2f", numUsuariosActual)
+                            binding.txtPrecio.text = precio.toString()
+                            binding.txtGastos.text = gastosRedondeados*/
+
+                            Log.v(TAG, "txtPrecio: ${binding.txtPrecio.text}")
+                            Log.v(TAG, "txtGastos: ${binding.txtGastos.text}")
                         }
 
                         override fun onCancelled(error: DatabaseError) {

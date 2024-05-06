@@ -224,6 +224,28 @@
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />
 
                 <TextView
+                    android:id="@+id/txt_etiqueta_gastos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gastos por usuario:"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
+
+                <TextView
+                    android:id="@+id/txt_gastos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/texto"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_gastos"
+                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_gastos"
+                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_gastos" />
+
+                <TextView
                     android:id="@+id/txt_etiqueta_usuarios"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -232,7 +254,7 @@
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_gastos" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_ver_usuarios_admin"
