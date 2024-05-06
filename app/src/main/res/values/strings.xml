@@ -33,6 +33,11 @@
         <item>Amazon Prime</item>
         <item>Disney +</item>
     </string-array>
+    <string-array name="filtros_buscar_grupo">
+        <item>Todos</item>
+        <item>Más antiguos</item>
+        <item>Más recientes</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

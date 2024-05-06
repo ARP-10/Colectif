@@ -15,7 +15,8 @@ object ObjetoGrupos {
             precio = "12.99"/*5.49  17.99*/,
             imagen = R.drawable.netflix,
             email = "netflix@correo.com",
-            contrasenia = "123456"
+            contrasenia = "123456",
+            fecha = "121212"
         ),
         Grupo(
             nombre = "tusa",
@@ -25,7 +26,8 @@ object ObjetoGrupos {
             precio = "12.99"/*5.49  17.99*/,
             imagen = R.drawable.netflix,
             email = "netflix@correo.com",
-            contrasenia = "123456"
+            contrasenia = "123456",
+            fecha = "121212"
         )
 
     )
@@ -39,7 +41,8 @@ object ObjetoGrupos {
             precio = "4.99" , /*2.49*/
             imagen = R.drawable.amazon,
             email = "amazon@correo.com",
-            contrasenia = "123456"
+            contrasenia = "123456",
+            fecha = "121212"
         ),
 
     )
@@ -52,7 +55,8 @@ object ObjetoGrupos {
             precio = "5.99" /*8.99  11.99*/,
             imagen = R.drawable.disney,
             email = "disney@correo.com",
-            contrasenia = "123456"
+            contrasenia = "123456",
+            fecha = "121212"
         ),
     )
     private val gruposSpotify = listOf(
@@ -64,7 +68,8 @@ object ObjetoGrupos {
             precio = "5.99"/*10.99 14.99  17.99*/,
             imagen = R.drawable.spotify,
             email = "spotify@correo.com",
-            contrasenia = "123456"
+            contrasenia = "123456",
+            fecha = "121212"
         ),
     )
 

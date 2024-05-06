@@ -52,4 +52,8 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
         notifyItemInserted(recycler_lista_catalogo.size-1)
     }
 
+    fun filtrarLista(filtro: String){
+        this.adapter.filtrarLista(filtro)
+    }
+
 }

@@ -23,19 +23,22 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.Collections
 
 
 class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Grupo>) :
     RecyclerView.Adapter<AdapterListGrupos.GruposViewHolder>() {
 
-        interface OnInfoButtonClickListener {
-            fun onInfoButtonClick(grupo: Grupo)
-        }
-        var infoButtonClickListener: OnInfoButtonClickListener? = null
+    private var listaCompleta: ArrayList<Grupo> = cardview_grupos
 
-        init {
-            cardview_grupos = ArrayList()
-        }
+    interface OnInfoButtonClickListener {
+        fun onInfoButtonClick(grupo: Grupo)
+    }
+    var infoButtonClickListener: OnInfoButtonClickListener? = null
+
+    init {
+        cardview_grupos = ArrayList()
+    }
 
     inner class GruposViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imagenGrupo: ImageView = itemView.findViewById(R.id.grupo)
@@ -119,6 +122,17 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
     fun addGrupo(grupo : Grupo){
         cardview_grupos.add(grupo)
         notifyItemInserted(cardview_grupos.size - 1)
+    }
+
+    fun filtrarLista(filtro: String) {
+        if (filtro == "Todos") {
+            cardview_grupos = listaCompleta
+        } else if(filtro == "Más antiguos"){
+            cardview_grupos = ArrayList(listaCompleta.sortedBy { it.fecha })
+        } else if(filtro == "Más recientes"){
+            cardview_grupos = ArrayList(listaCompleta.sortedByDescending { it.fecha })
+        }
+        notifyDataSetChanged()
     }
 
     fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String, view: View){

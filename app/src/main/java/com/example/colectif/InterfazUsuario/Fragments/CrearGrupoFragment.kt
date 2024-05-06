@@ -24,6 +24,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.LocalDateTime
+import java.util.Calendar
 
 class CrearGrupoFragment: Fragment() {
 
@@ -62,6 +64,14 @@ class CrearGrupoFragment: Fragment() {
             precio = binding.txtPrecioCorrecto.text.toString()
             emailRegistro = binding.editEmailRegistro.text.toString()
             contraseniaRegistro = binding.editContrasenia.text.toString()
+            var fechaActual = Calendar.getInstance()
+            var año = fechaActual.get(Calendar.YEAR)
+            var mes = fechaActual.get(Calendar.MONTH) + 1
+            var dia = fechaActual.get(Calendar.DAY_OF_MONTH)
+            var hora = fechaActual.get(Calendar.HOUR_OF_DAY)
+            var minuto = fechaActual.get(Calendar.MINUTE)
+            var segundo = fechaActual.get(Calendar.SECOND)
+            var fechaYHora = "$año-$mes-$dia T$hora-$minuto-$segundo"
 
             // Obtener la imagen correspondiente al grupo seleccionado
             val drawableApp = when (app) {
@@ -78,7 +88,7 @@ class CrearGrupoFragment: Fragment() {
                 Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             } else {
 
-                val grupo = Grupo(auth.currentUser!!.uid,nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp)
+                val grupo = Grupo(auth.currentUser!!.uid,nombreGrupo, app, plan, precio, emailRegistro, contraseniaRegistro, drawableApp, fechaYHora)
 
                 val gruposRef = database.getReference("groups")
 

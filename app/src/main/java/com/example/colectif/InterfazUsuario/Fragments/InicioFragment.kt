@@ -307,7 +307,8 @@ InicioFragment: Fragment() {
                                                         gruposnapshot.child(idGrupo).child("imagen").value.toString().toInt(),
                                                         gruposnapshot.child(idGrupo).child("nombre").value.toString(),
                                                         gruposnapshot.child(idGrupo).child("plan").value.toString(),
-                                                        gruposnapshot.child(idGrupo).child("precio").value.toString()
+                                                        gruposnapshot.child(idGrupo).child("precio").value.toString(),
+                                                        gruposnapshot.child(idGrupo).child("fecha").value.toString()
                                                     )
                                                 )
                                             }

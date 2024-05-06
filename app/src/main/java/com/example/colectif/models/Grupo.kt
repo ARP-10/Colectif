@@ -1,7 +1,7 @@
 package com.example.colectif.models
 
 data class Grupo(
-    var id: String, var administrador: String, var app: String, var contrasenia: String, var email: String, var imagen: Int, var nombre: String,  var plan: String, var precio: String) {
+    var id: String, var administrador: String, var app: String, var contrasenia: String, var email: String, var imagen: Int, var nombre: String,  var plan: String, var precio: String, var fecha: String) {
 
 
     constructor(
@@ -12,8 +12,9 @@ data class Grupo(
         precio: String,
         email: String,
         contrasenia: String,
-        imagen: Int
-    ) : this("", administrador, app, contrasenia, email, imagen, nombre, plan, precio)
+        imagen: Int,
+        fecha: String
+    ) : this("", administrador, app, contrasenia, email, imagen, nombre, plan, precio, fecha)
 
 
 

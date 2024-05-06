@@ -82,13 +82,13 @@ class AdapterSolicitudes(var context: Context, var listaSolicitudes: ArrayList<S
 
         holder.btnAceptarSoli.setOnClickListener {
             aceptarSolicitud(solicitud.id,solicitud.idReceptor,solicitud.idMandatario,solicitud.idGrupo)
-            notifyItemRemoved(position-1)
+            notifyDataSetChanged()
             haySolicitudes = comprobarVacio()
         }
 
         holder.btnRechazarSoli.setOnClickListener {
             rechazarSolicitud(solicitud.id,solicitud.idReceptor)
-            notifyItemRemoved(position-1)
+            notifyDataSetChanged()
             haySolicitudes = comprobarVacio()
         }
 

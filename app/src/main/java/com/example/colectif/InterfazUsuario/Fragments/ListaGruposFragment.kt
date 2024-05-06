@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import com.example.colectif.R
 import com.example.colectif.databinding.FragmentListaGruposBinding
 import com.example.colectif.models.CatalogoGrupos
 import com.example.colectif.models.Grupo
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -100,6 +103,29 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
 
         adapterListGrupos.infoButtonClickListener = this
 
+        binding.SpinnerBuscarGrupos.onItemSelectedListener =
+            object :  NavigationBarView.OnItemSelectedListener,
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val seleccionado = parent!!.adapter.getItem(position).toString()
+                    adapterListCatalogo.filtrarLista(seleccionado)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+            }
+
     }
 
     override fun onInfoButtonClick(grupo: Grupo) {
@@ -147,6 +173,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
                                     snapshot.child("nombre").value.toString(),
                                     snapshot.child("plan").value.toString(),
                                     snapshot.child("precio").value.toString(),
+                                    snapshot.child("fecha").value.toString()
                                 )
                                 listaNetflix.add(grupo)
                             }
@@ -161,6 +188,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
                                     snapshot.child("nombre").value.toString(),
                                     snapshot.child("plan").value.toString(),
                                     snapshot.child("precio").value.toString(),
+                                    snapshot.child("fecha").value.toString()
                                 )
                                 listaAmazon.add(grupo)
 
@@ -176,6 +204,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
                                     snapshot.child("nombre").value.toString(),
                                     snapshot.child("plan").value.toString(),
                                     snapshot.child("precio").value.toString(),
+                                    snapshot.child("fecha").value.toString()
                                 )
                                 listaSpotify.add(grupo)
 
@@ -191,6 +220,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
                                     snapshot.child("nombre").value.toString(),
                                     snapshot.child("plan").value.toString(),
                                     snapshot.child("precio").value.toString(),
+                                    snapshot.child("fecha").value.toString()
                                 )
                                 listaDisney.add(grupo)
 
