@@ -11,42 +11,21 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_margin="20dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/img_grupo"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/netflix"
-                        android:layout_gravity="center" />
-
-                </androidx.cardview.widget.CardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/img_grupo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/netflix"
+                android:layout_gravity="center" />
 
         </androidx.cardview.widget.CardView>
 
@@ -71,7 +50,7 @@
                     android:id="@+id/txt_servicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Selecciona un servicio"
+                    android:text="Selecciona un servicio:"
                     android:textSize="18dp"
                     android:textColor="@color/texto"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,13 +67,12 @@
                     app:layout_constraintStart_toEndOf="@+id/txt_servicio"
                     app:layout_constraintTop_toTopOf="@+id/txt_servicio" />
 
-
                 <TextView
                     android:id="@+id/txt_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Nombre del grupo"
+                    android:text="Nombre del grupo:"
                     android:textSize="18dp"
                     android:textColor="@color/texto"
                     app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Plan"
+                    android:text="Plan:"
                     android:textSize="18dp"
                     android:textColor="@color/texto"
                     app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Precio"
+                    android:text="Precio:"
                     android:textSize="18dp"
                     android:textColor="@color/texto"
                     app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +138,7 @@
                     android:id="@+id/txt_etiqueta_usuarios_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Capacidad Usuarios"
+                    android:text="Capacidad Usuarios:"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     android:layout_marginTop="30dp"
@@ -197,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Usuario / email"
+                    android:text="Usuario / email:"
                     android:textSize="18dp"
                     android:textColor="@color/texto"
                     app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Contraseña"
+                    android:text="Contraseña:"
                     android:textSize="18dp"
                     android:textColor="@color/texto"
                     app:layout_constraintStart_toStartOf="parent"
@@ -238,12 +216,11 @@
                     app:layout_constraintStart_toEndOf="@+id/txt_contrasenia"
                     app:layout_constraintTop_toTopOf="@+id/txt_contrasenia" />
 
-
                 <Button
                     android:id="@+id/btn_crear_grupo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:text="Crear grupo"
                     android:textSize="15dp"
                     android:textColor="@color/texto"

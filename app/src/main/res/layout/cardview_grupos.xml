@@ -54,8 +54,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
@@ -76,7 +74,6 @@
                         app:layout_constraintBottom_toTopOf="@+id/text_grupo"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
-
 
                     <TextView
                         android:id="@+id/text_grupo"
@@ -117,7 +114,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-
                     <ImageButton
                         android:id="@+id/button_unirse_grupo"
                         android:layout_width="35dp"
@@ -137,7 +133,6 @@
                         android:background="@drawable/buscar32px"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

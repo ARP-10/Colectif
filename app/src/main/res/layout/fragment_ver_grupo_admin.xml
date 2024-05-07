@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,42 +13,21 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_margin="20dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/img_grupo"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/netflix"
-                        android:layout_gravity="center" />
-
-                </androidx.cardview.widget.CardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/img_grupo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/netflix"
+                android:layout_gravity="center" />
 
         </androidx.cardview.widget.CardView>
 
@@ -74,20 +53,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/texto"
-                    android:textSize="18dp"
+                    android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txt_etiqueta_admin"
+                <ImageView
+                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="Administrador"
-                    android:textColor="@color/texto"
-                    android:textSize="18dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_emoji_events_24"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_nombregrupo" />
 
@@ -95,46 +73,23 @@
                     android:id="@+id/txt_administrador"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_admin"
-                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_admin"
-                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_admin" />
-
-
-                <TextView
-                    android:id="@+id/txt_etiqueta_app"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="App"
-                    android:textColor="@color/texto"
-                    android:textSize="18dp"
+                    android:textSize="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_admin" />
-
-                <TextView
-                    android:id="@+id/txt_app"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_app"
-                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_app"
-                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_app" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 <TextView
                     android:id="@+id/txt_etiqueta_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Plan"
+                    android:text="Plan:"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_app" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_administrador" />
 
                 <TextView
                     android:id="@+id/txt_plan"
@@ -148,37 +103,15 @@
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_plan" />
 
                 <TextView
-                    android:id="@+id/txt_etiqueta_precio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="Precio"
-                    android:textColor="@color/texto"
-                    android:textSize="18dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
-
-                <TextView
-                    android:id="@+id/txt_precio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_precio"
-                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_precio"
-                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_precio" />
-
-                <TextView
                     android:id="@+id/txt_etiqueta_correo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Correo"
+                    android:text="Correo:"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_precio" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_plan" />
 
                 <TextView
                     android:id="@+id/txt_correo"
@@ -196,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Contraseña"
+                    android:text="Contraseña:"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -214,26 +147,48 @@
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />
 
                 <TextView
-                    android:id="@+id/txt_etiqueta_gastos"
+                    android:id="@+id/txt_etiqueta_precio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Gastos por usuario"
+                    android:text="Precio total"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
 
                 <TextView
+                    android:id="@+id/txt_precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_etiqueta_precio"
+                    app:layout_constraintStart_toStartOf="@+id/txt_etiqueta_precio"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_precio" />
+
+                <TextView
+                    android:id="@+id/txt_etiqueta_gastos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Por usuario"
+                    android:textColor="@color/texto"
+                    android:textSize="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_password" />
+
+                <TextView
                     android:id="@+id/txt_gastos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/black"
                     android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_gastos"
-                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_gastos"
-                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_gastos" />
+                    app:layout_constraintEnd_toEndOf="@+id/txt_etiqueta_gastos"
+                    app:layout_constraintStart_toStartOf="@+id/txt_etiqueta_gastos"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_gastos" />
 
                 <TextView
                     android:id="@+id/txt_etiqueta_usuarios"
@@ -242,11 +197,11 @@
                     android:layout_marginTop="30dp"
                     android:text="Usuarios"
                     android:textColor="@color/texto"
-                    android:textStyle="bold"
                     android:textSize="18dp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_gastos" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_precio" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_ver_usuarios_admin"
@@ -262,6 +217,5 @@
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </ScrollView>

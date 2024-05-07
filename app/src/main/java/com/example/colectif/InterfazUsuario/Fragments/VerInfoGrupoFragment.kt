@@ -67,7 +67,6 @@ class VerInfoGrupoFragment : Fragment() {
 
                         // Actualizar la interfaz de usuario con los datos recuperados
                         binding.txtAdministrador.text = nombreAdmin
-                        binding.txtApp.text = app
 
                         val drawableApp = when (app) {
                             "Netflix" -> R.drawable.netflix

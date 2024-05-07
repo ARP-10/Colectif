@@ -93,7 +93,6 @@ class VerGrupoFragment : Fragment() {
 
                             // Actualizar la interfaz de usuario con los datos recuperados
                             binding.txtAdministrador.text = nombreAdmin
-                            binding.txtApp.text = app
                             binding.txtPassword.text = contrasenia
                             binding.txtCorreo.text = email
 

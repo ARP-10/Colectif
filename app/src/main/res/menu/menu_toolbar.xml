@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.myapplication.InicioActivity"
-    android:backgroundTint="@color/fondo">
+    tools:context="com.example.myapplication.InicioActivity">
+
 
     <item
         android:id="@+id/action_logo"
