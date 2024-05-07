@@ -9,8 +9,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="20dp">
+        app:cardBackgroundColor="@color/texto"
+        app:cardCornerRadius="18dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -25,6 +25,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:padding="5dp">
 
                 <CheckBox

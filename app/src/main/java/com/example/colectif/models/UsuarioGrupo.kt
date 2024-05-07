@@ -1,3 +1,3 @@
 package com.example.colectif.models
 
-data class UsuarioGrupo(var id: String, var nombreUsuario: String, var idGrupo: String)
+data class UsuarioGrupo(var id: String, var nombreUsuario: String, var idGrupo: String, var pagado: Boolean)

@@ -143,7 +143,9 @@ class AdapterSolicitudes(var context: Context, var listaSolicitudes: ArrayList<S
                         snapshot.child(idGrupo).child("numUsuarios").getValue(Int::class.java) ?: 0
                     numUsuariosActual++
                     ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())
-                        .setValue(idUser)
+                        .child("idUser").setValue(idUser)
+                    ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())
+                        .child("pagado").setValue(false)
                     ref3.child(idGrupo).child("numUsuarios").setValue(numUsuariosActual)
 
                     // Desvincular el ValueEventListener después de realizar la operación

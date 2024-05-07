@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.colectif.InterfazUsuario.Fragments.VerGrupoAdminFragment
 import com.example.colectif.R
 import com.example.colectif.models.UsuarioGrupo
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +25,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var pagado: Boolean = false
 
     init{
         lista = ArrayList()
@@ -31,6 +34,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nombreUsuario: TextView
         var btnEcharGrupo: ImageButton = itemView.findViewById(R.id.btn_echar_grupo)
+        var checkBox: CheckBox = itemView.findViewById(R.id.checkbox_usuario)
 
         init {
             nombreUsuario = itemView.findViewById(R.id.txt_nombre_usuario_admin)
@@ -45,10 +49,37 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         val usuario = lista[position]
         holder.nombreUsuario.text = usuario.nombreUsuario
         holder.btnEcharGrupo.setOnClickListener {
-            // TODO: Activar alerta
+
             mostrarMensaje(contexto, "Expulsar del grupo", "¿Deseas expulsar a este usuario del grupo?", usuario.id, usuario.idGrupo, position)
 
         }
+
+
+
+        val ref = database.getReference("groups")
+        //Log.v("idGrupo", idGrupo.toString())
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.v("snapchot", snapshot.exists().toString())
+                if (snapshot.exists()) {
+
+                    Log.v("snapchot2",  snapshot.child(usuario.idGrupo!!).child("numUsuarios").value.toString())
+                    for (i in 1 until snapshot.child(usuario.idGrupo!!)
+                        .child("numUsuarios").value.toString().toInt() + 1) {
+                        holder.checkBox.isChecked = snapshot.child(usuario.idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
+
+                        Log.v("pagado", "$pagado")
+
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("AdapterUsuarioAdmin", "Error al leer el estado de pagado: ${error.message}")
+            }
+
+        })
     }
 
     override fun getItemCount(): Int {
@@ -90,7 +121,6 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     snapshot.ref.removeValue()
-                    Log.v("timon", snapshot.ref.toString())
                 }
             }
 
@@ -104,7 +134,6 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     snapshot.ref.removeValue()
-                    Log.v("timon", snapshot.ref.toString())
                 }
             }
 
@@ -120,9 +149,10 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
                 Log.d("AdapterUsuarioAdmin", "Número de usuarios actual antes de restar: $numUsuariosActual")
 
                 ref3.child("numUsuarios").setValue(numUsuariosActual)
-                // TODO: Navegar al fragmento principal
-                //val navController = contexto.findNavController(R.id.verGrupoAdminFragment)
-                //navController.navigate(R.id.inicioFragment)
+                // TODO: Navegar al fragmento principal o volver a cargar el fragment
+
+
+
 
             }
 
@@ -136,6 +166,36 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         // TODO: poner aviso antes de echar
     }
 
+    fun checkPagado(usuarioId: String, idGrupo: String, position: Int) : Boolean{
+
+        val ref = database.getReference("groups")
+        Log.v("idGrupo", idGrupo.toString())
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.v("snapchot", snapshot.exists().toString())
+                if (snapshot.exists()) {
+
+                    Log.v("snapchot2",  snapshot.child(idGrupo!!).child("numUsuarios").value.toString())
+                    for (i in 1 until snapshot.child(idGrupo!!)
+                        .child("numUsuarios").value.toString().toInt() + 1) {
+                        pagado = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
+
+                        Log.v("pagado", "$pagado")
+
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("AdapterUsuarioAdmin", "Error al leer el estado de pagado: ${error.message}")
+            }
+
+        })
+
+        Log.v("pagadoReturn", "$pagado")
+        return pagado
+    }
 
 
 
