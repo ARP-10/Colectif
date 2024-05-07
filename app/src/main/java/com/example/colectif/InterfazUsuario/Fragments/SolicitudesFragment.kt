@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterSolicitudes
 import com.example.colectif.databinding.FragmentSolicitudesBinding
@@ -37,7 +38,8 @@ class SolicitudesFragment: Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         var listaSolicitudes = ArrayList<Solicitud>()
-        adapterSolicitudes = context?.let { AdapterSolicitudes(it,listaSolicitudes) }!!
+        val navController = Navigation.findNavController(view)
+        adapterSolicitudes = context?.let { AdapterSolicitudes(navController,it,listaSolicitudes) }!!
         binding.recyclerSolicitudes.adapter = adapterSolicitudes
         binding.recyclerSolicitudes.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

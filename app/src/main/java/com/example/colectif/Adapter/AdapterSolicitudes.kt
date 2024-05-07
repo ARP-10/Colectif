@@ -7,7 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.colectif.InterfazUsuario.Fragments.SolicitudesFragment
 import com.example.colectif.R
 import com.example.colectif.interfaces.SolicitudListener
 import com.example.colectif.models.Solicitud
@@ -17,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class AdapterSolicitudes(var context: Context, var listaSolicitudes: ArrayList<Solicitud>): RecyclerView.Adapter<AdapterSolicitudes.MyHolder>() {
+class AdapterSolicitudes(var navController: NavController,var context: Context, var listaSolicitudes: ArrayList<Solicitud>): RecyclerView.Adapter<AdapterSolicitudes.MyHolder>() {
 
     var haySolicitudes: Boolean = false
 
@@ -83,13 +88,18 @@ class AdapterSolicitudes(var context: Context, var listaSolicitudes: ArrayList<S
         holder.btnAceptarSoli.setOnClickListener {
             aceptarSolicitud(solicitud.id,solicitud.idReceptor,solicitud.idMandatario,solicitud.idGrupo)
             notifyDataSetChanged()
-            haySolicitudes = comprobarVacio()
+            navController.navigate(R.id.action_global_inicioFragment)
+            navController.navigate(R.id.action_global_solicitudesFragment)
+            notifyDataSetChanged()
+
         }
 
         holder.btnRechazarSoli.setOnClickListener {
             rechazarSolicitud(solicitud.id,solicitud.idReceptor)
             notifyDataSetChanged()
-            haySolicitudes = comprobarVacio()
+            navController.navigate(R.id.action_global_inicioFragment)
+            navController.navigate(R.id.action_global_solicitudesFragment)
+            notifyDataSetChanged()
         }
 
     }

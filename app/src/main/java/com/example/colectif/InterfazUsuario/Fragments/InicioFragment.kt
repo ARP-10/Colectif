@@ -66,7 +66,7 @@ InicioFragment: Fragment() {
     private lateinit var storage: FirebaseStorage
     private lateinit var sharedP: SharedPreferences
     private lateinit var adaptadorRecycler: AdapterInicio
-    private lateinit var listaGrupos: ArrayList<Grupo>
+    private var listaGrupos: ArrayList<Grupo>
     var uri: Uri? = null
 
     init {
