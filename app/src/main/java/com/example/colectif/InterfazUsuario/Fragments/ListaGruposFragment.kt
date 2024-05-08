@@ -44,6 +44,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
     private lateinit var listaSpotify: ArrayList<Grupo>
     private lateinit var catalogo: ArrayList<CatalogoGrupos>
     private var idGrupo:String? = null
+   // private var currentUserID = auth.currentUser?.uid
 
     //permite asociar elementos del activity con el fragment
     // Recoger id grupo
@@ -67,6 +68,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
     //despues de que su vista haya sido creada
     //y antes de que se muestre al usuario
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         listaGrupos = ArrayList()
@@ -76,6 +78,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         listaDisney = ArrayList()
         listaSpotify = ArrayList()
         catalogo = ArrayList()
+        var idUser = auth.currentUser!!.uid
 
 
 
@@ -142,6 +145,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
 
     }
 
+    // Se esta usando esto ??
     override fun onInfoButtonClick(grupo: Grupo) {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.setTitle("Información del grupo")
@@ -166,17 +170,30 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    Log.v("ListaGrupos", "Snapshot exists")
 
                     for (snapshot in snapshot.children) {
                         // Comparar el max ususarios permitidos con el num actual
-                        //val numMax = snapshot.child("numMax").getValue(Int::class.java) ?: 0
-                        //val numUsuarios = snapshot.child("numUsuarios").getValue(Int::class.java) ?: 0
-                        //Log.v("ListaGrupos", "numMax: $numMax, numUsuarios: $numUsuarios")
 
-                        if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
-                        //if (numUsuarios < numMax && !snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
+                        val numMax = convertToInt(snapshot.child("numMax").value.toString())
+                        val numUsuarios = convertToInt(snapshot.child("numUsuarios").value.toString())
+                        val administrador = snapshot.child("administrador").value.toString()
+                        val usuariosSnapshot = snapshot.child("usuarios")
+
+                        // Verificar si el usuario actual es administrador o ya es miembro del grupo
+                        val isCurrentUserAdmin = administrador == auth.currentUser?.uid
+                        val isCurrentUserMember = usuariosSnapshot.hasChild(auth.currentUser?.uid ?: "")
+
+                        // Verificar si el grupo no está completo y el usuario actual no es admin ni miembro
+                        if (numUsuarios < numMax && !isCurrentUserAdmin && !isCurrentUserMember) {
+                        /*
+                        val numMax = convertToInt(snapshot.child("numMax").value.toString())
+                        val numUsuarios = convertToInt(snapshot.child("numUsuarios").value.toString())
+
+                        //if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
+                        // TODO:
+                        if (numUsuarios < numMax && !snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {*/
                             if (snapshot.child("app").value.toString().equals("Netflix")) {
+
                                 var grupo = Grupo(
                                     snapshot.child("id").value.toString(),
                                     snapshot.child("administrador").value.toString(),
@@ -259,6 +276,15 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
             }
 
         })
+    }
+
+    private fun convertToInt(value: String): Int {
+        return try {
+            value.toInt()
+        } catch (e: NumberFormatException) {
+            Log.e("ListaGrupos", "Error converting string to int: ${e.message}")
+            0
+        }
     }
 
 
