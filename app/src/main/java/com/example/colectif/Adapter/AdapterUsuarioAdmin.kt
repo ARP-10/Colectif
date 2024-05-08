@@ -107,11 +107,13 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         val ref3 = database.getReference("groups").child(idGrupo)
 
         // POner position + 2
-        ref.orderByValue().equalTo(usuarioId).addListenerForSingleValueEvent(object :
-            ValueEventListener {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
-                    snapshot.ref.removeValue()
+                    Log.v("eliminar", snapshot.child((position + 2).toString()).child("id").value.toString())
+                    ref.child((position + 2).toString()).removeValue()
+
+
                 }
             }
 

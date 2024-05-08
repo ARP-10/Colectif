@@ -64,11 +64,10 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
         // Si el filtro está vacío, restaurar la lista completa de grupos en cada categoría
         if (filtro.isEmpty()) {
             // TODO: cargar el fragment
-            /*
+/*
             recycler_lista_catalogo.forEach { catalogoGrupos ->
                 catalogoGrupos.grupos = ArrayList(listaCompletaTodosGrupos) // Restaurar la lista completa
                 }*/
-
         } else {
             // Filtrar la lista de grupos dentro de cada categoría
             recycler_lista_catalogo.forEach { catalogoGrupos ->
@@ -81,6 +80,14 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
     private fun toggleRecyclerViewVisibility(recyclerView: RecyclerView) {
         recyclerView.visibility = if (recyclerView.visibility == View.VISIBLE) View.GONE else View.VISIBLE
     }
+
+    fun restoreListaCompleta() {
+        /*
+        recycler_lista_catalogo.clear()
+        recycler_lista_catalogo.addAll(listaCompletaTodosGrupos)
+        notifyDataSetChanged()*/
+    }
+
 
 
 }

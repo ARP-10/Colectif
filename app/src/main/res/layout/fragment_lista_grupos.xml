@@ -48,31 +48,26 @@
 
                     <EditText
                         android:id="@+id/edit_buscar"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:textSize="18dp"
+                        android:layout_marginRight="10dp"
                         app:layout_constraintBottom_toBottomOf="@+id/buscar_grupos"
+                        app:layout_constraintEnd_toStartOf="@+id/img_reset"
                         app:layout_constraintStart_toEndOf="@+id/buscar_grupos"
                         app:layout_constraintTop_toTopOf="@+id/buscar_grupos" />
-                    <!--
-                    <Spinner
-                        android:id="@+id/Spinner_buscar_grupos"
+
+                    <ImageButton
+                        android:id="@+id/img_reset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:entries="@array/filtros_buscar_grupo"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/recargar"
+                        android:layout_marginRight="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/filtrar"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/Spinner_buscar_grupos"
-                        app:layout_constraintTop_toTopOf="parent" />-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

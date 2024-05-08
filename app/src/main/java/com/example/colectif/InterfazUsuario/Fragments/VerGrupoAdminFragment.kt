@@ -149,23 +149,24 @@ class VerGrupoAdminFragment : Fragment() {
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    for (i in 2 until snapshot.child(idGrupo!!)
-                        .child("numUsuarios").value.toString().toInt() + 1) {
-                        var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString()
-                        var pagado = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
-                        Log.v("verUsuario", idGrupo!!.toString())
-                        ref2.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
-                                if (usuaruiosSnapshot.exists()) {
-                                    var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
-                                    adaptadorUsuariosAdmin.addUsuarioAdmin(UsuarioGrupo(idUsuario, nombreUsuario, idGrupo!!, pagado))
+                    for (i in 2 until 8) {
+                        if (snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString() != "null") {
+                            var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString()
+                            var pagado = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
+                            Log.v("verUsuario", idGrupo!!.toString())
+                            ref2.addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
+                                    if (usuaruiosSnapshot.exists()) {
+                                        var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
+                                        adaptadorUsuariosAdmin.addUsuarioAdmin(UsuarioGrupo(idUsuario, nombreUsuario, idGrupo!!, pagado))
+                                    }
                                 }
-                            }
 
-                            override fun onCancelled(error: DatabaseError) {
-                                // Manejar errores de base de datos
-                            }
-                        })
+                                override fun onCancelled(error: DatabaseError) {
+                                    // Manejar errores de base de datos
+                                }
+                            })
+                        }
                     }
                 }
 

@@ -148,10 +148,12 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
 
         ref3.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+
                 if (!solicitudAceptada2) {
                     var numUsuariosActual =
                         snapshot.child(idGrupo).child("numUsuarios").getValue(Int::class.java) ?: 0
                     numUsuariosActual++
+
                     ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())
                         .child("idUser").setValue(idUser)
                     ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())

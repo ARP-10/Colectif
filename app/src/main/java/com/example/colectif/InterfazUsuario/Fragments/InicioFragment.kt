@@ -281,13 +281,13 @@ InicioFragment: Fragment() {
         val ref = database.getReference("users")
         val ref2 = database.getReference("groups")
 
-        ref.addValueEventListener(object : ValueEventListener {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()) {
                     for (i in 1 until snapshot.child(auth.currentUser!!.uid).child("numGrupos").value.toString().toInt() + 1) {
                         val idGrupo = snapshot.child(auth.currentUser!!.uid).child("groups").child(i.toString()).value.toString()
 
-                        ref2.addValueEventListener(object : ValueEventListener {
+                        ref2.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(gruposnapshot: DataSnapshot) {
                                 if (gruposnapshot.exists()) {
                                     val administradorId = gruposnapshot.child(idGrupo).child("administrador").value.toString()
