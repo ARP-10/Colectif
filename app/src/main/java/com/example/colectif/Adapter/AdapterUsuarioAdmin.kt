@@ -87,6 +87,9 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
             if (isChecked != usuario.pagado) { // Verifica si el estado ha cambiado
                 // Actualiza el valor de "pagado" en la base de datos solo si ha cambiado
                 ref.child(usuario.idGrupo).child("users").child((position + 2).toString()).child("pagado").setValue(isChecked)
+
+
+
             }
         }
 

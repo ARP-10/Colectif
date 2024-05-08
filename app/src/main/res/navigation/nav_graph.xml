@@ -83,5 +83,9 @@
         <action
             android:id="@+id/action_verGrupoAdminFragment_to_inicioFragment"
             app:destination="@id/inicioFragment" />
+        <action
+            android:id="@+id/action_verGrupoAdminFragment_self"
+            app:destination="@id/verGrupoAdminFragment" />
     </fragment><action android:id="@+id/action_global_inicioFragment" app:destination="@id/inicioFragment"/>
+    <action android:id="@+id/action_global_verGrupoAdminFragment" app:destination="@id/verGrupoAdminFragment" />
 </navigation>

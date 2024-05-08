@@ -39,7 +39,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/texto"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:onClick="toggleRecyclerViewVisibility"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -56,6 +57,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                
                 tools:listitem="@layout/cardview_grupos" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

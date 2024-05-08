@@ -124,6 +124,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         notifyItemInserted(cardview_grupos.size - 1)
     }
 
+    /*
     fun filtrarLista(filtro: String) {
         if (filtro == "Todos") {
             cardview_grupos = listaCompleta
@@ -133,7 +134,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             cardview_grupos = ArrayList(listaCompleta.sortedByDescending { it.fecha })
         }
         notifyDataSetChanged()
-    }
+    }*/
 
     fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String, view: View){
         var solicitud = Solicitud(idAdmin,idUser,idGrupo)
@@ -164,6 +165,16 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
 
 
+    }
+
+    fun filtrarLista(texto: String) {
+        listaCompleta = if (texto.isEmpty()) {
+            listaCompleta // Si no hay texto, mostrar todos los grupos
+        } else {
+            // Filtrar grupos cuyo nombre contenga el texto ingresado
+            listaCompleta.filter { it.nombre.contains(texto, ignoreCase = true) } as ArrayList<Grupo>
+        }
+        notifyDataSetChanged() // Notificar al Adapter que la lista ha cambiado
     }
 
 
