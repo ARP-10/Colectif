@@ -3,11 +3,14 @@ package com.example.colectif.InterfazUsuario.Fragments
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +37,9 @@ class VerGrupoFragment : Fragment() {
     private lateinit var adaptadorUsuarios : AdapterUsuarios
     private lateinit var listaUsuarios: ArrayList<String>
     private lateinit var database: FirebaseDatabase
+    private lateinit var textPassword: TextView
+    private lateinit var txtShowPassword: TextView
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -93,7 +99,7 @@ class VerGrupoFragment : Fragment() {
 
                             // Actualizar la interfaz de usuario con los datos recuperados
                             binding.txtAdministrador.text = nombreAdmin
-                            binding.txtPassword.text = contrasenia
+                            //binding.txtPassword.text = contrasenia
                             binding.txtCorreo.text = email
 
                             val drawableApp = when (app) {
@@ -112,10 +118,7 @@ class VerGrupoFragment : Fragment() {
 
                             binding.txtPrecio.text = "$precio €"
                             binding.txtGastos.text = "$gastosRedondeados €"
-                            /*
-                            val gastosRedondeados = String.format("%.2f", numUsuariosActual)
-                            binding.txtPrecio.text = precio.toString()
-                            binding.txtGastos.text = gastosRedondeados*/
+
 
                             Log.v(TAG, "txtPrecio: ${binding.txtPrecio.text}")
                             Log.v(TAG, "txtGastos: ${binding.txtGastos.text}")
@@ -135,6 +138,15 @@ class VerGrupoFragment : Fragment() {
         // Botón salir grupo
         binding.btnSalirGrupo.setOnClickListener {
             context?.let { it1 -> mostrarMensaje(it1, "Abandonar grupo", "¿Deseas salir del grupo?") }
+        }
+
+        // Inicializar elementos para mostrar/ocultar contraseña
+        textPassword = view.findViewById(R.id.txt_password)
+        txtShowPassword = view.findViewById(R.id.txt_show_password)
+
+        // Establecer el onClickListener para mostrar/ocultar la contraseña
+        txtShowPassword.setOnClickListener {
+            togglePasswordVisibility()
         }
     }
 
@@ -245,7 +257,7 @@ class VerGrupoFragment : Fragment() {
             // Volver a la pantalla de inicio
             //findNavController().navigate(R.id.action_verGrupoFragment_to_inicioFragment)
             // Ir a pantalla buscar grupos
-            findNavController().navigate(R.id.action_verGrupoFragment_to_listaGruposFragment)
+            //findNavController().navigate(R.id.action_verGrupoFragment_to_listaGruposFragment)
 
             dialog.dismiss()
         }
@@ -259,5 +271,19 @@ class VerGrupoFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
+
+    // Para que se vea o no la password
+    private fun togglePasswordVisibility() {
+        if (textPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            // Ocultar la contraseña
+            textPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            txtShowPassword.text = "Mostrar"
+        } else {
+            // Mostrar la contraseña
+            textPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            txtShowPassword.text = "Ocultar"
+        }
+    }
+
 
 }

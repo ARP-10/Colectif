@@ -38,7 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="Buscar"
+                        android:text="Buscar:"
                         android:textColor="@color/texto"
                         android:textSize="18dp"
                         android:textStyle="bold"
@@ -46,6 +46,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <EditText
+                        android:id="@+id/edit_buscar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/buscar_grupos"
+                        app:layout_constraintStart_toEndOf="@+id/buscar_grupos"
+                        app:layout_constraintTop_toTopOf="@+id/buscar_grupos" />
+                    <!--
                     <Spinner
                         android:id="@+id/Spinner_buscar_grupos"
                         android:layout_width="wrap_content"
@@ -62,7 +72,7 @@
                         android:src="@drawable/filtrar"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/Spinner_buscar_grupos"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

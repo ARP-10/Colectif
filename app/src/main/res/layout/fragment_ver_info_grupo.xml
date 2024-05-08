@@ -86,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:text="Plan:"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +111,7 @@
                     android:text="Precio:"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginLeft="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_etiqueta_plan" />
 
@@ -141,10 +143,11 @@
                     android:id="@+id/txt_etiqueta_usuarios"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:text="Permitidos"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginLeft="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etiqueta_usuarios" />
 
@@ -163,10 +166,11 @@
                     android:id="@+id/text_etiqueta_usuarios_actuales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:text="Participantes"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
+                    android:layout_marginRight="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etiqueta_usuarios" />
 

@@ -16,6 +16,7 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
     RecyclerView.Adapter<AdapterListCatalogo.CategoriasViewHolder>() {
 
     private lateinit var adapter: AdapterListGrupos
+    private var listaCompletaTodosGrupos: List<Grupo> = ArrayList()
 
     inner class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreCatalogo: TextView = itemView.findViewById(R.id.text_nombreCatalogo)
@@ -28,9 +29,15 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
     }
 
     override fun onBindViewHolder(holder: CategoriasViewHolder, position: Int) {
-        val catalogoGrupos = recycler_lista_catalogo[position]
-        holder.nombreCatalogo.text = catalogoGrupos.catalogo
 
+        val catalogoGrupos = recycler_lista_catalogo[position]
+        // Guardar la lista completa cuando se establece el adaptador
+        listaCompletaTodosGrupos = catalogoGrupos.grupos
+
+        holder.nombreCatalogo.text = catalogoGrupos.catalogo
+        holder.nombreCatalogo.setOnClickListener {
+            toggleRecyclerViewVisibility(holder.recyclerGrupos)
+        }
         holder.recyclerGrupos.setHasFixedSize(true)
         holder.recyclerGrupos.layoutManager = GridLayoutManager(holder.itemView.context,1, RecyclerView.HORIZONTAL,false)
         adapter = AdapterListGrupos(context,ArrayList<Grupo>())
@@ -38,6 +45,7 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
             adapter.addGrupo(catalogoGrupos.grupos[i])
         }
         holder.recyclerGrupos.adapter = adapter
+
 
 
 
@@ -53,7 +61,26 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
     }
 
     fun filtrarLista(filtro: String){
-        this.adapter.filtrarLista(filtro)
+        // Si el filtro está vacío, restaurar la lista completa de grupos en cada categoría
+        if (filtro.isEmpty()) {
+            // TODO: cargar el fragment
+            /*
+            recycler_lista_catalogo.forEach { catalogoGrupos ->
+                catalogoGrupos.grupos = ArrayList(listaCompletaTodosGrupos) // Restaurar la lista completa
+                }*/
+
+        } else {
+            // Filtrar la lista de grupos dentro de cada categoría
+            recycler_lista_catalogo.forEach { catalogoGrupos ->
+                catalogoGrupos.grupos = catalogoGrupos.grupos.filter { it.nombre.contains(filtro, ignoreCase = true) } as ArrayList<Grupo>
+            }
+        }
+        notifyDataSetChanged()
     }
+
+    private fun toggleRecyclerViewVisibility(recyclerView: RecyclerView) {
+        recyclerView.visibility = if (recyclerView.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+    }
+
 
 }
