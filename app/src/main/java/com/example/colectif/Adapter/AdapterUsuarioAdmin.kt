@@ -47,6 +47,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val usuario = lista[position]
+
         holder.nombreUsuario.text = usuario.nombreUsuario
         holder.btnEcharGrupo.setOnClickListener {
 
@@ -55,35 +56,9 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         }
         holder.checkBox.isChecked = usuario.pagado
 
-
-
-        /*val ref = database.getReference("groups")
-        //Log.v("idGrupo", idGrupo.toString())
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.v("snapchot", snapshot.exists().toString())
-                if (snapshot.exists()) {
-
-                    Log.v("snapchot2",  snapshot.child(usuario.idGrupo!!).child("numUsuarios").value.toString())
-                    for (i in 1 until snapshot.child(usuario.idGrupo!!)
-                        .child("numUsuarios").value.toString().toInt() + 1) {
-                        holder.checkBox.isChecked = snapshot.child(usuario.idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
-
-                        Log.v("pagado", "$pagado")
-
-
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("AdapterUsuarioAdmin", "Error al leer el estado de pagado: ${error.message}")
-            }
-
-        })*/
-
         holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             var ref = database.getReference("groups")
+
             if (isChecked != usuario.pagado) { // Verifica si el estado ha cambiado
                 // Actualiza el valor de "pagado" en la base de datos solo si ha cambiado
                 ref.child(usuario.idGrupo).child("users").child((position + 2).toString()).child("pagado").setValue(isChecked)
@@ -131,6 +106,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         val ref2 = database.getReference("users").child(usuarioId).child("groups")
         val ref3 = database.getReference("groups").child(idGrupo)
 
+        // POner position + 2
         ref.orderByValue().equalTo(usuarioId).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -178,39 +154,9 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
 
         notifyItemRemoved(position)
 
-        // TODO: poner aviso antes de echar
+
     }
 
-    /*fun checkPagado(usuarioId: String, idGrupo: String, position: Int) : Boolean{
-
-        val ref = database.getReference("groups")
-        Log.v("idGrupo", idGrupo.toString())
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.v("snapchot", snapshot.exists().toString())
-                if (snapshot.exists()) {
-
-                    Log.v("snapchot2",  snapshot.child(idGrupo!!).child("numUsuarios").value.toString())
-                    for (i in 1 until snapshot.child(idGrupo!!)
-                        .child("numUsuarios").value.toString().toInt() + 1) {
-                        pagado = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
-
-                        Log.v("pagado", "$pagado")
-
-
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("AdapterUsuarioAdmin", "Error al leer el estado de pagado: ${error.message}")
-            }
-
-        })
-
-        Log.v("pagadoReturn", "$pagado")
-        return pagado
-    }*/
 
 
 

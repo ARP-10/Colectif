@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
@@ -40,16 +41,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/img_logo_grupo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/netflix"
+                    android:layout_marginLeft="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:text="Admin"
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintBottom_toTopOf="@+id/plan"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/nombreGrupo"
+                    app:layout_constraintStart_toStartOf="@+id/nombreGrupo"
                     app:layout_constraintTop_toBottomOf="@+id/nombreGrupo" />
 
                 <TextView
@@ -60,6 +71,7 @@
                     android:textColor="@color/texto"
                     android:textSize="18dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/admin"
                     app:layout_constraintStart_toStartOf="@+id/admin" />
 
                 <ImageButton

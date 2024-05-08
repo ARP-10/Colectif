@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarioAdmin
 import com.example.colectif.R
@@ -26,6 +27,8 @@ class VerGrupoAdminFragment : Fragment() {
     private lateinit var adaptadorUsuariosAdmin : AdapterUsuarioAdmin
     private lateinit var listaUsuarios: ArrayList<UsuarioGrupo>
     private lateinit var database: FirebaseDatabase
+    private lateinit var textPassword: TextView
+    private lateinit var txtShowPassword: TextView
 
     // Recoger id grupo
     override fun onAttach(context: Context) {
@@ -72,6 +75,24 @@ class VerGrupoAdminFragment : Fragment() {
                     .toDoubleOrNull() ?: 0.0
                 var numUsuariosActual = childSnapshot.child(idGrupo!!).child("numUsuarios").value.toString().toDouble()
 
+                // Inicializar elementos para mostrar/ocultar contraseña
+                textPassword = view.findViewById(R.id.txt_password)
+                txtShowPassword = view.findViewById(R.id.txt_show_password)
+
+                // Estado inicial de la visibilidad de la contraseña
+                var passwordVisible = false
+
+                // Llamar a la función para mostrar/ocultar la contraseña al inicio
+                Log.v("cambio", contrasenia.toString())
+                togglePasswordVisibility(passwordVisible, contrasenia)
+
+                // Establecer el onClickListener para mostrar/ocultar la contraseña
+                txtShowPassword.setOnClickListener {
+                    passwordVisible = !passwordVisible
+                    Log.v("cambio", passwordVisible.toString())
+                    togglePasswordVisibility(passwordVisible, contrasenia)
+                }
+
                 // Obtener el nombre del admin de la bbdd de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -80,7 +101,7 @@ class VerGrupoAdminFragment : Fragment() {
                         // Actualizar la interfaz de usuario con los datos recuperados
                         binding.txtAdministrador.text = nombreAdmin
                         //binding.txtApp.text = app
-                        binding.txtPassword.text = contrasenia
+                        //binding.txtPassword.text = contrasenia
                         binding.txtCorreo.text = email
 
                         val drawableApp = when (app) {
@@ -125,7 +146,7 @@ class VerGrupoAdminFragment : Fragment() {
         val ref = database.getReference("groups")
         val ref2 = database.getReference("users")
 
-        ref.addValueEventListener(object : ValueEventListener {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (i in 2 until snapshot.child(idGrupo!!)
@@ -158,5 +179,20 @@ class VerGrupoAdminFragment : Fragment() {
 
     }
 
+    // Función para mostrar u ocultar la contraseña
+    private fun togglePasswordVisibility(showPassword: Boolean, password: String) {
+        Log.v(TAG, "Mostrar contraseña: $showPassword")
+        if (showPassword) {
+            // Mostrar la contraseña
+            textPassword.text = password
+            txtShowPassword.text = "Ocultar"
+            Log.v("cambio", "Mostrando contraseña")
+        } else {
+            // Ocultar la contraseña
+            textPassword.text = "********"
+            txtShowPassword.text = "Mostrar"
+            Log.v("cambio", "Ocultando contraseña")
+        }
+    }
 
 }

@@ -140,8 +140,8 @@
 
                 <TextView
                     android:id="@+id/txt_password"
-                    android:layout_width="1dp"
-                    android:layout_height="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
                     android:textSize="15dp"
@@ -149,18 +149,6 @@
                     app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_password"
                     app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />
 
-                <!--
-                <EditText
-                    android:id="@+id/edit_text_password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_etiqueta_password"
-                    app:layout_constraintStart_toEndOf="@+id/txt_etiqueta_password"
-                    app:layout_constraintTop_toTopOf="@+id/txt_etiqueta_password" />-->
 
                 <TextView
                     android:id="@+id/txt_show_password"
@@ -169,8 +157,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="Mostrar"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textColor="@color/boton_salir"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
                     android:layout_marginLeft="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_password"
                     app:layout_constraintStart_toEndOf="@+id/txt_password"

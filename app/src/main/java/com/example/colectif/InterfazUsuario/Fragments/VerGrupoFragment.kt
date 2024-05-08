@@ -4,6 +4,8 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarios
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
+import com.example.colectif.databinding.FragmentVerGrupoAdminBinding
 import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.models.Grupo
 import com.example.colectif.models.User
@@ -92,6 +95,24 @@ class VerGrupoFragment : Fragment() {
                 Log.v(TAG, "Precio: $precio")
                 Log.v(TAG, "NumUsuariosActual: $numUsuariosActual")
 
+                // Inicializar elementos para mostrar/ocultar contraseña
+                textPassword = view.findViewById(R.id.txt_password)
+                txtShowPassword = view.findViewById(R.id.txt_show_password)
+
+                // Estado inicial de la visibilidad de la contraseña
+                var passwordVisible = false
+
+                // Llamar a la función para mostrar/ocultar la contraseña al inicio
+                Log.v("cambio2", contrasenia.toString())
+                togglePasswordVisibility(passwordVisible, contrasenia)
+
+                // Establecer el onClickListener para mostrar/ocultar la contraseña
+                txtShowPassword.setOnClickListener {
+                    passwordVisible = !passwordVisible
+                    Log.v("cambio2", passwordVisible.toString())
+                    togglePasswordVisibility(passwordVisible, contrasenia)
+                }
+
                 // Obtener el nombre del admin de la bbdd de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -140,33 +161,41 @@ class VerGrupoFragment : Fragment() {
             context?.let { it1 -> mostrarMensaje(it1, "Abandonar grupo", "¿Deseas salir del grupo?") }
         }
 
-        // Inicializar elementos para mostrar/ocultar contraseña
-        textPassword = view.findViewById(R.id.txt_password)
-        txtShowPassword = view.findViewById(R.id.txt_show_password)
 
-        // Establecer el onClickListener para mostrar/ocultar la contraseña
-        txtShowPassword.setOnClickListener {
-            togglePasswordVisibility()
-        }
+
     }
 
     fun recogerUsuarios() {
         val ref = database.getReference("groups")
         val ref2 = database.getReference("users")
 
-        ref.addValueEventListener(object : ValueEventListener {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    for (i in 1 until snapshot.child(idGrupo!!)
-                        .child("numUsuarios").value.toString().toInt() + 1) {
-                        var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).value.toString()
-                        Log.v("verGrupo", idGrupo!!.toString())
-                        Log.d("verUsuario", "Usuario: $idUsuario")
-                        ref2.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
-                                if (usuaruiosSnapshot.exists()) {
-                                    var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
-                                    Log.d("NombreUsuario", "Usuario: $nombreUsuario")
+                    // Recoger información del administrador
+                    val adminId = snapshot.child(idGrupo!!).child("administrador").value.toString()
+
+                    ref2.child(adminId).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(adminSnapshot: DataSnapshot) {
+                            if (adminSnapshot.exists()) {
+                                val nombreAdmin = adminSnapshot.child("userName").value.toString()
+                                adaptadorUsuarios.addUsuario(nombreAdmin)
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Manejar errores de base de datos
+                        }
+                    })
+
+                    // Recoger información de los usuarios
+                    for (i in 2..snapshot.child(idGrupo!!).child("numUsuarios").value.toString().toInt()) {
+                        val usuarioId = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString()
+
+                        ref2.child(usuarioId).addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(usuarioSnapshot: DataSnapshot) {
+                                if (usuarioSnapshot.exists()) {
+                                    val nombreUsuario = usuarioSnapshot.child("userName").value.toString()
                                     adaptadorUsuarios.addUsuario(nombreUsuario)
                                 }
                             }
@@ -180,7 +209,7 @@ class VerGrupoFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Manejar errores de base de datos
             }
         })
     }
@@ -272,18 +301,24 @@ class VerGrupoFragment : Fragment() {
         dialog.show()
     }
 
-    // Para que se vea o no la password
-    private fun togglePasswordVisibility() {
-        if (textPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-            // Ocultar la contraseña
-            textPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            txtShowPassword.text = "Mostrar"
-        } else {
+    // Función para mostrar u ocultar la contraseña
+    private fun togglePasswordVisibility(showPassword: Boolean, password: String) {
+        Log.v(TAG, "Mostrar contraseña: $showPassword")
+        if (showPassword) {
             // Mostrar la contraseña
-            textPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            textPassword.text = password
             txtShowPassword.text = "Ocultar"
+            Log.v("cambio2", "Mostrando contraseña")
+        } else {
+            // Ocultar la contraseña
+            textPassword.text = "********"
+            txtShowPassword.text = "Mostrar"
+            Log.v("cambio2", "Ocultando contraseña")
         }
     }
+
+
+
 
 
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.cardview.widget.CardView
@@ -70,16 +71,17 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         holder.admin.text = grupo.administrador
         holder.plan.text = grupo.plan
 
-        // Cambiar el color del borde del CardView según la app
-        val cardView = holder.itemView.findViewById<CardView>(R.id.cardViewBordeColor)
-        val color = when (grupo.app) {
-            "Netflix" -> R.color.netflix
-            "Amazon Prime" -> R.color.amazon
-            "Spotify" -> R.color.spotify
-            "Disney +" -> R.color.disney
-            else -> R.color.texto
+        // Cambiar el icono segun la app
+
+        val imagenGrupo = holder.itemView.findViewById<ImageView>(R.id.img_logo_grupo)
+        val imagen = when (grupo.app) {
+            "Netflix" -> R.drawable.netflix
+            "Amazon Prime" -> R.drawable.amazon
+            "Spotify" -> R.drawable.spotify
+            "Disney +" -> R.drawable.disney
+            else -> R.drawable.error
         }
-        cardView.setCardBackgroundColor(ContextCompat.getColor(contexto, color))
+        imagenGrupo.setImageResource(imagen)
 
 
 
