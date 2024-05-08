@@ -56,11 +56,11 @@ class SolicitudesFragment: Fragment() {
     private fun recogerListaSolicitudes(){
         var ref = database.getReference("users")
         var ref2 = database.getReference("solicitudes")
-        ref.addValueEventListener(object : ValueEventListener{
+        ref.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(i in 1 until snapshot.child(auth.currentUser!!.uid).child("numSolicitudes").value.toString().toInt() + 1){
                     val idSolicitud = snapshot.child(auth.currentUser!!.uid).child("solicitudes").child(i.toString()).value.toString()
-                    ref2.addValueEventListener(object : ValueEventListener{
+                    ref2.addListenerForSingleValueEvent(object : ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             // Hacer que no aparezcan los nulos / borrados de la bbdd
                             if (snapshot.child(idSolicitud).child("idGrupo").value.toString() != "null" && snapshot.child(idSolicitud).child("idMandatario").value.toString() != "null" && snapshot.child(idSolicitud).child("idReceptor").value.toString() != "null") {
