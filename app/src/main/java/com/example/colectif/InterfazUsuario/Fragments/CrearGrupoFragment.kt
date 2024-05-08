@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.example.colectif.InterfazUsuario.Activities.InicioActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.models.Grupo
@@ -56,6 +57,8 @@ class CrearGrupoFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Netflix marcado por defecto
         binding.spinnerApps.setSelection(0)
+
+        comprobarSolicitudes()
 
         binding.btnCrearGrupo.setOnClickListener {
             app = binding.spinnerApps.selectedItem.toString()
@@ -283,5 +286,9 @@ class CrearGrupoFragment: Fragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    fun comprobarSolicitudes(){
+        (requireActivity() as InicioActivity).recogerListaSolicitudes()
     }
 }

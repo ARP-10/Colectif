@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarios
+import com.example.colectif.InterfazUsuario.Activities.InicioActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.databinding.FragmentVerGrupoAdminBinding
@@ -68,6 +69,8 @@ class VerGrupoFragment : Fragment() {
         binding.recyclerVerUsuarios.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+
+        comprobarSolicitudes()
         recogerUsuarios()
 
         // Ubicar la BBDD
@@ -168,6 +171,7 @@ class VerGrupoFragment : Fragment() {
     fun recogerUsuarios() {
         val ref = database.getReference("groups")
         val ref2 = database.getReference("users")
+        val ref3 = database.getReference("groups").child(idGrupo!!).child("users")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -189,22 +193,33 @@ class VerGrupoFragment : Fragment() {
                     })
 
                     // Recoger información de los usuarios
-                    for (i in 2..snapshot.child(idGrupo!!).child("numUsuarios").value.toString().toInt()) {
-                        val usuarioId = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString()
+                    ref3.addListenerForSingleValueEvent(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.exists()){
+                                for(snapshot in snapshot.children){
+                                    var idUsuario = snapshot.key
 
-                        ref2.child(usuarioId).addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onDataChange(usuarioSnapshot: DataSnapshot) {
-                                if (usuarioSnapshot.exists()) {
-                                    val nombreUsuario = usuarioSnapshot.child("userName").value.toString()
-                                    adaptadorUsuarios.addUsuario(nombreUsuario)
+                                    ref2.child(idUsuario!!).addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(userSnapshot: DataSnapshot) {
+                                            if (userSnapshot.exists()) {
+                                                val nombreUser = userSnapshot.child("userName").value.toString()
+                                                adaptadorUsuarios.addUsuario(nombreUser)
+                                            }
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                            // Manejar errores de base de datos
+                                        }
+                                    })
                                 }
                             }
+                        }
 
-                            override fun onCancelled(error: DatabaseError) {
-                                // Manejar errores de base de datos
-                            }
-                        })
-                    }
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
                 }
             }
 
@@ -315,6 +330,10 @@ class VerGrupoFragment : Fragment() {
             txtShowPassword.text = "Mostrar"
             Log.v("cambio2", "Ocultando contraseña")
         }
+    }
+
+    fun comprobarSolicitudes(){
+        (requireActivity() as InicioActivity).recogerListaSolicitudes()
     }
 
 

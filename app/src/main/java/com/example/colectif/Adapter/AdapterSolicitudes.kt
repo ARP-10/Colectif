@@ -154,10 +154,8 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
                         snapshot.child(idGrupo).child("numUsuarios").getValue(Int::class.java) ?: 0
                     numUsuariosActual++
 
-                    ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())
-                        .child("idUser").setValue(idUser)
-                    ref3.child(idGrupo).child("users").child(numUsuariosActual.toString())
-                        .child("pagado").setValue(false)
+                    ref3.child(idGrupo).child("users").child(idUser).child("id").setValue(idUser)
+                    ref3.child(idGrupo).child("users").child(idUser).child("pagado").setValue(false)
                     ref3.child(idGrupo).child("numUsuarios").setValue(numUsuariosActual)
 
                     // Desvincular el ValueEventListener después de realizar la operación
@@ -209,10 +207,7 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
 
     }
 
-    fun comprobarVacio(): Boolean{
-        this.listaSolicitudes.isEmpty()
-        return false
-    }
+
 
 
 }

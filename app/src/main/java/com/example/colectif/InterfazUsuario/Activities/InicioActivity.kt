@@ -177,7 +177,7 @@ class InicioActivity : AppCompatActivity() {
     }
 
 
-    private fun recogerListaSolicitudes(){
+    fun recogerListaSolicitudes(){
         var ref = database.getReference("users")
         var ref2 = database.getReference("solicitudes")
         ref.addValueEventListener(object : ValueEventListener{

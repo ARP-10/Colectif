@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.colectif.InterfazUsuario.Activities.InicioActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.databinding.FragmentVerInfoGrupoBinding
@@ -43,6 +44,8 @@ class VerInfoGrupoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        comprobarSolicitudes()
 
         // Mostrar los datos en el fragment
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
@@ -163,6 +166,10 @@ class VerInfoGrupoFragment : Fragment() {
             }
         })
 
+    }
+
+    fun comprobarSolicitudes(){
+        (requireActivity() as InicioActivity).recogerListaSolicitudes()
     }
 
 }

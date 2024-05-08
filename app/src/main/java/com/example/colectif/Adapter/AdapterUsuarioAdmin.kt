@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.InterfazUsuario.Fragments.VerGrupoAdminFragment
 import com.example.colectif.R
@@ -20,7 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrupo>, ):
+class AdapterUsuarioAdmin(var navController: NavController,var contexto: Context, var lista:ArrayList<UsuarioGrupo>, ):
     RecyclerView.Adapter<AdapterUsuarioAdmin.MyHolder>() {
 
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -47,7 +48,6 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val usuario = lista[position]
-
         holder.nombreUsuario.text = usuario.nombreUsuario
         holder.btnEcharGrupo.setOnClickListener {
 
@@ -56,12 +56,13 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         }
         holder.checkBox.isChecked = usuario.pagado
 
+
+
         holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             var ref = database.getReference("groups")
-
             if (isChecked != usuario.pagado) { // Verifica si el estado ha cambiado
                 // Actualiza el valor de "pagado" en la base de datos solo si ha cambiado
-                ref.child(usuario.idGrupo).child("users").child((position + 2).toString()).child("pagado").setValue(isChecked)
+                ref.child(usuario.idGrupo).child("users").child(usuario.id).child("pagado").setValue(isChecked)
 
 
 
@@ -106,21 +107,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         val ref2 = database.getReference("users").child(usuarioId).child("groups")
         val ref3 = database.getReference("groups").child(idGrupo)
 
-        // POner position + 2
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    Log.v("eliminar", snapshot.child((position + 2).toString()).child("id").value.toString())
-                    ref.child((position + 2).toString()).removeValue()
-
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
+        ref.child(usuarioId).removeValue()
         // borrar el grupo al usuario
         ref2.orderByValue().equalTo(idGrupo).addListenerForSingleValueEvent(object :
             ValueEventListener {
@@ -158,6 +145,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
 
 
     }
+
 
 
 

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarioAdmin
 import com.example.colectif.R
@@ -27,8 +27,6 @@ class VerGrupoAdminFragment : Fragment() {
     private lateinit var adaptadorUsuariosAdmin : AdapterUsuarioAdmin
     private lateinit var listaUsuarios: ArrayList<UsuarioGrupo>
     private lateinit var database: FirebaseDatabase
-    private lateinit var textPassword: TextView
-    private lateinit var txtShowPassword: TextView
 
     // Recoger id grupo
     override fun onAttach(context: Context) {
@@ -49,8 +47,9 @@ class VerGrupoAdminFragment : Fragment() {
         database =
             FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         listaUsuarios = ArrayList()
+        val navController = Navigation.findNavController(view)
         // Configuración del RecyclerView
-        adaptadorUsuariosAdmin = context?.let { AdapterUsuarioAdmin(it, listaUsuarios) }!!
+        adaptadorUsuariosAdmin = context?.let { AdapterUsuarioAdmin(navController,it, listaUsuarios) }!!
         binding.recyclerVerUsuariosAdmin.adapter = adaptadorUsuariosAdmin
         binding.recyclerVerUsuariosAdmin.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -74,24 +73,6 @@ class VerGrupoAdminFragment : Fragment() {
                     .replace(",", ".")
                     .toDoubleOrNull() ?: 0.0
                 var numUsuariosActual = childSnapshot.child(idGrupo!!).child("numUsuarios").value.toString().toDouble()
-
-                // Inicializar elementos para mostrar/ocultar contraseña
-                textPassword = view.findViewById(R.id.txt_password)
-                txtShowPassword = view.findViewById(R.id.txt_show_password)
-
-                // Estado inicial de la visibilidad de la contraseña
-                var passwordVisible = false
-
-                // Llamar a la función para mostrar/ocultar la contraseña al inicio
-                Log.v("cambio", contrasenia.toString())
-                togglePasswordVisibility(passwordVisible, contrasenia)
-
-                // Establecer el onClickListener para mostrar/ocultar la contraseña
-                txtShowPassword.setOnClickListener {
-                    passwordVisible = !passwordVisible
-                    Log.v("cambio", passwordVisible.toString())
-                    togglePasswordVisibility(passwordVisible, contrasenia)
-                }
 
                 // Obtener el nombre del admin de la bbdd de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -143,22 +124,31 @@ class VerGrupoAdminFragment : Fragment() {
     }
 
     fun recogerUsuarios() {
-        val ref = database.getReference("groups")
+        val ref = database.getReference("groups").child(idGrupo!!).child("users")
         val ref2 = database.getReference("users")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    for (i in 2 until 8) {
-                        if (snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString() != "null") {
-                            var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString()
-                            var pagado = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
-                            Log.v("verUsuario", idGrupo!!.toString())
-                            ref2.addValueEventListener(object : ValueEventListener {
+                    for (snapshot in snapshot.children) {
+                        var idUsuario = snapshot.key
+                        if (idUsuario != "1") {
+                            var pagado = snapshot.child("pagado").getValue(Boolean::class.java) ?: false
+                            ref2.addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
                                     if (usuaruiosSnapshot.exists()) {
-                                        var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
-                                        adaptadorUsuariosAdmin.addUsuarioAdmin(UsuarioGrupo(idUsuario, nombreUsuario, idGrupo!!, pagado))
+                                        var nombreUsuario = usuaruiosSnapshot.child(idUsuario!!)
+                                            .child("userName").value.toString()
+                                        if (nombreUsuario != "null") {
+                                            adaptadorUsuariosAdmin.addUsuarioAdmin(
+                                                UsuarioGrupo(
+                                                    idUsuario,
+                                                    nombreUsuario,
+                                                    idGrupo!!,
+                                                    pagado
+                                                )
+                                            )
+                                        }
                                     }
                                 }
 
@@ -175,25 +165,9 @@ class VerGrupoAdminFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+
+
         })
 
-
     }
-
-    // Función para mostrar u ocultar la contraseña
-    private fun togglePasswordVisibility(showPassword: Boolean, password: String) {
-        Log.v(TAG, "Mostrar contraseña: $showPassword")
-        if (showPassword) {
-            // Mostrar la contraseña
-            textPassword.text = password
-            txtShowPassword.text = "Ocultar"
-            Log.v("cambio", "Mostrando contraseña")
-        } else {
-            // Ocultar la contraseña
-            textPassword.text = "********"
-            txtShowPassword.text = "Mostrar"
-            Log.v("cambio", "Ocultando contraseña")
-        }
-    }
-
 }
