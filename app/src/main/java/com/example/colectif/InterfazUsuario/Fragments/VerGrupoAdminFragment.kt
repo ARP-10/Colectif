@@ -131,14 +131,13 @@ class VerGrupoAdminFragment : Fragment() {
                     for (i in 2 until snapshot.child(idGrupo!!)
                         .child("numUsuarios").value.toString().toInt() + 1) {
                         var idUsuario = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("id").value.toString()
+                        var pagado = snapshot.child(idGrupo!!).child("users").child(i.toString()).child("pagado").getValue(Boolean::class.java) ?: false
                         Log.v("verUsuario", idGrupo!!.toString())
                         ref2.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
                                 if (usuaruiosSnapshot.exists()) {
                                     var nombreUsuario = usuaruiosSnapshot.child(idUsuario).child("userName").value.toString()
-                                    adaptadorUsuariosAdmin.addUsuarioAdmin(UsuarioGrupo(idUsuario, nombreUsuario, idGrupo!!, pagado = false))
-
-
+                                    adaptadorUsuariosAdmin.addUsuarioAdmin(UsuarioGrupo(idUsuario, nombreUsuario, idGrupo!!, pagado))
                                 }
                             }
 

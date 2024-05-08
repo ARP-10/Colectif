@@ -53,10 +53,11 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
             mostrarMensaje(contexto, "Expulsar del grupo", "¿Deseas expulsar a este usuario del grupo?", usuario.id, usuario.idGrupo, position)
 
         }
+        holder.checkBox.isChecked = usuario.pagado
 
 
 
-        val ref = database.getReference("groups")
+        /*val ref = database.getReference("groups")
         //Log.v("idGrupo", idGrupo.toString())
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -79,7 +80,18 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
                 Log.e("AdapterUsuarioAdmin", "Error al leer el estado de pagado: ${error.message}")
             }
 
-        })
+        })*/
+
+        holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            var ref = database.getReference("groups")
+            if (isChecked != usuario.pagado) { // Verifica si el estado ha cambiado
+                // Actualiza el valor de "pagado" en la base de datos solo si ha cambiado
+                ref.child(usuario.idGrupo).child("users").child((position + 2).toString()).child("pagado").setValue(isChecked)
+            }
+        }
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -166,7 +178,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
         // TODO: poner aviso antes de echar
     }
 
-    fun checkPagado(usuarioId: String, idGrupo: String, position: Int) : Boolean{
+    /*fun checkPagado(usuarioId: String, idGrupo: String, position: Int) : Boolean{
 
         val ref = database.getReference("groups")
         Log.v("idGrupo", idGrupo.toString())
@@ -195,7 +207,7 @@ class AdapterUsuarioAdmin(var contexto: Context, var lista:ArrayList<UsuarioGrup
 
         Log.v("pagadoReturn", "$pagado")
         return pagado
-    }
+    }*/
 
 
 
