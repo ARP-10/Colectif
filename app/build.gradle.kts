@@ -62,7 +62,7 @@ dependencies {
     implementation("androidx.credentials:credentials-play-services-auth:1.2.1")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("com.karumi:dexter:6.2.2")
+    implementation("com.karumi:dexter:6.2.3")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")

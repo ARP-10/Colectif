@@ -3,12 +3,14 @@ package com.example.colectif.InterfazUsuario.Fragments
 import android.Manifest
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -243,25 +245,38 @@ InicioFragment: Fragment() {
     }
 
     // Método para seleccionar una imagen de la galería
-    private fun seleccionarImagen(){
-        Dexter.withContext(context).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .withListener(object: PermissionListener {
-                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                    val intent = Intent()
+    private fun seleccionarImagen() {
+        Dexter.withContext(context)
+            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                    val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                     intent.type = "image/*"
-                    intent.action = Intent.ACTION_PICK
-                    startActivityForResult(intent,101)
+                    startActivityForResult(intent, 101)
                 }
 
-                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                    Toast.makeText(context,"Permiso denegado", Toast.LENGTH_SHORT).show()
+                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                    Toast.makeText(context, "Permiso denegado", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
-
+                override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
+                    // Mostrar explicación al usuario y dar opción para volver a intentarlo
+                    AlertDialog.Builder(context)
+                        .setTitle("Permiso necesario")
+                        .setMessage("Necesitamos permiso para acceder a tus imágenes. Por favor, concede el permiso en la configuración.")
+                        .setPositiveButton("Ok") { dialog, which ->
+                            token?.continuePermissionRequest()
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Cancelar") { dialog, which ->
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
-                }).check()
+            })
+            .check()
     }
+
 
     // Método para subir la imagen seleccionada a Firebase
     private fun subirImagen(){
