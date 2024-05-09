@@ -107,6 +107,11 @@ class AdapterUsuarioAdmin(var navController: NavController,var contexto: Context
         val ref2 = database.getReference("users").child(usuarioId).child("groups")
         val ref3 = database.getReference("groups").child(idGrupo)
 
+        lista.removeAt(position)
+
+        // Notificar al adaptador sobre el cambio realizado en la lista de datos
+        notifyItemRemoved(position)
+
         ref.child(usuarioId).removeValue()
         // borrar el grupo al usuario
         ref2.orderByValue().equalTo(idGrupo).addListenerForSingleValueEvent(object :
@@ -141,7 +146,6 @@ class AdapterUsuarioAdmin(var navController: NavController,var contexto: Context
             }
         })
 
-        notifyItemRemoved(position)
 
 
     }
