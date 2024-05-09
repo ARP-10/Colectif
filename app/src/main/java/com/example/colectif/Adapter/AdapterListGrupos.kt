@@ -98,7 +98,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -159,7 +159,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
 

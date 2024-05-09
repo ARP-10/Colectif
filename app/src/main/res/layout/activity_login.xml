@@ -110,7 +110,7 @@
                     android:onClick="openRegistrationScreen"
                     android:text="¿No tienes cuenta? Regístrate"
                     android:textSize="17dp"
-                    android:textColor="@color/boton"
+                    android:textColor="@color/boton_salir"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

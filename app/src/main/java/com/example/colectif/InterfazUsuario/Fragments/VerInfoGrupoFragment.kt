@@ -45,6 +45,7 @@ class VerInfoGrupoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+
         comprobarSolicitudes()
 
         // Mostrar los datos en el fragment
@@ -103,7 +104,7 @@ class VerInfoGrupoFragment : Fragment() {
 
 
 
-
+/*
         binding.btnSolicitudEntrar.setOnClickListener {
             auth = FirebaseAuth.getInstance()
             var userId = auth.currentUser!!.uid
@@ -130,7 +131,20 @@ class VerInfoGrupoFragment : Fragment() {
             })
 
 
+        }*/
+
+        // Config btn unirse
+        binding.btnSolicitudEntrar.setOnClickListener {
+
+            val userId = auth.currentUser?.uid
+            if (userId != null) {
+                comprobarSolicitudPendiente(userId, idGrupo!!, view)
+            } else {
+                Log.d("VerInfoGrupoFragment", "Usuario no autenticado al intentar enviar solicitud")
+                Snackbar.make(view, "Debe iniciar sesión para enviar una solicitud", Snackbar.LENGTH_SHORT).show()
+            }
         }
+
 
     }
 
@@ -138,6 +152,7 @@ class VerInfoGrupoFragment : Fragment() {
         super.onDetach()
     }
 
+    /*
     fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String, view: View){
         var solicitud = Solicitud(idAdmin,idUser,idGrupo)
         var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -166,10 +181,104 @@ class VerInfoGrupoFragment : Fragment() {
             }
         })
 
+    }*/
+
+    fun enviarSolicitud(idUser: String, idGrupo: String, view: View) {
+        val auth = FirebaseAuth.getInstance()
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Log.d("VerInfoGrupoFragment", "Usuario no autenticado al intentar enviar solicitud")
+            Snackbar.make(view, "Debe iniciar sesión para enviar una solicitud", Snackbar.LENGTH_SHORT).show()
+            return
+        }
+
+        val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        val groupsRef = database.getReference("groups").child(idGrupo)
+
+        // Obtener el ID del administrador
+        groupsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val adminId = snapshot.child("administrador").value.toString()
+
+                val solicitud = Solicitud(adminId, userId, idGrupo)
+                val solicitudesRef = database.getReference("solicitudes")
+
+                val newRef = solicitudesRef.push()
+                newRef.setValue(solicitud)
+                val nuevaId = newRef.key!!
+
+                // Establecer la clave generada como el ID de la solicitud
+                newRef.child("id").setValue(nuevaId)
+
+                // Establecer la solicitud
+                newRef.setValue(solicitud)
+
+                // Actualizar el número de solicitudes del administrador
+                val usersRef = database.getReference("users").child(adminId)
+                usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(userSnapshot: DataSnapshot) {
+                        var numSolicitudActual = userSnapshot.child("numSolicitudes").getValue(Int::class.java) ?: 0
+                        numSolicitudActual++
+                        usersRef.child("numSolicitudes").setValue(numSolicitudActual)
+
+                        // Guardar la solicitud en el usuario receptor
+                        val solicitudUsuarioRef = usersRef.child("solicitudes").child(numSolicitudActual.toString())
+                        solicitudUsuarioRef.setValue(nuevaId)
+
+                        Snackbar.make(view, "Solicitud enviada exitosamente", Snackbar.LENGTH_SHORT).show()
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("VerInfoGrupoFragment", "Error al enviar la solicitud: ${error.message}")
+                        Snackbar.make(view, "Error al enviar la solicitud", Snackbar.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("VerInfoGrupoFragment", "Error al enviar la solicitud: ${error.message}")
+                Snackbar.make(view, "Error al enviar la solicitud", Snackbar.LENGTH_SHORT).show()
+            }
+        })
     }
+
 
     fun comprobarSolicitudes(){
         (requireActivity() as InicioActivity).recogerListaSolicitudes()
     }
+
+    fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View) {
+        Log.v("VerInfoGrupoFragment", "Comprobando solicitud pendiente para usuario $userId en el grupo $idGrupo")
+
+        val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        val ref = database.getReference("solicitudes")
+
+        ref.orderByChild("idReceptor").equalTo(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var solicitudPendiente = false
+                for (solicitudSnapshot in snapshot.children) {
+                    val grupoId = solicitudSnapshot.child("idGrupo").value.toString()
+                    if (grupoId == idGrupo) {
+                        solicitudPendiente = true
+                        break
+                    }
+                }
+                if (solicitudPendiente) {
+                    Log.d("VerInfoGrupoFragment", "El usuario ya tiene una solicitud pendiente para este grupo")
+                    Snackbar.make(view, "Ya has enviado una solicitud a este grupo", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    // Si no hay solicitud pendiente, enviar la solicitud
+                    enviarSolicitud(userId, idGrupo, view)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("VerInfoGrupoFragment", "Error al comprobar las solicitudes pendientes: ${error.message}")
+                Snackbar.make(view, "Error al comprobar las solicitudes pendientes", Snackbar.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 
 }

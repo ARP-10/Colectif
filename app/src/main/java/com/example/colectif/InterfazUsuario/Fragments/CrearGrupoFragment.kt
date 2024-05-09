@@ -158,7 +158,7 @@ class CrearGrupoFragment: Fragment() {
                                 }
                             }
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-                                TODO("Not yet implemented")
+
                             }
                         }
                     }
@@ -182,7 +182,7 @@ class CrearGrupoFragment: Fragment() {
                             }
 
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-                                TODO("Not yet implemented")
+
                             }
                         }
                     }
@@ -206,7 +206,7 @@ class CrearGrupoFragment: Fragment() {
                             }
 
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-                                TODO("Not yet implemented")
+
                             }
                         }
                     }
@@ -234,7 +234,7 @@ class CrearGrupoFragment: Fragment() {
                             }
 
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-                                TODO("Not yet implemented")
+
                             }
                         }
                     }
@@ -242,7 +242,7 @@ class CrearGrupoFragment: Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -261,7 +261,7 @@ class CrearGrupoFragment: Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
 

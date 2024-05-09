@@ -108,29 +108,6 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
 
         adapterListGrupos.infoButtonClickListener = this
 
-        /*
-        binding.SpinnerBuscarGrupos.onItemSelectedListener =
-            object :  NavigationBarView.OnItemSelectedListener,
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val seleccionado = parent!!.adapter.getItem(position).toString()
-                    adapterListCatalogo.filtrarLista(seleccionado)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                    TODO("Not yet implemented")
-                }
-
-            }*/
 
         binding.editBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -142,7 +119,11 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-
+        binding.imgReset.setOnClickListener{
+            findNavController().navigate(
+                R.id.listaGruposFragment
+            )
+        }
     }
 
     // Se esta usando esto ??
@@ -190,7 +171,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
                         val numUsuarios = convertToInt(snapshot.child("numUsuarios").value.toString())
 
                         //if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
-                        // TODO:
+
                         if (numUsuarios < numMax && !snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {*/
                             if (snapshot.child("app").value.toString().equals("Netflix")) {
 
@@ -272,7 +253,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         })

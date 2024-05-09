@@ -63,7 +63,7 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
     fun filtrarLista(filtro: String){
         // Si el filtro está vacío, restaurar la lista completa de grupos en cada categoría
         if (filtro.isEmpty()) {
-            // TODO: cargar el fragment
+
 /*
             recycler_lista_catalogo.forEach { catalogoGrupos ->
                 catalogoGrupos.grupos = ArrayList(listaCompletaTodosGrupos) // Restaurar la lista completa

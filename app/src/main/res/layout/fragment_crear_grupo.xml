@@ -211,6 +211,7 @@
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
                     android:textSize="15dp"
+                    android:inputType="textPassword"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_contrasenia"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txt_contrasenia"
