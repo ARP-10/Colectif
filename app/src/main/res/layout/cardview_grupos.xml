@@ -9,8 +9,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="20dp">
+        app:cardBackgroundColor="@color/texto"
+        app:cardCornerRadius="18dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="260dp"
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:text="administrador"
-                        android:textColor="@color/black"
+                        android:textColor="@color/texto"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/text_grupo"
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="grupo"
-                        android:textColor="@color/black"
+                        android:textColor="@color/texto"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         android:layout_marginBottom="5dp"
@@ -95,7 +95,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="Plan"
-                        android:textColor="@color/black"
+                        android:textColor="@color/texto"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +108,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="Precio"
-                        android:textColor="@color/black"
+                        android:textColor="@color/texto"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -120,7 +120,7 @@
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/anadir"
+                        android:background="@drawable/baseline_add_alert_24"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -130,7 +130,7 @@
                         android:layout_height="35dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/buscar32px"
+                        android:background="@drawable/baseline_info_24"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
