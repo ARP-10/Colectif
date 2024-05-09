@@ -59,14 +59,19 @@ class AdapterUsuarioAdmin(var navController: NavController,var contexto: Context
 
 
         holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-            var ref = database.getReference("groups")
-            if (isChecked != usuario.pagado) { // Verifica si el estado ha cambiado
-                // Actualiza el valor de "pagado" en la base de datos solo si ha cambiado
-                ref.child(usuario.idGrupo).child("users").child(usuario.id).child("pagado").setValue(isChecked)
+            val ref = database.getReference("groups").child(usuario.idGrupo).child("users").child(usuario.id)
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val pagadoActual = dataSnapshot.child("pagado").getValue(Boolean::class.java) ?: false
+                    if (isChecked != pagadoActual) {
+                        ref.child("pagado").setValue(isChecked)
+                    }
+                }
 
-
-
-            }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Manejo de errores, si es necesario
+                }
+            })
         }
 
 
