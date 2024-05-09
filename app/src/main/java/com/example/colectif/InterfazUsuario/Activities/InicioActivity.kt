@@ -45,11 +45,14 @@ class InicioActivity : AppCompatActivity() {
     private var sharedPref: String = "com.example.colectif"
     private var haySolicitudes: Boolean = false
     private var primeraVez: Boolean = true
+    private var menu: Menu? = null
+
 
     val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val flag = intent?.getBooleanExtra("haySolicitudes", false) ?: false
             cambiarHaySolicitudes(flag)
+            onSolicitudesActualizadas()
             if(!flag){
                 cambiarHaySolicitudes(flag)
             }
@@ -117,14 +120,14 @@ class InicioActivity : AppCompatActivity() {
         } else {
             haySolicitudes = true
         }
-        Log.v("eladio2", haySolicitudes.toString())
     }
 
 
     // Menu toolbar de arriba de la pantalla
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.menu_toolbar, menu)
-        onSolicitudesActualizadas(menu,haySolicitudes)
+        onSolicitudesActualizadas()
         return true
     }
 
@@ -152,9 +155,10 @@ class InicioActivity : AppCompatActivity() {
 
     }
 
-     fun onSolicitudesActualizadas(menu: Menu?, haySolicitudes: Boolean) {
+    fun onSolicitudesActualizadas() {
         val menuItem = menu?.findItem(R.id.action_notifications)
         if(menuItem != null) {
+            haySolicitudes = !listaSolicitudes.isEmpty() // Actualizar el estado de las solicitudes
             if (haySolicitudes) {
                 menuItem.setIcon(R.drawable.campana_notificacion)
                 invalidateOptionsMenu()
@@ -163,7 +167,6 @@ class InicioActivity : AppCompatActivity() {
                 invalidateOptionsMenu()
             }
         }
-
     }
 
 
