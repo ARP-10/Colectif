@@ -27,6 +27,7 @@ class VerInfoGrupoFragment : Fragment() {
     private lateinit var binding: FragmentVerInfoGrupoBinding
     private lateinit var auth: FirebaseAuth
     private var idGrupo:String? = null
+    private lateinit var idAdmin: String
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,9 +47,7 @@ class VerInfoGrupoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        comprobarSolicitudes()
-
-        // Mostrar los datos en el fragment
+        // Obtener una referencia a la base de datos de grupos y usuarios
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
         val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
 
@@ -57,6 +56,7 @@ class VerInfoGrupoFragment : Fragment() {
             override fun onDataChange(childSnapshot: DataSnapshot) {
                 // Obtener los valores de cada hijo
                 val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
+                idAdmin = administradorId
                 val app = childSnapshot.child(idGrupo!!).child("app").value.toString()
                 val nombre = childSnapshot.child(idGrupo!!).child("nombre").value.toString()
                 val plan = childSnapshot.child(idGrupo!!).child("plan").value.toString()
@@ -135,17 +135,15 @@ class VerInfoGrupoFragment : Fragment() {
 
         // Config btn unirse
         binding.btnSolicitudEntrar.setOnClickListener {
-
             val userId = auth.currentUser?.uid
+            Log.v("comprobar idAdmin", idAdmin.toString())
             if (userId != null) {
-                comprobarSolicitudPendiente(userId, idGrupo!!, view)
+                comprobarSolicitudPendiente(userId, idGrupo!!, view, idAdmin)
             } else {
                 Log.d("VerInfoGrupoFragment", "Usuario no autenticado al intentar enviar solicitud")
                 Snackbar.make(view, "Debe iniciar sesión para enviar una solicitud", Snackbar.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
     override fun onDetach() {
@@ -183,6 +181,7 @@ class VerInfoGrupoFragment : Fragment() {
 
     }*/
 
+
     fun enviarSolicitud(idUser: String, idGrupo: String, view: View) {
         val auth = FirebaseAuth.getInstance()
         val userId = auth.currentUser?.uid
@@ -204,11 +203,10 @@ class VerInfoGrupoFragment : Fragment() {
                 val solicitudesRef = database.getReference("solicitudes")
 
                 val newRef = solicitudesRef.push()
-                newRef.setValue(solicitud)
                 val nuevaId = newRef.key!!
 
                 // Establecer la clave generada como el ID de la solicitud
-                newRef.child("id").setValue(nuevaId)
+                solicitud.id = nuevaId
 
                 // Establecer la solicitud
                 newRef.setValue(solicitud)
@@ -243,22 +241,22 @@ class VerInfoGrupoFragment : Fragment() {
     }
 
 
-    fun comprobarSolicitudes(){
-        (requireActivity() as InicioActivity).recogerListaSolicitudes()
-    }
 
-    fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View) {
+    fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View, adminId: String) {
         Log.v("VerInfoGrupoFragment", "Comprobando solicitud pendiente para usuario $userId en el grupo $idGrupo")
-
         val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("solicitudes")
 
-        ref.orderByChild("idReceptor").equalTo(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+        // Buscar solicitudes pendientes para el usuario y el grupo especificado
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var solicitudPendiente = false
                 for (solicitudSnapshot in snapshot.children) {
                     val grupoId = solicitudSnapshot.child("idGrupo").value.toString()
-                    if (grupoId == idGrupo) {
+                    val receptorId = solicitudSnapshot.child("idReceptor").value.toString()
+                    val mandatarioId = solicitudSnapshot.child("idMandatario").value.toString()
+
+                    if (grupoId == idGrupo && mandatarioId == userId && receptorId == adminId) {
                         solicitudPendiente = true
                         break
                     }
@@ -278,7 +276,4 @@ class VerInfoGrupoFragment : Fragment() {
             }
         })
     }
-
-
-
 }

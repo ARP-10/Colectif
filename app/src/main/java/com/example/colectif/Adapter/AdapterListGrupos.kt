@@ -1,6 +1,7 @@
 package com.example.colectif.Adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,7 +110,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         holder.precio.text = grupo.precio
         holder.nombreGrupo.text = grupo.nombre
         holder.imageButton.setOnClickListener {
-            enviarSolicitud(auth.currentUser!!.uid, grupo.administrador, grupo.id, holder.itemView)
+            comprobarSolicitudPendiente(auth.currentUser!!.uid, grupo.id, holder.itemView,grupo.administrador)
         }
 
 
@@ -175,6 +176,41 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             listaCompleta.filter { it.nombre.contains(texto, ignoreCase = true) } as ArrayList<Grupo>
         }
         notifyDataSetChanged() // Notificar al Adapter que la lista ha cambiado
+    }
+
+    fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View, adminId: String) {
+        Log.v("VerInfoGrupoFragment", "Comprobando solicitud pendiente para usuario $userId en el grupo $idGrupo")
+        val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        val ref = database.getReference("solicitudes")
+
+        // Buscar solicitudes pendientes para el usuario y el grupo especificado
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var solicitudPendiente = false
+                for (solicitudSnapshot in snapshot.children) {
+                    val grupoId = solicitudSnapshot.child("idGrupo").value.toString()
+                    val receptorId = solicitudSnapshot.child("idReceptor").value.toString()
+                    val mandatarioId = solicitudSnapshot.child("idMandatario").value.toString()
+
+                    if (grupoId == idGrupo && mandatarioId == userId && receptorId == adminId) {
+                        solicitudPendiente = true
+                        break
+                    }
+                }
+                if (solicitudPendiente) {
+                    Log.d("VerInfoGrupoFragment", "El usuario ya tiene una solicitud pendiente para este grupo")
+                    Snackbar.make(view, "Ya has enviado una solicitud a este grupo", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    // Si no hay solicitud pendiente, enviar la solicitud
+                    enviarSolicitud(userId, adminId,idGrupo, view)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("VerInfoGrupoFragment", "Error al comprobar las solicitudes pendientes: ${error.message}")
+                Snackbar.make(view, "Error al comprobar las solicitudes pendientes", Snackbar.LENGTH_SHORT).show()
+            }
+        })
     }
 
 

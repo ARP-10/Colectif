@@ -301,7 +301,7 @@ class VerGrupoFragment : Fragment() {
             // Volver a la pantalla de inicio
             //findNavController().navigate(R.id.action_verGrupoFragment_to_inicioFragment)
             // Ir a pantalla buscar grupos
-            //findNavController().navigate(R.id.action_verGrupoFragment_to_listaGruposFragment)
+            findNavController().navigate(R.id.action_verGrupoFragment_to_listaGruposFragment)
 
             dialog.dismiss()
         }

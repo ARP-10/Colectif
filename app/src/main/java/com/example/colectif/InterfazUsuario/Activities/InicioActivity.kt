@@ -12,24 +12,15 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import android.widget.CheckBox
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.colectif.InterfazUsuario.Fragments.CrearGrupoFragment
-import com.example.colectif.InterfazUsuario.Fragments.InicioFragment
-import com.example.colectif.InterfazUsuario.Fragments.ListaGruposFragment
 import com.example.colectif.R
 import com.example.colectif.databinding.ActivityInicioBinding
 import com.example.colectif.interfaces.SolicitudListener
@@ -62,7 +53,6 @@ class InicioActivity : AppCompatActivity() {
             if(!flag){
                 cambiarHaySolicitudes(flag)
             }
-            Log.v("eladio", flag.toString())
         }
     }
 
@@ -219,23 +209,36 @@ class InicioActivity : AppCompatActivity() {
         haySolicitudes = flag
     }
 
-    fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String){
-        val builder = AlertDialog.Builder(contexto)
-        builder.setTitle(titulo)
-        builder.setMessage(mensaje)
+    fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String) {
+        val sharedPreferences = contexto.getSharedPreferences(sharedPref, Context.MODE_PRIVATE)
+        val noMostrarAdvertencia = sharedPreferences.getBoolean("noMostrarAdvertencia", false)
 
-        builder.setPositiveButton("Aceptar") {dialog, _ ->
+        // Verificar si se debe mostrar el mensaje
+        if (!noMostrarAdvertencia) {
+            val builder = AlertDialog.Builder(contexto)
+            builder.setTitle(titulo)
+            builder.setMessage(mensaje)
 
-            dialog.dismiss()
+            builder.setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
 
+            builder.setNegativeButton("No volver a mostrar") { dialog, _ ->
+                dialog.dismiss()
+                // Guardar la preferencia del usuario
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("noMostrarAdvertencia", true)
+                editor.apply()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
         }
-
-        val dialog = builder.create()
-        dialog.show()
-        val sharedPreferences = getSharedPreferences(sharedPref,Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("primeraVez",false)
-        editor.apply()
     }
+
+
+
+
+
 
 }
