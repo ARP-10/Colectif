@@ -64,7 +64,7 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+
                 }
 
             })
@@ -74,7 +74,7 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+
                 }
 
             })
@@ -179,7 +179,7 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
         ref2.child(idSolicitud).removeValue()
@@ -199,7 +199,7 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
         ref2.child(idSolicitud).removeValue()

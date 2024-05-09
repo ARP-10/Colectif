@@ -190,7 +190,7 @@ InicioFragment: Fragment() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
+
                 }
 
                 override fun onNavigationItemSelected(item: MenuItem): Boolean {
