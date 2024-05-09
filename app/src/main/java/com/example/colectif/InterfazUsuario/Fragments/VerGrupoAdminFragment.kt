@@ -85,13 +85,11 @@ class VerGrupoAdminFragment : Fragment() {
                 var passwordVisible = false
 
                 // Llamar a la función para mostrar/ocultar la contraseña al inicio
-                Log.v("cambio2", contrasenia.toString())
                 togglePasswordVisibility(passwordVisible, contrasenia)
 
                 // Establecer el onClickListener para mostrar/ocultar la contraseña
                 txtShowPassword.setOnClickListener {
                     passwordVisible = !passwordVisible
-                    Log.v("cambio2", passwordVisible.toString())
                     togglePasswordVisibility(passwordVisible, contrasenia)
                 }
 
@@ -124,7 +122,6 @@ class VerGrupoAdminFragment : Fragment() {
                         binding.txtGastos.text = "$gastosRedondeados €"
 
                         // Comprobar si los datos llegan correctamente
-                        Log.v("administrador", nombreAdmin)
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -139,7 +136,6 @@ class VerGrupoAdminFragment : Fragment() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.e(ContentValues.TAG, "Error al leer los datos", databaseError.toException())
             }
         })
     }
@@ -194,17 +190,14 @@ class VerGrupoAdminFragment : Fragment() {
 
     // Función para mostrar u ocultar la contraseña
     private fun togglePasswordVisibility(showPassword: Boolean, password: String) {
-        Log.v(TAG, "Mostrar contraseña: $showPassword")
         if (showPassword) {
             // Mostrar la contraseña
             textPassword.text = password
             txtShowPassword.text = "Ocultar"
-            Log.v("cambio2", "Mostrando contraseña")
         } else {
             // Ocultar la contraseña
             textPassword.text = "********"
             txtShowPassword.text = "Mostrar"
-            Log.v("cambio2", "Ocultando contraseña")
         }
     }
 }

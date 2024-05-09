@@ -58,7 +58,6 @@ class CrearGrupoFragment: Fragment() {
         // Netflix marcado por defecto
         binding.spinnerApps.setSelection(0)
 
-        comprobarSolicitudes()
 
         binding.btnCrearGrupo.setOnClickListener {
             app = binding.spinnerApps.selectedItem.toString()
@@ -288,7 +287,4 @@ class CrearGrupoFragment: Fragment() {
         super.onDetach()
     }
 
-    fun comprobarSolicitudes(){
-        (requireActivity() as InicioActivity).recogerListaSolicitudes()
-    }
 }

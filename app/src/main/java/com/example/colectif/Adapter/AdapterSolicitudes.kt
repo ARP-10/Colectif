@@ -174,7 +174,6 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     snapshot.ref.removeValue()
-                    Log.v("timon3", snapshot.ref.toString())
                 }
             }
 
@@ -194,7 +193,6 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     snapshot.ref.removeValue()
-                    Log.v("timon", snapshot.ref.toString())
                 }
             }
 

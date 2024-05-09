@@ -75,7 +75,6 @@ class SolicitudesFragment: Fragment() {
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-
                         }
 
                     })

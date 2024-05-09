@@ -42,8 +42,6 @@ class RegistroActivity : AppCompatActivity() {
                     if(password.equals(binding.editTextRegistrarConfirmarContraseA.text.toString())){
                         user = User(name, firstSurName, secondSurName, mail, userName, "",ArrayList(), 0, 0 )
                         registrarUsuario(user, database)
-                        // TODO: quitar este snackbar??
-                        //Snackbar.make(binding.root, "Usuario registrado", Snackbar.LENGTH_SHORT).show()
                     }
                     else{
                         Snackbar.make(binding.root, "Las contraseña no coinciden", Snackbar.LENGTH_SHORT).show()
@@ -60,7 +58,6 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     //Función para añadir los datos de los campos a Firebase
-    // TODO: Aún en proceso porque falla el añadir información adicional
     private fun registrarUsuario(user : User, database : FirebaseDatabase){
 
         auth.createUserWithEmailAndPassword(user.mail, binding.editTextRegistrarContraseA.text.toString()).addOnCompleteListener{
@@ -93,7 +90,6 @@ class RegistroActivity : AppCompatActivity() {
                     binding.editTextRegistrarConfirmarContraseA.text.clear()
 
 
-                    // TODO: Hacer que te lleve a la pantalla login
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()

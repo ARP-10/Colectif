@@ -74,6 +74,7 @@ class InicioActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottomNavigationView = binding.navMenu
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
@@ -238,10 +239,5 @@ class InicioActivity : AppCompatActivity() {
             dialog.show()
         }
     }
-
-
-
-
-
 
 }

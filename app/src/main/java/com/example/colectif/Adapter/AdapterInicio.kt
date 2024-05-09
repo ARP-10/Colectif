@@ -83,12 +83,9 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
         }
         imagenGrupo.setImageResource(imagen)
 
-
-
         // Para gestionar el click del boton
         holder.boton.setOnClickListener {
             itemClickListener?.onItemClick(position, grupo.id)
-            Log.v("prueba2", grupo.id)
 
         }
     }
@@ -108,7 +105,6 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
             } as ArrayList<Grupo>
         }
         notifyDataSetChanged()
-        Log.v("filipinos", app)
     }
 
 

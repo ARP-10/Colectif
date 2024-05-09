@@ -98,6 +98,4 @@ class LoginActivity : AppCompatActivity() {
         editor.putString("id",id)
         editor.apply()
     }
-
-
 }

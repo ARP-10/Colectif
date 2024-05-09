@@ -70,7 +70,6 @@ class VerGrupoFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
 
-        comprobarSolicitudes()
         recogerUsuarios()
 
         // Ubicar la BBDD
@@ -149,7 +148,7 @@ class VerGrupoFragment : Fragment() {
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
+                            TODO("Not necessary")
                         }
                 })
             }
@@ -216,7 +215,7 @@ class VerGrupoFragment : Fragment() {
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
+                            TODO("Not necessary")
                         }
 
                     })
@@ -239,7 +238,6 @@ class VerGrupoFragment : Fragment() {
         // Botón aceptar
         builder.setPositiveButton("Sí, estoy de acuerdo") { dialog, _ ->
             val userId = FirebaseAuth.getInstance().currentUser?.uid
-            Log.d(TAG, "Usuario actual: $userId")
 
             if (userId != null) {
                 val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -253,8 +251,6 @@ class VerGrupoFragment : Fragment() {
                         for (grupoSnapshot in snapshot.children) {
                             val grupoId = grupoSnapshot.value.toString()
                             if (grupoId == idGrupo) {
-                                Log.v("salir", grupoId)
-                                Log.v("salir", "$idGrupo")
                                 grupoSnapshot.ref.removeValue()
                                 break
                             }
@@ -262,7 +258,6 @@ class VerGrupoFragment : Fragment() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        Log.e(TAG, "Error al leer los datos", error.toException())
                     }
                 })
 
@@ -274,7 +269,7 @@ class VerGrupoFragment : Fragment() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                        TODO("Not necessary")
                     }
 
                 })
@@ -292,7 +287,7 @@ class VerGrupoFragment : Fragment() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                        TODO("Not necessary")
                     }
 
                 })
@@ -318,23 +313,18 @@ class VerGrupoFragment : Fragment() {
 
     // Función para mostrar u ocultar la contraseña
     private fun togglePasswordVisibility(showPassword: Boolean, password: String) {
-        Log.v(TAG, "Mostrar contraseña: $showPassword")
         if (showPassword) {
             // Mostrar la contraseña
             textPassword.text = password
             txtShowPassword.text = "Ocultar"
-            Log.v("cambio2", "Mostrando contraseña")
         } else {
             // Ocultar la contraseña
             textPassword.text = "********"
             txtShowPassword.text = "Mostrar"
-            Log.v("cambio2", "Ocultando contraseña")
         }
     }
 
-    fun comprobarSolicitudes(){
-        (requireActivity() as InicioActivity).recogerListaSolicitudes()
-    }
+
 
 
 

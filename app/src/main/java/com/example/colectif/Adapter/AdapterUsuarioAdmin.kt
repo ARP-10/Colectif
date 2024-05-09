@@ -134,11 +134,6 @@ class AdapterUsuarioAdmin(var navController: NavController,var contexto: Context
                 Log.d("AdapterUsuarioAdmin", "Número de usuarios actual antes de restar: $numUsuariosActual")
 
                 ref3.child("numUsuarios").setValue(numUsuariosActual)
-                // TODO: Navegar al fragmento principal o volver a cargar el fragment
-
-
-
-
 
             }
 

@@ -107,7 +107,6 @@ InicioFragment: Fragment() {
             requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
 
         comprobarImagen()
-        comprobarSolicitudes()
 
         // Configuración del RecyclerView
         adaptadorRecycler = context?.let { AdapterInicio(it, listaGrupos) }!!
@@ -196,7 +195,7 @@ InicioFragment: Fragment() {
                 }
 
                 override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                    TODO("Not yet implemented")
+                    TODO("Not necessary")
                 }
 
             }
@@ -353,13 +352,6 @@ InicioFragment: Fragment() {
 
     
     }
-
-    fun comprobarSolicitudes(){
-        (requireActivity() as InicioActivity).recogerListaSolicitudes()
-    }
-
-
-
 
 
 }

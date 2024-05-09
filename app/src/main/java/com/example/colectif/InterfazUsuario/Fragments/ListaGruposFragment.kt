@@ -73,7 +73,6 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         listaGrupos = ArrayList()
         listaNetflix = ArrayList()
-        Log.v("ola2", listaNetflix.toString())
         listaAmazon = ArrayList()
         listaDisney = ArrayList()
         listaSpotify = ArrayList()
@@ -248,7 +247,6 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
 
 
                 } else {
-                Log.v("ListaGrupos", "Snapshot doesn't exist")
                 }
             }
 
@@ -263,7 +261,6 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         return try {
             value.toInt()
         } catch (e: NumberFormatException) {
-            Log.e("ListaGrupos", "Error converting string to int: ${e.message}")
             0
         }
     }

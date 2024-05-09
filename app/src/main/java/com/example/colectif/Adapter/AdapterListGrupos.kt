@@ -179,7 +179,6 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
     }
 
     fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View, adminId: String) {
-        Log.v("VerInfoGrupoFragment", "Comprobando solicitud pendiente para usuario $userId en el grupo $idGrupo")
         val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("solicitudes")
 
@@ -198,7 +197,6 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
                     }
                 }
                 if (solicitudPendiente) {
-                    Log.d("VerInfoGrupoFragment", "El usuario ya tiene una solicitud pendiente para este grupo")
                     Snackbar.make(view, "Ya has enviado una solicitud a este grupo", Snackbar.LENGTH_SHORT).show()
                 } else {
                     // Si no hay solicitud pendiente, enviar la solicitud
