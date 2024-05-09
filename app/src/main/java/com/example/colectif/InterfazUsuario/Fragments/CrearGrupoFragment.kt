@@ -134,7 +134,7 @@ class CrearGrupoFragment: Fragment() {
                 // Comprobamos que app ha elegido
                 when (position) {
                     0 -> {
-                        binding.imgGrupo.setImageResource(R.drawable.netflix)
+                        binding.imgGrupo.setImageResource(R.drawable.netflix2)
                         // Buscamos el string-array correspondiente
                         val adapter = ArrayAdapter.createFromResource(requireActivity(), R.array.plan_netflix, android.R.layout.simple_spinner_item)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -163,7 +163,7 @@ class CrearGrupoFragment: Fragment() {
                         }
                     }
                     1 -> {
-                        binding.imgGrupo.setImageResource(R.drawable.spotify)
+                        binding.imgGrupo.setImageResource(R.drawable.spotify2)
                         val adapter = ArrayAdapter.createFromResource(requireActivity(), R.array.plan_sopitfy, android.R.layout.simple_spinner_item)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinnerPlan.adapter = adapter
@@ -187,7 +187,7 @@ class CrearGrupoFragment: Fragment() {
                         }
                     }
                     2 -> {
-                        binding.imgGrupo.setImageResource(R.drawable.amazon)
+                        binding.imgGrupo.setImageResource(R.drawable.amazon2)
                         val adapter = ArrayAdapter.createFromResource(requireActivity(), R.array.plan_amazon, android.R.layout.simple_spinner_item)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinnerPlan.adapter = adapter
@@ -211,7 +211,7 @@ class CrearGrupoFragment: Fragment() {
                         }
                     }
                     3 -> {
-                        binding.imgGrupo.setImageResource(R.drawable.disney)
+                        binding.imgGrupo.setImageResource(R.drawable.disney2)
                         val adapter = ArrayAdapter.createFromResource(requireActivity(), R.array.plan_disney, android.R.layout.simple_spinner_item)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinnerPlan.adapter = adapter

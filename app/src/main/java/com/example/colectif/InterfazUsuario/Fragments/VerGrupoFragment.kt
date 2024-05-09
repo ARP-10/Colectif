@@ -127,10 +127,10 @@ class VerGrupoFragment : Fragment() {
                             binding.txtCorreo.text = email
 
                             val drawableApp = when (app) {
-                                "Netflix" -> R.drawable.netflix
-                                "Spotify" -> R.drawable.spotify
-                                "Amazon Prime" -> R.drawable.amazon
-                                "Disney +" -> R.drawable.disney
+                                "Netflix" -> R.drawable.netflix2
+                                "Spotify" -> R.drawable.spotify2
+                                "Amazon Prime" -> R.drawable.amazon2
+                                "Disney +" -> R.drawable.disney2
                                 else -> R.drawable.error
                             }
                             binding.imgGrupo.setImageResource(drawableApp)

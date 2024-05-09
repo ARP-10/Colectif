@@ -82,8 +82,8 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         var auth = FirebaseAuth.getInstance()
 
         when (app) {
-            "Netflix" -> holder.imagenGrupo.setImageResource(R.drawable.netflix)
-            "Disney +" -> holder.imagenGrupo.setImageResource(R.drawable.disney)
+            "Netflix" -> holder.imagenGrupo.setImageResource(R.drawable.netflix2)
+            "Disney +" -> holder.imagenGrupo.setImageResource(R.drawable.disney2)
             "Amazon Prime" -> holder.imagenGrupo.setImageResource(R.drawable.amazon)
             "Spotify" -> holder.imagenGrupo.setImageResource(R.drawable.spotify)
             else -> {

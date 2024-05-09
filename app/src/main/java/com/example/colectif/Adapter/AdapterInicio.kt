@@ -75,10 +75,10 @@ class AdapterInicio(var contexto: Context, var lista:ArrayList<Grupo>):
 
         val imagenGrupo = holder.itemView.findViewById<ImageView>(R.id.img_logo_grupo)
         val imagen = when (grupo.app) {
-            "Netflix" -> R.drawable.netflix
-            "Amazon Prime" -> R.drawable.amazon
-            "Spotify" -> R.drawable.spotify
-            "Disney +" -> R.drawable.disney
+            "Netflix" -> R.drawable.netflix2
+            "Amazon Prime" -> R.drawable.amazon2
+            "Spotify" -> R.drawable.spotify2
+            "Disney +" -> R.drawable.disney2
             else -> R.drawable.error
         }
         imagenGrupo.setImageResource(imagen)
