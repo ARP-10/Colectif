@@ -29,18 +29,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+
+                    <ImageView
+                        android:id="@+id/img_flecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/baseline_arrow_right_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/text_nombreCatalogo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:text="Netflix"
+                        android:textColor="@color/texto"
                         android:textSize="18dp"
                         android:textStyle="bold"
-                        android:textColor="@color/texto"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:onClick="toggleRecyclerViewVisibility"/>
+                        android:layout_marginLeft="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_flecha"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
