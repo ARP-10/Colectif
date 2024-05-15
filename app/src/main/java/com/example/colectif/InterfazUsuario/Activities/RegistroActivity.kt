@@ -10,11 +10,19 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
+/**
+ * Actividad de registro que permite a los usuarios crear una cuenta en la aplicación.
+ * Recolecta los datos del usuario, como nombre, apellidos, correo electrónico, nombre de usuario y contraseña.
+ * Verifica que todos los campos estén completos y que la contraseña tenga al menos 6 caracteres.
+ * Registra al usuario en Firebase Authentication y guarda los datos del usuario en la base de datos de Firebase Realtime Database.
+ * Una vez registrado con éxito, muestra un mensaje de confirmación y redirige al usuario a la pantalla de inicio de sesión.
+ */
 class RegistroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistroBinding
     private lateinit var user: User
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +32,7 @@ class RegistroActivity : AppCompatActivity() {
 
         //Conexión a Firebase
         auth = FirebaseAuth.getInstance()
-        var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
 
         binding.buttonRegistrarGuardarUsuario.setOnClickListener {
             // Recogemos los datos
@@ -60,13 +68,17 @@ class RegistroActivity : AppCompatActivity() {
     //Función para añadir los datos de los campos a Firebase
     private fun registrarUsuario(user : User, database : FirebaseDatabase){
 
+
+        // Registra al usuario en el apartado de authentication de FireBase
         auth.createUserWithEmailAndPassword(user.mail, binding.editTextRegistrarContraseA.text.toString()).addOnCompleteListener{
 
             if(it.isSuccessful){
 
                 val id = auth.currentUser!!.uid
+
+                // Registra al usuario en la base de datos
                 database.getReference("users").child(id).setValue(user).addOnSuccessListener {
-                    // Crear un nodo vacío para numGrupos y numSolicitudes
+
                     val userData = HashMap<String, Any>()
                     userData["name"] = user.name
                     userData["firstSurName"] = user.firstSurName
@@ -89,7 +101,7 @@ class RegistroActivity : AppCompatActivity() {
                     binding.editTextRegistrarContraseA.text.clear()
                     binding.editTextRegistrarConfirmarContraseA.text.clear()
 
-
+                    // Te lleva de vuelta a la pantalla del Login
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()

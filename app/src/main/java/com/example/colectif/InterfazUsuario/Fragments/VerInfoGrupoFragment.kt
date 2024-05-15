@@ -1,16 +1,12 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
-import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.colectif.InterfazUsuario.Activities.InicioActivity
 import com.example.colectif.R
-import com.example.colectif.databinding.FragmentVerGrupoBinding
 import com.example.colectif.databinding.FragmentVerInfoGrupoBinding
 import com.example.colectif.models.Solicitud
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +17,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+/**
+ * Este fragmento muestra información detallada sobre un grupo, incluyendo el administrador,
+ * la aplicación asociada al grupo, el nombre del grupo, el plan, el precio, el número máximo
+ * de usuarios permitidos y el número actual de usuarios. También permite a los usuarios enviar
+ * solicitudes para unirse al grupo si aún no son miembros.
+ */
 
 class VerInfoGrupoFragment : Fragment() {
 
@@ -29,11 +31,13 @@ class VerInfoGrupoFragment : Fragment() {
     private var idGrupo:String? = null
     private lateinit var idAdmin: String
 
+    //Asocia elementos del activity con el fragment actual, en este caso recoge el id del grupo
     override fun onAttach(context: Context) {
         super.onAttach(context)
         idGrupo = arguments?.getString("idGrupo", "")
     }
 
+    // Este método infla el diseño del fragmento y devuelve la vista correspondiente
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +50,6 @@ class VerInfoGrupoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
         // Obtener una referencia a la base de datos de grupos y usuarios
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("groups")
         val databaseReference2: DatabaseReference = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users")
@@ -54,6 +57,7 @@ class VerInfoGrupoFragment : Fragment() {
         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(childSnapshot: DataSnapshot) {
+
                 // Obtener los valores de cada hijo
                 val administradorId = childSnapshot.child(idGrupo!!).child("administrador").value.toString()
                 idAdmin = administradorId
@@ -103,7 +107,7 @@ class VerInfoGrupoFragment : Fragment() {
 
 
 
-        // Config btn unirse
+        // Al pulsar el botón se comprueba si hay solicitud pendiente
         binding.btnSolicitudEntrar.setOnClickListener {
             val userId = auth.currentUser?.uid
             if (userId != null) {
@@ -119,8 +123,8 @@ class VerInfoGrupoFragment : Fragment() {
     }
 
 
-
-    fun enviarSolicitud(idUser: String, idGrupo: String, view: View) {
+    // Crea la solicitud en la base de datos y se lo envía al admin del grupo
+    fun enviarSolicitud(idGrupo: String, view: View) {
         val auth = FirebaseAuth.getInstance()
         val userId = auth.currentUser?.uid
         if (userId == null) {
@@ -176,7 +180,7 @@ class VerInfoGrupoFragment : Fragment() {
     }
 
 
-
+    // Comprueba si ya se envío solicitud a ese grupo
     fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View, adminId: String) {
         val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("solicitudes")
@@ -186,20 +190,26 @@ class VerInfoGrupoFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var solicitudPendiente = false
                 for (solicitudSnapshot in snapshot.children) {
+
+                    // Recoge la información de la base de datos
                     val grupoId = solicitudSnapshot.child("idGrupo").value.toString()
                     val receptorId = solicitudSnapshot.child("idReceptor").value.toString()
                     val mandatarioId = solicitudSnapshot.child("idMandatario").value.toString()
 
+                    // Determina si esta pendiente la solicitud
                     if (grupoId == idGrupo && mandatarioId == userId && receptorId == adminId) {
                         solicitudPendiente = true
                         break
                     }
                 }
                 if (solicitudPendiente) {
+
+                    // Si ya hay solicitud pendiente
                     Snackbar.make(view, "Ya has enviado una solicitud a este grupo", Snackbar.LENGTH_SHORT).show()
                 } else {
+
                     // Si no hay solicitud pendiente, enviar la solicitud
-                    enviarSolicitud(userId, idGrupo, view)
+                    enviarSolicitud(idGrupo, view)
                 }
             }
 

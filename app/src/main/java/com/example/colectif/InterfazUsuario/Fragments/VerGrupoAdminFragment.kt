@@ -1,16 +1,13 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
+
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colectif.Adapter.AdapterUsuarioAdmin
 import com.example.colectif.R
@@ -21,7 +18,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
+/**
+ * Fragmento que muestra los detalles de un grupo para el administrador.
+ * Muestra información como el nombre del administrador, la aplicación del grupo, la contraseña,
+ * el correo electrónico, el plan, el precio, los usuarios en el grupo y sus estados de pago.
+ * Utiliza Firebase Realtime Database para recuperar y mostrar los datos del grupo y sus usuarios.
+ */
 class VerGrupoAdminFragment : Fragment() {
     private lateinit var binding: FragmentVerGrupoAdminBinding
     private var idGrupo:String? = null
@@ -31,12 +33,13 @@ class VerGrupoAdminFragment : Fragment() {
     private lateinit var textPassword: TextView
     private lateinit var txtShowPassword: TextView
 
-    // Recoger id grupo
+    //Asocia elementos del activity con el fragment actual, en este caso recoge el id del grupo
     override fun onAttach(context: Context) {
         super.onAttach(context)
         idGrupo = arguments?.getString("idGrupo", "")
     }
 
+    // Este método infla el diseño del fragmento y devuelve la vista correspondiente
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,18 +49,19 @@ class VerGrupoAdminFragment : Fragment() {
         return binding.root
     }
 
+    // Aqui se inicializan los componentes y se desarrolla todas las funcionalidades del fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        database =
-            FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
+        database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         listaUsuarios = ArrayList()
-        val navController = Navigation.findNavController(view)
-        // Configuración del RecyclerView
-        adaptadorUsuariosAdmin = context?.let { AdapterUsuarioAdmin(navController,it, listaUsuarios) }!!
-        binding.recyclerVerUsuariosAdmin.adapter = adaptadorUsuariosAdmin
-        binding.recyclerVerUsuariosAdmin.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        // Configuración del RecyclerView
+        adaptadorUsuariosAdmin = context?.let { AdapterUsuarioAdmin(it, listaUsuarios) }!!
+        binding.recyclerVerUsuariosAdmin.adapter = adaptadorUsuariosAdmin
+        binding.recyclerVerUsuariosAdmin.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        // Añadir los usuarios al recycler, exceptuando al administrador
         recogerUsuarios()
+
         var ref = database.getReference("groups")
         var ref2 = database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener {
@@ -93,7 +97,7 @@ class VerGrupoAdminFragment : Fragment() {
                     togglePasswordVisibility(passwordVisible, contrasenia)
                 }
 
-                // Obtener el nombre del admin de la bbdd de "users"
+                // Obtener el nombre del admin de la base de datos de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val nombreAdmin = snapshot.child("name").value.toString()
@@ -140,6 +144,7 @@ class VerGrupoAdminFragment : Fragment() {
         })
     }
 
+    // Recoge a los usuarios que pertenecen al grupo, sin contar con el admin, para poder colocar si han pagado o para expulsarlos
     fun recogerUsuarios() {
         val ref = database.getReference("groups").child(idGrupo!!).child("users")
         val ref2 = database.getReference("users")
@@ -147,16 +152,19 @@ class VerGrupoAdminFragment : Fragment() {
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+
+                    // Hace el bucle tantas veces como usuarios haya en el grupo
                     for (snapshot in snapshot.children) {
                         var idUsuario = snapshot.key
                         if (idUsuario != "1") {
-                            var pagado = snapshot.child("pagado").getValue(Boolean::class.java) ?: false
+                            var pagado = snapshot.child("pagado").getValue(Boolean::class.java) ?: false // Recoge el dato de si ha pagado o no el usuario
                             ref2.addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(usuaruiosSnapshot: DataSnapshot) {
                                     if (usuaruiosSnapshot.exists()) {
-                                        var nombreUsuario = usuaruiosSnapshot.child(idUsuario!!)
-                                            .child("userName").value.toString()
+                                        var nombreUsuario = usuaruiosSnapshot.child(idUsuario!!).child("userName").value.toString()
                                         if (nombreUsuario != "null") {
+
+                                            // Añade el usuario y sus datos al adapter
                                             adaptadorUsuariosAdmin.addUsuarioAdmin(
                                                 UsuarioGrupo(
                                                     idUsuario,

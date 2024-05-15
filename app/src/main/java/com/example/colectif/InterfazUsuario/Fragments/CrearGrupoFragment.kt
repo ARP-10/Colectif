@@ -3,7 +3,6 @@ package com.example.colectif.InterfazUsuario.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,23 +10,25 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import com.example.colectif.InterfazUsuario.Activities.InicioActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentCrearGrupoBinding
 import com.example.colectif.models.Grupo
-import com.example.colectif.models.Solicitud
-import com.example.colectif.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.time.LocalDateTime
 import java.util.Calendar
 
+/**
+ * Fragmento que permite a los usuarios crear un nuevo grupo.
+ * Recolecta los datos necesarios, como el nombre del grupo, la aplicación asociada, el plan, el precio, el correo electrónico y la contraseña de registro.
+ * Verifica que todos los campos estén completos y luego guarda la información del grupo en la base de datos de Firebase.
+ * Utiliza spinners para permitir la selección de la aplicación y el plan correspondientes.
+ * Muestra una imagen asociada a la aplicación seleccionada y actualiza el precio y el número total de usuarios en función del plan seleccionado.
+ * Al crear un grupo exitosamente, muestra un mensaje de confirmación.
+ */
 class CrearGrupoFragment: Fragment() {
 
     private lateinit var binding: FragmentCrearGrupoBinding
@@ -39,8 +40,9 @@ class CrearGrupoFragment: Fragment() {
     private lateinit var contraseniaRegistro: String
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
-    private lateinit var navController: NavController
 
+
+    // Este método infla el diseño del fragmento y devuelve la vista correspondiente
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,15 +52,17 @@ class CrearGrupoFragment: Fragment() {
         return binding.root
     }
 
+    // Aqui se inicializan los componentes y se desarrolla todas las funcionalidades del fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
 
         super.onViewCreated(view, savedInstanceState)
+
         // Netflix marcado por defecto
         binding.spinnerApps.setSelection(0)
 
-
+        // Botón de crear grupo, para recoger todos los datos y añadirlo a la base de datos
         binding.btnCrearGrupo.setOnClickListener {
             app = binding.spinnerApps.selectedItem.toString()
             nombreGrupo = binding.editNombre.text.toString()
@@ -84,8 +88,7 @@ class CrearGrupoFragment: Fragment() {
                 else -> R.drawable.error
             }
 
-            // TODO: comprobar que el admin tenga un grupo igual y no dejarle duplicar
-
+            // Comprueba que todos los campos estén rellenados
             if (nombreGrupo.isEmpty() || emailRegistro.isEmpty() || contraseniaRegistro.isEmpty()) {
                 Snackbar.make(binding.root, "Por favor, rellene todos los campos", Snackbar.LENGTH_SHORT).show()
             } else {
@@ -97,9 +100,11 @@ class CrearGrupoFragment: Fragment() {
                 // Generar un nuevo ID para el grupo
                 val nuevoGrupoRef = gruposRef.push()
 
+
+                // Se crea una nueva id del grupo recién creado
                 nuevoGrupoRef.setValue(grupo)
                     .addOnSuccessListener {
-                        // Sumar +1 en la ID de los grupos que el usuario tiene
+                        // Suma +1 en el número de usuarios que tiene el grupo y también se le añade en su nodo de users
                         sumarId(nuevoGrupoRef.key!!)
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("id").setValue(nuevoGrupoRef.key!!)
                         database.getReference("groups").child(nuevoGrupoRef.key!!).child("numMax").setValue(binding.txtUsuariosTotal.text.toString())
@@ -108,7 +113,6 @@ class CrearGrupoFragment: Fragment() {
                         context?.let { it1 -> mostrarMensaje(it1, "Grupo creado exitosamente", "¡Has creado un grupo!") }
                     }
                     .addOnFailureListener { e ->
-                        Log.e("CrearGrupo", "Error al crear grupo: ${e.message}")
                         Snackbar.make(binding.root, "Error al crear grupo", Snackbar.LENGTH_SHORT).show()
                     }
 
@@ -126,7 +130,7 @@ class CrearGrupoFragment: Fragment() {
 
 
 
-        // Configuración spinner
+        // Configuración spinner de las aplicaciones
         binding.spinnerApps.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
@@ -134,10 +138,12 @@ class CrearGrupoFragment: Fragment() {
                 when (position) {
                     0 -> {
                         binding.imgGrupo.setImageResource(R.drawable.netflix2)
+
                         // Buscamos el string-array correspondiente
                         val adapter = ArrayAdapter.createFromResource(requireActivity(), R.array.plan_netflix, android.R.layout.simple_spinner_item)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinnerPlan.adapter = adapter
+
                         // Manejamos el spinner en base a ese string-array
                         binding.spinnerPlan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -247,6 +253,7 @@ class CrearGrupoFragment: Fragment() {
 
     }
 
+    // Suma +1 en el número de grupos que tiene el usuario y también se le añade en su nodo de groups
     fun sumarId(idGrupo: String){
         var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("users")

@@ -1,5 +1,6 @@
 package com.example.colectif.models
 
+// Objeto para guardar toda la información de los grupos
 data class Grupo(
     var id: String, var administrador: String, var app: String, var contrasenia: String, var email: String, var imagen: Int, var nombre: String,  var plan: String, var precio: String, var fecha: String) {
 

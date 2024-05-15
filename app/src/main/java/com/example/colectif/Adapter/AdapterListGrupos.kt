@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
@@ -24,23 +22,23 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.Collections
 
+/**
+ * Adaptador para mostrar una lista de grupos en la pantalla de lista de grupos.
+ * Este adaptador se encarga de inflar la vista de cada grupo, asignar la información correspondiente
+ * y gestionar el envío de solicitudes para unirse a un grupo.
+ * @param context El contexto de la aplicación.
+ * @param cardview_grupos La lista de grupos a mostrar.
+ */
 
 class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Grupo>) :
     RecyclerView.Adapter<AdapterListGrupos.GruposViewHolder>() {
-
-    private var listaCompleta: ArrayList<Grupo> = cardview_grupos
-
-    interface OnInfoButtonClickListener {
-        fun onInfoButtonClick(grupo: Grupo)
-    }
-    var infoButtonClickListener: OnInfoButtonClickListener? = null
 
     init {
         cardview_grupos = ArrayList()
     }
 
+    // Clase interna que actúa como ViewHolder para mantener las referencias de las vistas de cada elemento de la lista
     inner class GruposViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imagenGrupo: ImageView = itemView.findViewById(R.id.grupo)
         val administrador: TextView = itemView.findViewById(R.id.text_administrador)
@@ -52,11 +50,15 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         val imagenUsuario: ImageView = itemView.findViewById(R.id.imagenUsuarioGrupo)
         val btnInfoGrupo: AppCompatImageButton = itemView.findViewById(R.id.btn_info_grupo)
 
+        // Se incia el botón para visualizar la información del grupo
         init {
             btnInfoGrupo.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
+
+                    // Se determina en que grupo específico se está pulsando con su posicion en el adapter
                     val grupo = cardview_grupos[position]
+
                     // Obtener el NavController desde el contexto del itemView
                     val navController = Navigation.findNavController(itemView)
 
@@ -71,16 +73,19 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
     }
 
+    // Infla la vista del adapter desde el diseño XML definido
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GruposViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_grupos, parent, false)
         return GruposViewHolder(view)
     }
 
+    // Se determina la información de cada grupo de la lista con su respectivo lugar de la vista, aparte de hacer funcionar los componentes
     override fun onBindViewHolder(holder: GruposViewHolder, position: Int) {
         var grupo = cardview_grupos[position]
         var app = grupo.app
         var auth = FirebaseAuth.getInstance()
 
+        // Dependiendo de la aplicación se colocará una imagen
         when (app) {
             "Netflix" -> holder.imagenGrupo.setImageResource(R.drawable.netflix2)
             "Disney +" -> holder.imagenGrupo.setImageResource(R.drawable.disney2)
@@ -91,6 +96,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             }
         }
 
+        // Se recupera de la base de datos el nombre y la imagen del administrador del grupo con su id
         var ref = holder.database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -104,56 +110,53 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
         })
 
-
-
+        // Se sigue colocando los datos en sus respectivos lugares
         holder.plan.text = grupo.plan
         holder.precio.text = grupo.precio
         holder.nombreGrupo.text = grupo.nombre
+
+        // Es el botón que se encarga de mandar solicitudes
         holder.imageButton.setOnClickListener {
-            comprobarSolicitudPendiente(auth.currentUser!!.uid, grupo.id, holder.itemView,grupo.administrador)
+            comprobarSolicitudPendiente(auth.currentUser!!.uid, grupo.id, holder.itemView,grupo.administrador) // Primero se comprueba si no hay ya una solicitud pendiente
         }
 
 
     }
 
+    // Devulve el número de grupos
     override fun getItemCount(): Int {
         return cardview_grupos.size
     }
 
+    // Añade grupos a la lista
     fun addGrupo(grupo : Grupo){
         cardview_grupos.add(grupo)
         notifyItemInserted(cardview_grupos.size - 1)
     }
 
-    /*
-    fun filtrarLista(filtro: String) {
-        if (filtro == "Todos") {
-            cardview_grupos = listaCompleta
-        } else if(filtro == "Más antiguos"){
-            cardview_grupos = ArrayList(listaCompleta.sortedBy { it.fecha })
-        } else if(filtro == "Más recientes"){
-            cardview_grupos = ArrayList(listaCompleta.sortedByDescending { it.fecha })
-        }
-        notifyDataSetChanged()
-    }*/
 
+    // Crea la solicitud en la base de datos y se lo envía al admin del grupo
     fun enviarSolicitud(idUser: String, idAdmin: String, idGrupo: String, view: View){
         var solicitud = Solicitud(idAdmin,idUser,idGrupo)
         var database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("solicitudes")
         var nuevaId= ""
 
+        // Se guarda la Solicitud en el nodo Solicitudes y la nueva id generada se guarda en la variable nuevaId, para añadirsela a la propia solicitud
         val newRef = ref.push()
         newRef.setValue(solicitud)
         nuevaId = newRef.key!!
         ref.child(nuevaId).child("id").setValue(nuevaId)
 
+        // Actualiza el número de solicitudes del administrador
         var ref2 = database.getReference("users")
         ref2.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 var numSolicitudActual = snapshot.child(idAdmin).child("numSolicitudes").getValue(Int::class.java) ?: 0
                 numSolicitudActual++
                 ref2.child(idAdmin).child("numSolicitudes").setValue(numSolicitudActual)
+
+                // Guarda la solicitud en el nodo solicitudes del administrador
                 database.getReference("users").child(idAdmin).child("solicitudes").child(numSolicitudActual.toString()).setValue(nuevaId)
 
                 Snackbar.make(view, "Solicitud enviada exitosamente", Snackbar.LENGTH_SHORT).show()
@@ -168,16 +171,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
     }
 
-    fun filtrarLista(texto: String) {
-        listaCompleta = if (texto.isEmpty()) {
-            listaCompleta // Si no hay texto, mostrar todos los grupos
-        } else {
-            // Filtrar grupos cuyo nombre contenga el texto ingresado
-            listaCompleta.filter { it.nombre.contains(texto, ignoreCase = true) } as ArrayList<Grupo>
-        }
-        notifyDataSetChanged() // Notificar al Adapter que la lista ha cambiado
-    }
-
+    // Comprueba a través de la base de datos que no existe una solicitud igual que la que se quiere enviar
     fun comprobarSolicitudPendiente(userId: String, idGrupo: String, view: View, adminId: String) {
         val database = FirebaseDatabase.getInstance("https://colectif-project-default-rtdb.europe-west1.firebasedatabase.app/")
         val ref = database.getReference("solicitudes")
@@ -187,25 +181,30 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
             override fun onDataChange(snapshot: DataSnapshot) {
                 var solicitudPendiente = false
                 for (solicitudSnapshot in snapshot.children) {
+
+                    // Recoge la información de la base de datos
                     val grupoId = solicitudSnapshot.child("idGrupo").value.toString()
                     val receptorId = solicitudSnapshot.child("idReceptor").value.toString()
                     val mandatarioId = solicitudSnapshot.child("idMandatario").value.toString()
 
+                    // Determina si la solicitud ya existe
                     if (grupoId == idGrupo && mandatarioId == userId && receptorId == adminId) {
                         solicitudPendiente = true
                         break
                     }
                 }
                 if (solicitudPendiente) {
+
+                    // Si ya existe la solicitud
                     Snackbar.make(view, "Ya has enviado una solicitud a este grupo", Snackbar.LENGTH_SHORT).show()
                 } else {
+
                     // Si no hay solicitud pendiente, enviar la solicitud
                     enviarSolicitud(userId, adminId,idGrupo, view)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("VerInfoGrupoFragment", "Error al comprobar las solicitudes pendientes: ${error.message}")
                 Snackbar.make(view, "Error al comprobar las solicitudes pendientes", Snackbar.LENGTH_SHORT).show()
             }
         })

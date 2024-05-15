@@ -4,33 +4,31 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colectif.Adapter.AdapterListCatalogo
 import com.example.colectif.Adapter.AdapterListGrupos
-import com.example.colectif.Objetos.ObjetoGrupos
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentListaGruposBinding
 import com.example.colectif.models.CatalogoGrupos
 import com.example.colectif.models.Grupo
-import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListener {
+/**
+ * Fragmento que muestra una lista de grupos disponibles para unirse.
+ * Permite al usuario buscar grupos por nombre.
+ * Utiliza Firebase Realtime Database para recuperar y mostrar los grupos disponibles.
+ */
+class ListaGruposFragment: Fragment(){
 
     private lateinit var binding: FragmentListaGruposBinding
     private lateinit var listaGrupos: ArrayList<Grupo>
@@ -44,16 +42,14 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
     private lateinit var listaSpotify: ArrayList<Grupo>
     private lateinit var catalogo: ArrayList<CatalogoGrupos>
     private var idGrupo:String? = null
-   // private var currentUserID = auth.currentUser?.uid
 
-    //permite asociar elementos del activity con el fragment
-    // Recoger id grupo
+    //Asocia elementos del activity con el fragment actual, en este caso el recoge id del grupo
     override fun onAttach(context: Context) {
         super.onAttach(context)
         idGrupo = arguments?.getString("idGrupo", "")
     }
 
-    // Este metodo es llamado para que el fragmento cree su jerarquia de vistas asociada.
+    // Este método infla el diseño del fragmento y devuelve la vista correspondiente
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,10 +59,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         return binding.root
     }
 
-    //Llamado después de que la vista asociada con el fragmento se ha creado
-    //configuración adicional que el fragment necesite
-    //despues de que su vista haya sido creada
-    //y antes de que se muestre al usuario
+    // Aqui se inicializan los componentes y se desarrolla todas las funcionalidades del fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         auth = FirebaseAuth.getInstance()
@@ -77,17 +70,8 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         listaDisney = ArrayList()
         listaSpotify = ArrayList()
         catalogo = ArrayList()
-        var idUser = auth.currentUser!!.uid
-
-
-
 
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
-
 
         // Obtener referencia al RecyclerView desde el archivo de diseño
         val recyclerView: RecyclerView = binding.FragmentRecyclerView
@@ -95,6 +79,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         // Configurar un LinearLayoutManager para organizar los elementos verticalmente
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Recoge los grupos para el adapter
         recuperarGrupos()
         // Crear un adaptador para el RecyclerView que esté vinculado a la lista de catálogos y grupos
         adapterListCatalogo = context?.let { AdapterListCatalogo(it,catalogo) }!!
@@ -105,9 +90,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         // Inicializar adapterListGrupos
         adapterListGrupos = AdapterListGrupos(requireContext(), ArrayList())
 
-        adapterListGrupos.infoButtonClickListener = this
-
-
+        // La barra buscadora para encontrar el grupo a través de su nombre
         binding.editBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 adapterListCatalogo.filtrarLista(s.toString())
@@ -118,6 +101,7 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        // Reinicia el fragment para los que hayan buscado un grupo y se haya equivocado al buscar
         binding.imgReset.setOnClickListener{
             findNavController().navigate(
                 R.id.listaGruposFragment
@@ -125,26 +109,12 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
         }
     }
 
-    // Se esta usando esto ??
-    override fun onInfoButtonClick(grupo: Grupo) {
-        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.setTitle("Información del grupo")
-        alertDialogBuilder.setMessage("Nombre: ${grupo.nombre}\n" +
-                "Administrador: ${grupo.administrador}\n" +
-                "Plan: ${grupo.plan}\n" +
-                "Precio: ${grupo.precio}")
-        alertDialogBuilder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss()
-        }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
 
-    }
-
-    //permite desasociar elementos del activity con el fragment
     override fun onDetach() {
         super.onDetach()
     }
 
+    // Función para recoger los grupos de la base de datos
     private fun recuperarGrupos() {
         var ref = database.getReference("groups")
         ref.addValueEventListener(object : ValueEventListener {
@@ -165,13 +135,8 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
 
                         // Verificar si el grupo no está completo y el usuario actual no es admin ni miembro
                         if (numUsuarios < numMax && !isCurrentUserAdmin && !isCurrentUserMember) {
-                        /*
-                        val numMax = convertToInt(snapshot.child("numMax").value.toString())
-                        val numUsuarios = convertToInt(snapshot.child("numUsuarios").value.toString())
 
-                        //if (!snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {
-
-                        if (numUsuarios < numMax && !snapshot.child("administrador").value.toString().equals(auth.currentUser!!.uid)) {*/
+                            // Añade cada grupo con su correspondiente categoría
                             if (snapshot.child("app").value.toString().equals("Netflix")) {
 
                                 var grupo = Grupo(
@@ -240,6 +205,8 @@ class ListaGruposFragment: Fragment(), AdapterListGrupos.OnInfoButtonClickListen
 
 
                     }
+
+                    // Se añade todas las categorías, con sus grupos, al adapter vertical
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Netflix", listaNetflix))
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Amazon Prime", listaAmazon))
                     adapterListCatalogo.addCatalogo(CatalogoGrupos("Spotify", listaSpotify))

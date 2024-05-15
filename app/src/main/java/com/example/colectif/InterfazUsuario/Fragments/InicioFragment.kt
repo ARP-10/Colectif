@@ -1,13 +1,11 @@
 package com.example.colectif.InterfazUsuario.Fragments
 
 import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,39 +18,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.app.PendingIntentCompat.Flags
-import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.colectif.Adapter.AdapterInicio
-import com.example.colectif.InterfazUsuario.Activities.InicioActivity
-import com.example.colectif.InterfazUsuario.Activities.LoginActivity
 import com.example.colectif.R
 import com.example.colectif.databinding.FragmentInicioBinding
 import com.example.colectif.models.Grupo
-import com.example.colectif.models.ImagenPerfil
-import com.example.colectif.models.Solicitud
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.values
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.FirebaseStorageKtxRegistrar
-import com.google.firebase.storage.ktx.storage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -60,8 +42,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 
-class
-InicioFragment: Fragment() {
+/**
+ * Fragmento que representa la pantalla de inicio de la aplicación.
+ * Muestra los grupos a los que el usuario pertenece, permitiendo filtrarlos por aplicación.
+ * Permite al usuario seleccionar una imagen de perfil desde la galería y la sube a Firebase Storage.
+ * Utiliza Firebase Realtime Database para obtener y mostrar los grupos del usuario.
+ */
+class InicioFragment: Fragment() {
     private lateinit var binding: FragmentInicioBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
@@ -75,14 +62,11 @@ InicioFragment: Fragment() {
         listaGrupos = ArrayList()
     }
 
-
-
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
 
+    // Este método infla el diseño del fragmento y devuelve la vista correspondiente
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -92,6 +76,8 @@ InicioFragment: Fragment() {
         return binding.root
     }
 
+
+    // Aqui se inicializan los componentes y se desarrolla todas las funcionalidades del fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Inicialización de Firebase
@@ -103,8 +89,7 @@ InicioFragment: Fragment() {
         // Obtención del nombre de usuario
         var idUser = auth.currentUser!!.uid
         var ref = database.getReference("users")
-        sharedP =
-            requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
+        sharedP = requireContext().getSharedPreferences("com.example.colectif", Context.MODE_PRIVATE)
 
         comprobarImagen()
 
@@ -116,6 +101,7 @@ InicioFragment: Fragment() {
 
         recogerGrupos()
 
+        // Para colocar el nombre de usuario recogio de la base de datos
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.nombreUsuario.text =
@@ -126,7 +112,7 @@ InicioFragment: Fragment() {
             }
         })
 
-        // Para hacer que funcione el boton:
+        // Para enlazar el boton de visualizar el grupo recogido del adapter
         adaptadorRecycler.setOnItemClickListener(object : AdapterInicio.OnItemClickListener {
 
             override fun onItemClick(position: Int, groupId: String) {
@@ -140,9 +126,9 @@ InicioFragment: Fragment() {
                             val idUser = auth.currentUser!!.uid
                             Log.v("id admin", "ID del administrador: $adminId")
 
+                            // Condicional para acceder al fragment de VerGrupoAdmin o el VerGrupo
                             if (idUser == adminId) {
-                                // El usuario es administrador del grupo
-                                Log.v("Boton", "El usuario es administrador")
+
 
                                 val bundle = Bundle()
                                 bundle.putString("idGrupo", groupId)
@@ -153,8 +139,6 @@ InicioFragment: Fragment() {
                                 )
 
                             } else {
-                                // El usuario no es administrador del grupo
-                                Log.v("Boton", "El usuario no es administrador")
 
                                 val bundle = Bundle()
                                 bundle.putString("idGrupo", groupId)
@@ -167,7 +151,7 @@ InicioFragment: Fragment() {
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            // Manejar errores
+
                         }
                     })
             }
@@ -177,6 +161,7 @@ InicioFragment: Fragment() {
 
         }
 
+        // Spinner para filtrar los grupos por aplicación
         binding.SpinnerMisGrupos.onItemSelectedListener =
             object : NavigationBarView.OnItemSelectedListener,
                 OnItemSelectedListener {
@@ -201,7 +186,7 @@ InicioFragment: Fragment() {
             }
     }
 
-    // menu superior
+    // Infla el menú superior en el fragment
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -213,7 +198,7 @@ InicioFragment: Fragment() {
         super.onDetach()
     }
 
-    // Guarda la URI de la imagen seleccionada en SharedPreferences
+    // Guarda la URI de la imagen seleccionada dentro de la memoria del móvil
     private fun saveImage(uri: String){
         val sharedPreferences = requireContext().getSharedPreferences("com.example.colectif",Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -221,6 +206,7 @@ InicioFragment: Fragment() {
         editor.commit()
     }
 
+    // Comprueba si el usuario ya tiene una imagen, si no es el caso se le pone una predeterminada
     private fun comprobarImagen(){
         val ref = database.reference.child("users").child(auth.currentUser!!.uid).child("imagen")
         ref.addValueEventListener(object : ValueEventListener {
@@ -233,6 +219,7 @@ InicioFragment: Fragment() {
         })
     }
 
+    // Esto recoge la actividad que solicita hacer, en este caso es posterior al seleccionar una imagen de la galería
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode== 101 && resultCode== RESULT_OK){
@@ -245,6 +232,8 @@ InicioFragment: Fragment() {
 
     // Método para seleccionar una imagen de la galería
     private fun seleccionarImagen() {
+
+        // Pide el permiso, solo disponible para Android 12 o inferior
         Dexter.withContext(context)
             .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
             .withListener(object : PermissionListener {
@@ -255,6 +244,7 @@ InicioFragment: Fragment() {
                 }
 
                 override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                    // Explicación al rechazar el permiso
                     Toast.makeText(context, "Permiso denegado", Toast.LENGTH_SHORT).show()
                 }
 

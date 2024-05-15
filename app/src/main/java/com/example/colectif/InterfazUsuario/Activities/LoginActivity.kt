@@ -6,19 +6,24 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.colectif.R
 import com.example.colectif.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * Actividad de inicio de sesión que permite a los usuarios iniciar sesión en la aplicación.
+ * Si el usuario ya ha iniciado sesión anteriormente, se redirige automáticamente a la pantalla de inicio.
+ * Permite al usuario ingresar su correo electrónico y contraseña para autenticarse.
+ * También proporciona un enlace para dirigir al usuario a la pantalla de registro en caso de que no tenga una cuenta.
+ */
 class LoginActivity : AppCompatActivity() {
     private var sharedPref: String = "com.example.colectif"
     private lateinit var binding: ActivityLoginBinding
     private lateinit var correo: String
     private lateinit var contraseña: String
     private lateinit var auth: FirebaseAuth
-    private lateinit var sharedP: SharedPreferences
-    private var estado: Boolean = false
+    private lateinit var sharedP: SharedPreferences // Para acceder a la memoria interna del móvil
+    private var estado: Boolean = false // Variable que determina si ya estaba logueado o no
 
 
 
@@ -33,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
 
-
+        // Comprueba si el usuario ya esta logueado a través de la memoria del móvil
         if(estado){
             Log.v("LoginActivity", "Usuario ya autenticado, redirigiendo a la pantalla de inicio")
             val intent = Intent(applicationContext, InicioActivity::class.java)
@@ -41,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // Al pulsar comprueba los campos y cambia de pantalla si todo está correcto
         binding.btnLogin.setOnClickListener {
             correo = binding.editUsuario.text.toString()
             contraseña = binding.editPassword.text.toString()
@@ -89,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-
+    // Guarda dentro de la memoria del móvil que el usuario ya está logueado
     private fun saveData(id:String){
         val sharedPreferences = getSharedPreferences(sharedPref,Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
