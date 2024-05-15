@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
     inner class CategoriasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreCatalogo: TextView = itemView.findViewById(R.id.text_nombreCatalogo)
         val recyclerGrupos: RecyclerView = itemView.findViewById(R.id.recyclerview_gruposCatalogo)
+        val imgFlecha: ImageView = itemView.findViewById(R.id.img_flecha)
     }
 
     // Infla la vista del adapter desde el diseño XML definido
@@ -49,6 +51,8 @@ class AdapterListCatalogo (var context: Context, private val recycler_lista_cata
         // Cada vez que se pulse en el nombre desaparecera o aparecera el segundo recycler
         holder.nombreCatalogo.setOnClickListener {
             toggleRecyclerViewVisibility(holder.recyclerGrupos)
+            // Cambiar la imagen de la flecha al hacer clic en el nombre del catálogo
+            holder.imgFlecha.setImageResource(if (holder.recyclerGrupos.visibility == View.VISIBLE) R.drawable.baseline_arrow_right_24 else R.drawable.baseline_arrow_drop_down_24)
         }
 
         // Se genera el segundo adapter y se añade todos los grupos correspondientes del catálogo
