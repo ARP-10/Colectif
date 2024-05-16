@@ -71,7 +71,7 @@ class AdapterSolicitudes(var navController: NavController,var context: Context, 
             // Se recupera el nombre del usuario
             ref.addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    holder.nombrePersona.text = snapshot.child(solicitud.idMandatario).child("name").value.toString()
+                    holder.nombrePersona.text = snapshot.child(solicitud.idMandatario).child("userName").value.toString()
                 }
 
                 override fun onCancelled(error: DatabaseError) {

@@ -71,7 +71,7 @@ class VerInfoGrupoFragment : Fragment() {
                 // Obtener el nombre del admin de la bbdd de "users"
                 databaseReference2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val nombreAdmin = snapshot.child("name").value.toString()
+                        val nombreAdmin = snapshot.child("userName").value.toString()
 
                         // Actualizar la interfaz de usuario con los datos recuperados
                         binding.txtAdministrador.text = nombreAdmin

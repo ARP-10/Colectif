@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
@@ -100,7 +101,7 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
         var ref = holder.database.getReference("users")
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                holder.administrador.text = snapshot.child(grupo.administrador).child("name").value.toString()
+                holder.administrador.text = snapshot.child(grupo.administrador).child("userName").value.toString()
                 Glide.with(context).load(snapshot.child(grupo.administrador).child("imagen").value.toString().toUri()).into(holder.imagenUsuario)
             }
 
@@ -117,6 +118,8 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
         // Es el botón que se encarga de mandar solicitudes
         holder.imageButton.setOnClickListener {
+
+
             comprobarSolicitudPendiente(auth.currentUser!!.uid, grupo.id, holder.itemView,grupo.administrador) // Primero se comprueba si no hay ya una solicitud pendiente
         }
 
@@ -132,6 +135,25 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
     fun addGrupo(grupo : Grupo){
         cardview_grupos.add(grupo)
         notifyItemInserted(cardview_grupos.size - 1)
+    }
+
+    // Hace aparecer un cuadro de diálogo para confirmar si el usuario desea unirse a ese grupo y en ese caso, mandarle la solicitud
+    private fun mostrarMensaje(contexto: Context, titulo: String, mensaje: String, usuarioId: String, idGrupo: String, view: View, adminId: String) {
+        val builder = AlertDialog.Builder(contexto)
+        builder.setTitle(titulo)
+        builder.setMessage(mensaje)
+
+        builder.setPositiveButton("Sí, quiero enviar una solicitud") { dialog, _ ->
+            enviarSolicitud(usuarioId, adminId, idGrupo, view)
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
 
@@ -198,9 +220,9 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
                     // Si ya existe la solicitud
                     Snackbar.make(view, "Ya has enviado una solicitud a este grupo", Snackbar.LENGTH_SHORT).show()
                 } else {
+                    // Si no hay solicitud pendiente, pedir confirmación de que se desea enviar una solicitud
+                    mostrarMensaje(context, "Unirse al grupo", "¿Deseas enviar una solicitud a este grupo?", userId, idGrupo, view, adminId)
 
-                    // Si no hay solicitud pendiente, enviar la solicitud
-                    enviarSolicitud(userId, adminId,idGrupo, view)
                 }
             }
 

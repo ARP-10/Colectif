@@ -100,12 +100,10 @@ class VerGrupoAdminFragment : Fragment() {
                 // Obtener el nombre del admin de la base de datos de "users"
                 ref2.child(administradorId).addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val nombreAdmin = snapshot.child("name").value.toString()
+                        val nombreAdmin = snapshot.child("userName").value.toString()
 
                         // Actualizar la interfaz de usuario con los datos recuperados
                         binding.txtAdministrador.text = nombreAdmin
-                        //binding.txtApp.text = app
-                        //binding.txtPassword.text = contrasenia
                         binding.txtCorreo.text = email
 
                         val drawableApp = when (app) {
