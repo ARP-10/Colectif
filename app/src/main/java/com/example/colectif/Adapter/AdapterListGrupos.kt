@@ -118,8 +118,6 @@ class AdapterListGrupos(var context: Context, var cardview_grupos: ArrayList<Gru
 
         // Es el botón que se encarga de mandar solicitudes
         holder.imageButton.setOnClickListener {
-
-
             comprobarSolicitudPendiente(auth.currentUser!!.uid, grupo.id, holder.itemView,grupo.administrador) // Primero se comprueba si no hay ya una solicitud pendiente
         }
 
