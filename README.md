@@ -25,23 +25,18 @@
 
 ## 📷 Capturas de pantalla
 
-### 🔐 Pantalla de inicio de sesión (Login)
-![Login](https://github.com/user-attachments/assets/b08fbfe5-5627-4eb2-bfec-22fc19cbd86f)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b08fbfe5-5627-4eb2-bfec-22fc19cbd86f" alt="Login" width="250"/>
+  <img src="https://github.com/user-attachments/assets/558acac4-cbd5-46a6-9b09-b0711fececd8" alt="Pantalla principal" width="250"/>
+  <img src="https://github.com/user-attachments/assets/d93f3a3f-5ab3-4795-9f19-691fe1b51b08" alt="Buscador de grupos" width="250"/>
+</p>
 
-### 🏠 Pantalla principal
-![Pantalla principal](https://github.com/user-attachments/assets/558acac4-cbd5-46a6-9b09-b0711fececd8)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/38409b23-7e87-4bd8-8def-48243c88531e" alt="Crear nuevo grupo" width="250"/>
+  <img src="https://github.com/user-attachments/assets/ef4860dd-b7c0-4ece-85a1-bf7a5fd8cb76" alt="Grupo creado por el usuario" width="250"/>
+  <img src="https://github.com/user-attachments/assets/0f326668-4673-4e4c-9a94-ca4fb95aff01" alt="Grupo creado por un tercero" width="250"/>
+</p>
 
-### 🔍 Buscador de grupos
-![Buscador de grupos](https://github.com/user-attachments/assets/d93f3a3f-5ab3-4795-9f19-691fe1b51b08)
-
-### ➕ Crear nuevo grupo
-![Crear nuevo grupo](https://github.com/user-attachments/assets/38409b23-7e87-4bd8-8def-48243c88531e)
-
-### 👤 Grupo creado por el usuario
-![Grupo creado por el usuario](https://github.com/user-attachments/assets/ef4860dd-b7c0-4ece-85a1-bf7a5fd8cb76)
-
-### 👥 Grupo creado por un tercero
-![Grupo creado por un tercero](https://github.com/user-attachments/assets/0f326668-4673-4e4c-9a94-ca4fb95aff01)
-
-### 🚫 Grupo al que no pertenece el usuario
-![Grupo al que no pertenece el usuario](https://github.com/user-attachments/assets/d079a980-e64f-4347-a498-5c91f0a26307)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d079a980-e64f-4347-a498-5c91f0a26307" alt="Grupo al que no pertenece el usuario" width="250"/>
+</p>
